@@ -34,7 +34,7 @@ export default class Reviews {
     if (response.status >= 400) {
       throw new Error('Bad server response');
     }
-    //return await response.json();
+    return await response.json();
   };
 
   /**

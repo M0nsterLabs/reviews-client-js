@@ -34,17 +34,21 @@ describe('Reviews API', function () {
     this.api = new Reviews(serviceURL, 'en');
   });
 
-  it('getReviews result', function () {
+  it('getReviews result', function (done) {
     this.api.getReviews({
       'per-page' : 2
     }).then(response => {
-      console.log('123', 123);
-      assert.equal(getReviewsResult, response);
-    });
-
+      assert.deepEqual(getReviewsResult, response);
+      done();
+    }).catch(done);
   });
 
-  //it('getReviewsClient result', function () {
-  //  assert.equal(getReviewsResult, this.api.getReviewsClient());
-  //});
+  it('getReviewsClient result', function (done) {
+    this.api.getReviewsClient('fjsdfhgkadjhfgakjdgfkjadghfkadsf', {
+      'per-page' : 2
+    }).then(response => {
+      assert.deepEqual(getReviewsResult, response);
+      done();
+    }).catch(done);
+  });
 });
