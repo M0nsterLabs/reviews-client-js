@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Reviews.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Reviews.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i &lt; arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i &lt; props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _isomorphicFetch = require('isomorphic-fetch');
+
+var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Reviews API JS client.
+ *
+ * In order to use Reviews API you should create an instance of this class.
+ * ~~~~
+ * import Reviews from "tm-reviews-api-client-js";
+ * const reviews = new Reviews ('http://api.templatemonster.com/reviews/v1', 'en');
+ * const list = reviews.getReviews ([12345, 55555]);
+ * ~~~~
+ * @constructor Reviews
+ */
+
+var Reviews = function () {
+  function Reviews(url) {
+    var locale = arguments.length > 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : 'en';
+
+    _classCallCheck(this, Reviews);
+
+    this.locale = null;
+    this.url = null;
+
+    this.getReviewsClient = function (token) {
+      var params = arguments.length > 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
+      return false;
+    };
+
+    this.locale = locale;
+    this.url = url;
+  }
+
+  /**
+   * Return review information for given identifiers.
+   * @param params {Object} Reviews parameters
+   * @returns {Array}
+   * @method Reviews#getReviews
+   */
+
+
+  _createClass(Reviews, [{
+    key: 'getReviews',
+    value: function () {
+      var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
+        var params = arguments.length > 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : {};
+        var response;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                params = _extends({}, params, { locale: this.locale });
+                _context.next = 3;
+                return (0, _isomorphicFetch2.default)(this.url + '/reviews?' + this._serialize(params));
+
+              case 3:
+                response = _context.sent;
+
+                if (!(response.status >= 400)) {
+                  _context.next = 6;
+                  break;
+                }
+
+                throw new Error('Bad server response');
+
+              case 6:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function getReviews() {
+        return _ref.apply(this, arguments);
+      }
+
+      return getReviews;
+    }()
+
+    /**
+     * Return review information for given identifiers.
+     * @param token {string} User token
+     * @param params {Object} Reviews parameters
+     * @returns {Array}
+     * @method Reviews#getReviewsClient
+     */
+
+  }, {
+    key: '_serialize',
+
+
+    /**
+     * Convert a js object into a query string
+     * @param obj
+     * @returns {string}
+     * @private
+     */
+    value: function _serialize(obj) {
+      var str = [];
+      for (var p in obj) {
+        if (obj.hasOwnProperty(p)) {
+          str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
+        }
+      }return str.join("&amp;");
+    }
+  }]);
+
+  return Reviews;
+}();
+
+exports.default = Reviews;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Products.html">Products</a></li><li><a href="Reviews.html">Reviews</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Feb 21 2017 16:46:54 GMT+0200 (EET)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -30,7 +30,6 @@ export default class Reviews {
   async getReviews(params = {}) {
     params = {...params, ...{locale: this.locale}};
     const response = await fetch(`${this.url}/reviews?${this._serialize(params)}`);
-
     if (response.status >= 400) {
       throw new Error('Bad server response');
     }
