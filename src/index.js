@@ -2,6 +2,6 @@ import 'babel-polyfill';
 import 'bluebird';
 import 'isomorphic-fetch';
 
-import Products from "./Products";
+import Reviews from "./Reviews";
 
-export default Products;
+export default Reviews;

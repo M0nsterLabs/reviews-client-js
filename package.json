@@ -15,13 +15,13 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/M0nsterLabs/products-client-js.git"
+    "url": "git+https://github.com/stevenReed/reviews-client-js.git"
   },
   "bugs": {
-    "url": "https://github.com/M0nsterLabs/products-client-js/issues"
+    "url": "https://github.com/stevenReed/reviews-client-js/issues"
   },
-  "homepage": "https://github.com/M0nsterLabs/products-client-js#readme",
-  "description": "Products API JS client",
+  "homepage": "https://github.com/stevenReed/reviews-client-js#readme",
+  "description": "Reviews API JS client",
   "babel": {
     "presets": [
       "latest",
