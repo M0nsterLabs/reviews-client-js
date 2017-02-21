@@ -1,0 +1,50 @@
+{
+  "name": "tm-reviews-api-client-js",
+  "version": "1.0.14",
+  "main": "dist/index.js",
+  "scripts": {
+    "predoc": "npm run build",
+    "doc": "rimraf doc && jsdoc --configure etc/jsdoc.json dist",
+    "build": "rimraf dist && babel -d dist src",
+    "release": "npm version patch && git push && git push --tags && npm publish",
+    "test": "./node_modules/.bin/mocha --compilers js:babel-register --require babel-polyfill --require bluebird --require isomorphic-fetch",
+    "prepublish": "npm run build && npm run doc",
+    "clean": "rimraf doc dist"
+  },
+  "author": "TemplateMonster.com",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/M0nsterLabs/products-client-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/M0nsterLabs/products-client-js/issues"
+  },
+  "homepage": "https://github.com/M0nsterLabs/products-client-js#readme",
+  "description": "Products API JS client",
+  "babel": {
+    "presets": [
+      "latest",
+      "stage-0"
+    ]
+  },
+  "devDependencies": {
+    "assert": "^1.4.1",
+    "babel-cli": "^6.18.0",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "chai": "^3.5.0",
+    "jsdoc": "^3.4.3",
+    "jsdoc-strip-async-await": "^0.1.0",
+    "mocha": "^3.2.0",
+    "nock": "^9.0.2",
+    "rimraf": "^2.5.4",
+    "sinon": "^1.17.7"
+  },
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
+    "babel-polyfill": "^6.22.0",
+    "bluebird": "^3.4.7",
+    "lodash": "^4.17.4"
+  }
+}
