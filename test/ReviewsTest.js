@@ -34,40 +34,30 @@ const getReviewsResult = [{
 const serviceURL = 'http://service-reviews.dev/api/v1';
 
 describe('Reviews API', function () {
-  beforeEach(function (done) {
+  beforeEach(function () {
     this.api = new Reviews(serviceURL, 'en');
-    this.token = null;
+    //this.token = null;
 
-    fetch('http://service-users.dev/api/v1/users/login', {
-      method: 'POST',
-      headers: new Headers({
-        'content-type': "application/x-www-form-urlencoded"
-      }),
-      body: serialize({
-        scope: 'reviews',
-        login: 'viram@templatemonster.me',
-        password: 'mykhaylyak'
-      })
-    }).then(response => {
-      return response.json();
-    }).then(response => {
-      this.token = response.access_token;
-      done();
-    }).catch(done);
+    //fetch('http://service-users.dev/api/v1/users/login', {
+    //  method: 'POST',
+    //  headers: new Headers({
+    //    'content-type': "application/x-www-form-urlencoded"
+    //  }),
+    //  body: serialize({
+    //    scope: 'reviews',
+    //    login: 'viram@templatemonster.me',
+    //    password: 'mykhaylyak'
+    //  })
+    //}).then(response => {
+    //  return response.json();
+    //}).then(response => {
+    //  this.token = response.access_token;
+    //  done();
+    //}).catch(done);
   });
 
   it('getReviews result', function (done) {
     this.api.getReviews({
-      'per-page': 2
-    }).then(response => {
-      assert.deepEqual(getReviewsResult, response.items);
-      done();
-    }).catch(done);
-  });
-
-  it('getReviewsClient result', function (done) {
-    console.log('this.token', this.token);
-    this.api.getReviewsClient(this.token, {
       'per-page': 2
     }).then(response => {
       assert.deepEqual(getReviewsResult, response.items);

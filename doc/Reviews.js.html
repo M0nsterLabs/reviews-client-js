@@ -71,11 +71,6 @@ var Reviews = function () {
     this.locale = null;
     this.url = null;
 
-    this.getReviewsClient = function (token) {
-      var params = arguments.length > 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
-      return false;
-    };
-
     this.locale = locale;
     this.url = url;
   }
@@ -122,34 +117,34 @@ var Reviews = function () {
 
               case 3:
                 response = _context.sent;
-                paginationData = {};
-
-                paginationData.currentPageIndex = parseInt(response.headers.get('x-pagination-current-page'));
-                paginationData.totalCount = parseInt(response.headers.get('x-pagination-total-count'));
-                paginationData.lastPageIndex = parseInt(response.headers.get('x-pagination-page-count'));
 
                 if (!(response.status >= 400)) {
-                  _context.next = 10;
+                  _context.next = 6;
                   break;
                 }
 
                 throw new Error('Bad server response');
 
-              case 10:
+              case 6:
+                paginationData = {
+                  currentPageIndex: parseInt(response.headers.get('x-pagination-current-page')),
+                  totalCount: parseInt(response.headers.get('x-pagination-total-count')),
+                  lastPageIndex: parseInt(response.headers.get('x-pagination-page-count'))
+                };
                 _context.t0 = _extends;
                 _context.t1 = {};
                 _context.t2 = paginationData;
-                _context.next = 15;
+                _context.next = 12;
                 return response.json();
 
-              case 15:
+              case 12:
                 _context.t3 = _context.sent;
                 _context.t4 = {
                   items: _context.t3
                 };
                 return _context.abrupt('return', (0, _context.t0)(_context.t1, _context.t2, _context.t4));
 
-              case 18:
+              case 15:
               case 'end':
                 return _context.stop();
             }
@@ -163,6 +158,9 @@ var Reviews = function () {
 
       return getReviews;
     }()
+  }, {
+    key: 'getReviewsClient',
+
 
     /**
      * Return review information for given identifiers.
@@ -189,7 +187,76 @@ var Reviews = function () {
      *  }&lt;/pre>
      * @method Reviews#getReviewsClient
      */
+    value: function () {
+      var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(token) {
+        var params = arguments.length > 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
+        var response, paginationData;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                params = _extends({}, params, { locale: this.locale });
 
+                if (token.length) {
+                  _context2.next = 3;
+                  break;
+                }
+
+                throw new Error('Token not found');
+
+              case 3:
+                _context2.next = 5;
+                return (0, _isomorphicFetch2.default)(this.url + '/reviews/client?' + (0, _tmSerialize2.default)(params), {
+                  headers: new Headers({
+                    'Authorization': token
+                  })
+                });
+
+              case 5:
+                response = _context2.sent;
+
+                console.log('response', response);
+
+                if (!(response.status >= 400)) {
+                  _context2.next = 9;
+                  break;
+                }
+
+                throw new Error('Bad server response');
+
+              case 9:
+                paginationData = {
+                  currentPageIndex: parseInt(response.headers.get('x-pagination-current-page')),
+                  totalCount: parseInt(response.headers.get('x-pagination-total-count')),
+                  lastPageIndex: parseInt(response.headers.get('x-pagination-page-count'))
+                };
+                _context2.t0 = _extends;
+                _context2.t1 = {};
+                _context2.t2 = paginationData;
+                _context2.next = 15;
+                return response.json();
+
+              case 15:
+                _context2.t3 = _context2.sent;
+                _context2.t4 = {
+                  items: _context2.t3
+                };
+                return _context2.abrupt('return', (0, _context2.t0)(_context2.t1, _context2.t2, _context2.t4));
+
+              case 18:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function getReviewsClient(_x3) {
+        return _ref2.apply(this, arguments);
+      }
+
+      return getReviewsClient;
+    }()
   }]);
 
   return Reviews;
@@ -211,7 +278,7 @@ exports.default = Reviews;</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Feb 22 2017 11:38:25 GMT+0200 (EET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Feb 22 2017 15:37:39 GMT+0200 (EET)
 </footer>
 
 <script> prettyPrint(); </script>
