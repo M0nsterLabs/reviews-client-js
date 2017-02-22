@@ -40,6 +40,10 @@ var _isomorphicFetch = require('isomorphic-fetch');
 
 var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 
+var _tmSerialize = require('tm-serialize');
+
+var _tmSerialize2 = _interopRequireDefault(_tmSerialize);
+
 function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -79,7 +83,25 @@ var Reviews = function () {
   /**
    * Return review information for given identifiers.
    * @param params {Object} Reviews parameters
-   * @returns {Array}
+   * @returns {Object} &lt;pre>{
+   * "currentPageIndex":1,
+   * "totalCount":11,
+   * "lastPageIndex":6,
+   * "items": [
+   *  {
+   *    "id":23,
+   *    "status":4,
+   *    "user_id":21543,
+   *    "user_name":"mice mice",
+   *    "title":"review title",
+   *    "content":"review content",
+   *    "score":5,
+   *    "template_id":58444,
+   *    "vote_up":0,
+   *    "vote_down":0,
+   *    "_links":{"self":{"href":"http://service-reviews.dev/api/v1/reviews/23"}}
+   *   }, ...]
+   *  }&lt;/pre>
    * @method Reviews#getReviews
    */
 
@@ -89,26 +111,45 @@ var Reviews = function () {
     value: function () {
       var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
         var params = arguments.length > 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : {};
-        var response;
+        var response, paginationData;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 params = _extends({}, params, { locale: this.locale });
                 _context.next = 3;
-                return (0, _isomorphicFetch2.default)(this.url + '/reviews?' + this._serialize(params));
+                return (0, _isomorphicFetch2.default)(this.url + '/reviews?' + (0, _tmSerialize2.default)(params));
 
               case 3:
                 response = _context.sent;
+                paginationData = {};
+
+                paginationData.currentPageIndex = parseInt(response.headers.get('x-pagination-current-page'));
+                paginationData.totalCount = parseInt(response.headers.get('x-pagination-total-count'));
+                paginationData.lastPageIndex = parseInt(response.headers.get('x-pagination-page-count'));
 
                 if (!(response.status >= 400)) {
-                  _context.next = 6;
+                  _context.next = 10;
                   break;
                 }
 
                 throw new Error('Bad server response');
 
-              case 6:
+              case 10:
+                _context.t0 = _extends;
+                _context.t1 = {};
+                _context.t2 = paginationData;
+                _context.next = 15;
+                return response.json();
+
+              case 15:
+                _context.t3 = _context.sent;
+                _context.t4 = {
+                  items: _context.t3
+                };
+                return _context.abrupt('return', (0, _context.t0)(_context.t1, _context.t2, _context.t4));
+
+              case 18:
               case 'end':
                 return _context.stop();
             }
@@ -127,28 +168,28 @@ var Reviews = function () {
      * Return review information for given identifiers.
      * @param token {string} User token
      * @param params {Object} Reviews parameters
-     * @returns {Array}
+     * @returns {Object} &lt;pre>{
+     * "currentPageIndex":1,
+     * "totalCount":11,
+     * "lastPageIndex":6,
+     * "items": [
+     *  {
+     *    "id":23,
+     *    "status":4,
+     *    "user_id":21543,
+     *    "user_name":"mice mice",
+     *    "title":"review title",
+     *    "content":"review content",
+     *    "score":5,
+     *    "template_id":58444,
+     *    "vote_up":0,
+     *    "vote_down":0,
+     *    "_links":{"self":{"href":"http://service-reviews.dev/api/v1/reviews/23"}}
+     *   }, ...]
+     *  }&lt;/pre>
      * @method Reviews#getReviewsClient
      */
 
-  }, {
-    key: '_serialize',
-
-
-    /**
-     * Convert a js object into a query string
-     * @param obj
-     * @returns {string}
-     * @private
-     */
-    value: function _serialize(obj) {
-      var str = [];
-      for (var p in obj) {
-        if (obj.hasOwnProperty(p)) {
-          str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
-        }
-      }return str.join("&amp;");
-    }
   }]);
 
   return Reviews;
@@ -164,13 +205,13 @@ exports.default = Reviews;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Products.html">Products</a></li><li><a href="Reviews.html">Reviews</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Reviews.html">Reviews</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Feb 21 2017 16:46:54 GMT+0200 (EET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Feb 22 2017 11:38:25 GMT+0200 (EET)
 </footer>
 
 <script> prettyPrint(); </script>
