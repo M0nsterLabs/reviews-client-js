@@ -255,7 +255,8 @@ var Reviews = function () {
      * Return complete review information for given identifiers.
      * @param token {String} Access token
      * @param id {Number} Review id
-     * @returns {Object} &lt;pre>
+     * @returns {Object} &lt;pre>{
+     * "canModerate": 1,
      * "item":
      *  {
      *     "id": 1,
@@ -270,7 +271,7 @@ var Reviews = function () {
      *     "vote_down": 0,
      *     "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1"}}
      *   }
-     *  &lt;/pre>
+     *  }&lt;/pre>
      * @method Reviews#completeReview
      */
 
@@ -346,7 +347,8 @@ var Reviews = function () {
      * Return decline review information for given identifiers.
      * @param token {String} Access token
      * @param id {Number} Review id
-     * @returns {Object} &lt;pre>
+     * @returns {Object} &lt;pre>{
+     * "canModerate": 1,
      * "item":
      *  {
      *     "id": 1,
@@ -361,7 +363,7 @@ var Reviews = function () {
      *     "vote_down": 0,
      *     "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1"}}
      *   }
-     *  &lt;/pre>
+     *  }&lt;/pre>
      * @method Reviews#declineReview
      */
 
@@ -437,7 +439,8 @@ var Reviews = function () {
      * Return add the review vote: increment vote_up or vote_down field.
      * @param token {String} Access token
      * @param id {Number} Review id
-     * @returns {Object} &lt;pre>
+     * @returns {Object} &lt;pre>{
+     * "canModerate": 1,
      * "item":
      *  {
      *     "id": 1,
@@ -452,7 +455,7 @@ var Reviews = function () {
      *     "vote_down": 0,
      *     "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1"}}
      *   }
-     *  &lt;/pre>
+     *  }&lt;/pre>
      * @method Reviews#addReviewVote
      */
 
@@ -526,11 +529,12 @@ var Reviews = function () {
 
     /**
      * Return reply the review information for given identifiers.
+     * @param token {String} Access token
      * @param review_id {Number} ID of the parent review
      * @returns {Object} &lt;pre>{
-     * "items": [
+     * "canModerate": 1,
+     * "item":
      *  {
-     *
      *   "id": 1,
      *   "review_id": 1,
      *   "content": "I had font problem with flash cms. Now I have no problem with html",
@@ -539,7 +543,7 @@ var Reviews = function () {
      *   "vote_up": 0,
      *   "vote_down": 0,
      *   "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1/comment/1"}}
-     *   }, ...]
+     *   }
      *  }&lt;/pre>
      * @method Reviews#replayTheReview
      */
@@ -547,20 +551,57 @@ var Reviews = function () {
   }, {
     key: 'replayTheReview',
     value: function () {
-      var _ref6 = _asyncToGenerator(regeneratorRuntime.mark(function _callee6(review_id) {
-        var response;
+      var _ref6 = _asyncToGenerator(regeneratorRuntime.mark(function _callee6(token, review_id) {
+        var response, headersData;
         return regeneratorRuntime.wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                _context6.next = 2;
-                return (0, _isomorphicFetch2.default)(this.url + '/reviews/' + review_id + '/comments');
+                if (token.length) {
+                  _context6.next = 2;
+                  break;
+                }
+
+                throw new Error('Token not found');
 
               case 2:
-                response = _context6.sent;
-                return _context6.abrupt('return', false);
+                _context6.next = 4;
+                return (0, _isomorphicFetch2.default)(this.url + '/reviews/' + review_id + '/comments', {
+                  method: 'POST',
+                  headers: new Headers({
+                    'content-type': 'application/x-www-form-urlencoded',
+                    'Authorization': token
+                  })
+                });
 
               case 4:
+                response = _context6.sent;
+
+                if (!(response.status >= 400)) {
+                  _context6.next = 7;
+                  break;
+                }
+
+                throw new Error('Bad server response');
+
+              case 7:
+                headersData = {
+                  canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
+                };
+                _context6.t0 = _extends;
+                _context6.t1 = {};
+                _context6.t2 = headersData;
+                _context6.next = 13;
+                return response.json();
+
+              case 13:
+                _context6.t3 = _context6.sent;
+                _context6.t4 = {
+                  item: _context6.t3
+                };
+                return _context6.abrupt('return', (0, _context6.t0)(_context6.t1, _context6.t2, _context6.t4));
+
+              case 16:
               case 'end':
                 return _context6.stop();
             }
@@ -568,7 +609,7 @@ var Reviews = function () {
         }, _callee6, this);
       }));
 
-      function replayTheReview(_x11) {
+      function replayTheReview(_x11, _x12) {
         return _ref6.apply(this, arguments);
       }
 
@@ -579,9 +620,9 @@ var Reviews = function () {
      * Return request review comments list.
      * @param review_id {Number} ID of the parent review
      * @returns {Object} &lt;pre>{
-     * "items": [
+     * "canModerate": 1,
+     * "item":
      *  {
-     *
      *   "id": 1,
      *   "review_id": 1,
      *   "content": "I had font problem with flash cms. Now I have no problem with html",
@@ -590,7 +631,7 @@ var Reviews = function () {
      *   "vote_up": 0,
      *   "vote_down": 0,
      *   "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1/comment/1"}}
-     *   }, ...]
+     *   }
      *  }&lt;/pre>
      * @method Reviews#requestReviewComments
      */
@@ -599,7 +640,7 @@ var Reviews = function () {
     key: 'requestReviewComments',
     value: function () {
       var _ref7 = _asyncToGenerator(regeneratorRuntime.mark(function _callee7(review_id) {
-        var response;
+        var response, headersData;
         return regeneratorRuntime.wrap(function _callee7$(_context7) {
           while (1) {
             switch (_context7.prev = _context7.next) {
@@ -609,9 +650,32 @@ var Reviews = function () {
 
               case 2:
                 response = _context7.sent;
-                return _context7.abrupt('return', false);
 
-              case 4:
+                if (!(response.status >= 400)) {
+                  _context7.next = 5;
+                  break;
+                }
+
+                throw new Error('Bad server response');
+
+              case 5:
+                headersData = {
+                  canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
+                };
+                _context7.t0 = _extends;
+                _context7.t1 = {};
+                _context7.t2 = headersData;
+                _context7.next = 11;
+                return response.json();
+
+              case 11:
+                _context7.t3 = _context7.sent;
+                _context7.t4 = {
+                  item: _context7.t3
+                };
+                return _context7.abrupt('return', (0, _context7.t0)(_context7.t1, _context7.t2, _context7.t4));
+
+              case 14:
               case 'end':
                 return _context7.stop();
             }
@@ -619,7 +683,7 @@ var Reviews = function () {
         }, _callee7, this);
       }));
 
-      function requestReviewComments(_x12) {
+      function requestReviewComments(_x13) {
         return _ref7.apply(this, arguments);
       }
 
@@ -628,9 +692,12 @@ var Reviews = function () {
 
     /**
      * Return vote the review comment.
+     * @param token {String} Access token
+     * @param id {Number} ID of the comment
      * @param review_id {Number} ID of the parent review
      * @returns {Object} &lt;pre>{
-     * "items": [
+     * "canModerate": 1,
+     * "item":
      *  {
      *
      *   "id": 1,
@@ -641,16 +708,78 @@ var Reviews = function () {
      *   "vote_up": 0,
      *   "vote_down": 0,
      *   "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1/comment/1"}}
-     *   }, ...]
+     *   }
      *  }&lt;/pre>
      * @method Reviews#voteComments
      */
 
   }, {
     key: 'voteComments',
-    value: function voteComments() {
-      return false;
-    }
+    value: function () {
+      var _ref8 = _asyncToGenerator(regeneratorRuntime.mark(function _callee8(token, id, review_id) {
+        var response, headersData;
+        return regeneratorRuntime.wrap(function _callee8$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
+                if (token.length) {
+                  _context8.next = 2;
+                  break;
+                }
+
+                throw new Error('Token not found');
+
+              case 2:
+                _context8.next = 4;
+                return (0, _isomorphicFetch2.default)(this.url + '/reviews/' + review_id + '/comments/' + id, {
+                  method: 'POST',
+                  headers: new Headers({
+                    'content-type': 'application/x-www-form-urlencoded',
+                    'Authorization': token
+                  })
+                });
+
+              case 4:
+                response = _context8.sent;
+
+                if (!(response.status >= 400)) {
+                  _context8.next = 7;
+                  break;
+                }
+
+                throw new Error('Bad server response');
+
+              case 7:
+                headersData = {
+                  canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
+                };
+                _context8.t0 = _extends;
+                _context8.t1 = {};
+                _context8.t2 = headersData;
+                _context8.next = 13;
+                return response.json();
+
+              case 13:
+                _context8.t3 = _context8.sent;
+                _context8.t4 = {
+                  item: _context8.t3
+                };
+                return _context8.abrupt('return', (0, _context8.t0)(_context8.t1, _context8.t2, _context8.t4));
+
+              case 16:
+              case 'end':
+                return _context8.stop();
+            }
+          }
+        }, _callee8, this);
+      }));
+
+      function voteComments(_x14, _x15, _x16) {
+        return _ref8.apply(this, arguments);
+      }
+
+      return voteComments;
+    }()
   }]);
 
   return Reviews;
@@ -672,7 +801,7 @@ exports.default = Reviews;</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Feb 23 2017 15:52:04 GMT+0200 (EET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Feb 23 2017 16:41:26 GMT+0200 (EET)
 </footer>
 
 <script> prettyPrint(); </script>

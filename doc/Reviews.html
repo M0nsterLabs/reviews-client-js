@@ -267,7 +267,7 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Reviews.js.html">Reviews.js</a>, <a href="Reviews.js.html#line408">line 408</a>
+        <a href="Reviews.js.html">Reviews.js</a>, <a href="Reviews.js.html#line410">line 410</a>
     </li></ul></dd>
     
 
@@ -294,7 +294,8 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
 
         
 <div class="param-desc">
-    <pre>
+    <pre>{
+"canModerate": 1,
 "item":
  {
     "id": 1,
@@ -309,7 +310,7 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
     "vote_down": 0,
     "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1"}}
   }
- </pre>
+ }</pre>
 </div>
 
 
@@ -677,7 +678,8 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
 
         
 <div class="param-desc">
-    <pre>
+    <pre>{
+"canModerate": 1,
 "item":
  {
     "id": 1,
@@ -692,7 +694,7 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
     "vote_down": 0,
     "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1"}}
   }
- </pre>
+ }</pre>
 </div>
 
 
@@ -841,7 +843,7 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Reviews.js.html">Reviews.js</a>, <a href="Reviews.js.html#line317">line 317</a>
+        <a href="Reviews.js.html">Reviews.js</a>, <a href="Reviews.js.html#line318">line 318</a>
     </li></ul></dd>
     
 
@@ -868,7 +870,8 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
 
         
 <div class="param-desc">
-    <pre>
+    <pre>{
+"canModerate": 1,
 "item":
  {
     "id": 1,
@@ -883,7 +886,7 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
     "vote_down": 0,
     "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1"}}
   }
- </pre>
+ }</pre>
 </div>
 
 
@@ -1080,7 +1083,7 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
 
     
 
-    <h4 class="name" id="replayTheReview"><span class="type-signature"></span>replayTheReview<span class="signature">(review_id)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="replayTheReview"><span class="type-signature"></span>replayTheReview<span class="signature">(token, review_id)</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
 
@@ -1119,6 +1122,29 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
     </thead>
 
     <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>token</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Access token</p></td>
+        </tr>
+
     
 
         <tr>
@@ -1180,7 +1206,7 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Reviews.js.html">Reviews.js</a>, <a href="Reviews.js.html#line499">line 499</a>
+        <a href="Reviews.js.html">Reviews.js</a>, <a href="Reviews.js.html#line502">line 502</a>
     </li></ul></dd>
     
 
@@ -1208,9 +1234,9 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
         
 <div class="param-desc">
     <pre>{
-"items": [
+"canModerate": 1,
+"item":
  {
-
   "id": 1,
   "review_id": 1,
   "content": "I had font problem with flash cms. Now I have no problem with html",
@@ -1219,7 +1245,7 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
   "vote_up": 0,
   "vote_down": 0,
   "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1/comment/1"}}
-  }, ...]
+  }
  }</pre>
 </div>
 
@@ -1346,7 +1372,7 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Reviews.js.html">Reviews.js</a>, <a href="Reviews.js.html#line550">line 550</a>
+        <a href="Reviews.js.html">Reviews.js</a>, <a href="Reviews.js.html#line591">line 591</a>
     </li></ul></dd>
     
 
@@ -1374,9 +1400,9 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
         
 <div class="param-desc">
     <pre>{
-"items": [
+"canModerate": 1,
+"item":
  {
-
   "id": 1,
   "review_id": 1,
   "content": "I had font problem with flash cms. Now I have no problem with html",
@@ -1385,7 +1411,7 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
   "vote_up": 0,
   "vote_down": 0,
   "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1/comment/1"}}
-  }, ...]
+  }
  }</pre>
 </div>
 
@@ -1412,7 +1438,7 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
 
     
 
-    <h4 class="name" id="voteComments"><span class="type-signature"></span>voteComments<span class="signature">(review_id)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="voteComments"><span class="type-signature"></span>voteComments<span class="signature">(token, id, review_id)</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
 
@@ -1451,6 +1477,52 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
     </thead>
 
     <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>token</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Access token</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ID of the comment</p></td>
+        </tr>
+
     
 
         <tr>
@@ -1512,7 +1584,7 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Reviews.js.html">Reviews.js</a>, <a href="Reviews.js.html#line601">line 601</a>
+        <a href="Reviews.js.html">Reviews.js</a>, <a href="Reviews.js.html#line665">line 665</a>
     </li></ul></dd>
     
 
@@ -1540,7 +1612,8 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
         
 <div class="param-desc">
     <pre>{
-"items": [
+"canModerate": 1,
+"item":
  {
 
   "id": 1,
@@ -1551,7 +1624,7 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
   "vote_up": 0,
   "vote_down": 0,
   "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1/comment/1"}}
-  }, ...]
+  }
  }</pre>
 </div>
 
@@ -1595,7 +1668,7 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Feb 23 2017 15:52:04 GMT+0200 (EET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Feb 23 2017 16:41:26 GMT+0200 (EET)
 </footer>
 
 <script> prettyPrint(); </script>

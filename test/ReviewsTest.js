@@ -136,4 +136,106 @@ describe('Reviews API', function () {
     }).catch(done);
   });
 
+
+
+  it('addReviewVote result', function (done) {
+    const mockRequest = {
+      id: 23,
+      vote_up: 0,
+      vote_down: 0
+    };
+    const mockData = {
+      canModerate: 1,
+      item: mockRequest
+    };
+
+    nock(serviceURL)
+      .post('/reviews/23')
+      .reply(200, mockRequest, {
+        'X-CAN-MODERATE': 1
+      });
+
+    this.api.addReviewVote(this.token, 23).then(response => {
+      assert.deepEqual(response, mockData);
+      done();
+    }).catch(done);
+  });
+
+
+
+  it('replayTheReview result', function (done) {
+    const mockRequest = {
+      id: 23,
+      review_id: 1,
+      vote_up: 0,
+      vote_down: 0
+    };
+    const mockData = {
+      canModerate: 1,
+      item: mockRequest
+    };
+
+    nock(serviceURL)
+      .post('/reviews/1/comments')
+      .reply(200, mockRequest, {
+        'X-CAN-MODERATE': 1
+      });
+
+    this.api.replayTheReview(this.token, 1).then(response => {
+      assert.deepEqual(response, mockData);
+      done();
+    }).catch(done);
+  });
+
+
+
+  it('requestReviewComments result', function (done) {
+    const mockRequest = {
+      id: 23,
+      review_id: 1,
+      content: 'I had font problem with flash cms. Now I have no problem with html'
+    };
+    const mockData = {
+      canModerate: 1,
+      item: mockRequest
+    };
+
+    nock(serviceURL)
+      .get('/reviews/1/comments')
+      .reply(200, mockRequest, {
+        'X-CAN-MODERATE': 1
+      });
+
+    this.api.requestReviewComments(1).then(response => {
+      assert.deepEqual(response, mockData);
+      done();
+    }).catch(done);
+  });
+
+
+
+  it('voteComments result', function (done) {
+    const mockRequest = {
+      id: 23,
+      review_id: 1,
+      vote_up: 0,
+      vote_down: 0
+    };
+    const mockData = {
+      canModerate: 1,
+      item: mockRequest
+    };
+
+    nock(serviceURL)
+      .post('/reviews/1/comments/23')
+      .reply(200, mockRequest, {
+        'X-CAN-MODERATE': 1
+      });
+
+    this.api.voteComments(this.token, 23, 1).then(response => {
+      assert.deepEqual(response, mockData);
+      done();
+    }).catch(done);
+  });
+
 });

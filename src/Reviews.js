@@ -118,7 +118,8 @@ export default class Reviews {
    * Return complete review information for given identifiers.
    * @param token {String} Access token
    * @param id {Number} Review id
-   * @returns {Object} <pre>
+   * @returns {Object} <pre>{
+   * "canModerate": 1,
    * "item":
    *  {
    *     "id": 1,
@@ -133,7 +134,7 @@ export default class Reviews {
    *     "vote_down": 0,
    *     "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1"}}
    *   }
-   *  </pre>
+   *  }</pre>
    * @method Reviews#completeReview
    */
   async completeReview (token, id) {
@@ -167,7 +168,8 @@ export default class Reviews {
    * Return decline review information for given identifiers.
    * @param token {String} Access token
    * @param id {Number} Review id
-   * @returns {Object} <pre>
+   * @returns {Object} <pre>{
+   * "canModerate": 1,
    * "item":
    *  {
    *     "id": 1,
@@ -182,7 +184,7 @@ export default class Reviews {
    *     "vote_down": 0,
    *     "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1"}}
    *   }
-   *  </pre>
+   *  }</pre>
    * @method Reviews#declineReview
    */
   async declineReview (token, id) {
@@ -216,7 +218,8 @@ export default class Reviews {
    * Return add the review vote: increment vote_up or vote_down field.
    * @param token {String} Access token
    * @param id {Number} Review id
-   * @returns {Object} <pre>
+   * @returns {Object} <pre>{
+   * "canModerate": 1,
    * "item":
    *  {
    *     "id": 1,
@@ -231,7 +234,7 @@ export default class Reviews {
    *     "vote_down": 0,
    *     "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1"}}
    *   }
-   *  </pre>
+   *  }</pre>
    * @method Reviews#addReviewVote
    */
   async addReviewVote (token, id) {
@@ -263,11 +266,12 @@ export default class Reviews {
 
   /**
    * Return reply the review information for given identifiers.
+   * @param token {String} Access token
    * @param review_id {Number} ID of the parent review
    * @returns {Object} <pre>{
-   * "items": [
+   * "canModerate": 1,
+   * "item":
    *  {
-   *
    *   "id": 1,
    *   "review_id": 1,
    *   "content": "I had font problem with flash cms. Now I have no problem with html",
@@ -276,23 +280,44 @@ export default class Reviews {
    *   "vote_up": 0,
    *   "vote_down": 0,
    *   "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1/comment/1"}}
-   *   }, ...]
+   *   }
    *  }</pre>
    * @method Reviews#replayTheReview
    */
-  async replayTheReview (review_id) {
-    const response = await fetch(`${this.url}/reviews/${review_id}/comments`);
+  async replayTheReview (token, review_id) {
+    if (!token.length) {
+      throw new Error('Token not found');
+    }
 
-    return false;
+    const response =  await fetch(`${this.url}/reviews/${review_id}/comments`, {
+      method  : 'POST',
+      headers: new Headers({
+        'content-type' : 'application/x-www-form-urlencoded',
+        'Authorization' : token
+      })
+    });
+
+    if (response.status >= 400) {
+      throw new Error('Bad server response');
+    }
+
+    const headersData   = {
+      canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
+    };
+
+    return {
+      ...headersData,
+      item: await response.json()
+    };
   }
 
   /**
    * Return request review comments list.
    * @param review_id {Number} ID of the parent review
    * @returns {Object} <pre>{
-   * "items": [
+   * "canModerate": 1,
+   * "item":
    *  {
-   *
    *   "id": 1,
    *   "review_id": 1,
    *   "content": "I had font problem with flash cms. Now I have no problem with html",
@@ -301,21 +326,35 @@ export default class Reviews {
    *   "vote_up": 0,
    *   "vote_down": 0,
    *   "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1/comment/1"}}
-   *   }, ...]
+   *   }
    *  }</pre>
    * @method Reviews#requestReviewComments
    */
   async requestReviewComments(review_id) {
     const response = await fetch(`${this.url}/reviews/${review_id}/comments`);
 
-    return false;
+    if (response.status >= 400) {
+      throw new Error('Bad server response');
+    }
+
+    const headersData   = {
+      canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
+    };
+
+    return {
+      ...headersData,
+      item: await response.json()
+    };
   }
 
   /**
    * Return vote the review comment.
+   * @param token {String} Access token
+   * @param id {Number} ID of the comment
    * @param review_id {Number} ID of the parent review
    * @returns {Object} <pre>{
-   * "items": [
+   * "canModerate": 1,
+   * "item":
    *  {
    *
    *   "id": 1,
@@ -326,11 +365,34 @@ export default class Reviews {
    *   "vote_up": 0,
    *   "vote_down": 0,
    *   "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1/comment/1"}}
-   *   }, ...]
+   *   }
    *  }</pre>
    * @method Reviews#voteComments
    */
-  voteComments() {
-    return false;
+  async voteComments(token, id, review_id) {
+    if (!token.length) {
+      throw new Error('Token not found');
+    }
+
+    const response =  await fetch(`${this.url}/reviews/${review_id}/comments/${id}`, {
+      method  : 'POST',
+      headers: new Headers({
+        'content-type' : 'application/x-www-form-urlencoded',
+        'Authorization' : token
+      })
+    });
+
+    if (response.status >= 400) {
+      throw new Error('Bad server response');
+    }
+
+    const headersData   = {
+      canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
+    };
+
+    return {
+      ...headersData,
+      item: await response.json()
+    };
   }
 }
