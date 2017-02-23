@@ -159,91 +159,84 @@ var Reviews = function () {
       return getReviews;
     }()
   }, {
-    key: 'getReviewsClient',
+    key: 'approveReview',
 
 
     /**
-     * Return review information for given identifiers.
-     * @param token {string} User token
-     * @param params {Object} Reviews parameters
+     * Return approve review information for given identifiers.
+     * @param token {String} Access token
+     * @param id {Number} Review id
      * @returns {Object} &lt;pre>{
-     * "currentPageIndex":1,
-     * "totalCount":11,
-     * "lastPageIndex":6,
-     * "items": [
+     * "canModerate": 1,
+     * "item":
      *  {
-     *    "id":23,
-     *    "status":4,
-     *    "user_id":21543,
-     *    "user_name":"mice mice",
-     *    "title":"review title",
-     *    "content":"review content",
-     *    "score":5,
-     *    "template_id":58444,
-     *    "vote_up":0,
-     *    "vote_down":0,
-     *    "_links":{"self":{"href":"http://service-reviews.dev/api/v1/reviews/23"}}
-     *   }, ...]
+     *     "id": 1,
+     *     "title": "Really good. Html is better than cms",
+     *     "content": "I had font problem with flash cms. Now I have no problem with html",
+     *     "score": 5,
+     *     "created_at": 1469607948519,
+     *     "user_id": 123,
+     *     "template_id": 12345,
+     *     "status": "initial",
+     *     "vote_up": 1,
+     *     "vote_down": 0,
+     *     "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1"}}
+     *   }
      *  }&lt;/pre>
-     * @method Reviews#getReviewsClient
+     * @method Reviews#approveReview
      */
     value: function () {
-      var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(token) {
-        var params = arguments.length > 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
-        var response, paginationData;
+      var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(token, id) {
+        var response, headersData;
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                params = _extends({}, params, { locale: this.locale });
-
                 if (token.length) {
-                  _context2.next = 3;
+                  _context2.next = 2;
                   break;
                 }
 
                 throw new Error('Token not found');
 
-              case 3:
-                _context2.next = 5;
-                return (0, _isomorphicFetch2.default)(this.url + '/reviews/client?' + (0, _tmSerialize2.default)(params), {
+              case 2:
+                _context2.next = 4;
+                return (0, _isomorphicFetch2.default)(this.url + '/reviews/approve/' + id, {
+                  method: 'POST',
                   headers: new Headers({
+                    'content-type': 'application/x-www-form-urlencoded',
                     'Authorization': token
                   })
                 });
 
-              case 5:
+              case 4:
                 response = _context2.sent;
 
-                console.log('response', response);
-
                 if (!(response.status >= 400)) {
-                  _context2.next = 9;
+                  _context2.next = 7;
                   break;
                 }
 
                 throw new Error('Bad server response');
 
-              case 9:
-                paginationData = {
-                  currentPageIndex: parseInt(response.headers.get('x-pagination-current-page')),
-                  totalCount: parseInt(response.headers.get('x-pagination-total-count')),
-                  lastPageIndex: parseInt(response.headers.get('x-pagination-page-count'))
+              case 7:
+                headersData = {
+                  canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
                 };
                 _context2.t0 = _extends;
                 _context2.t1 = {};
-                _context2.t2 = paginationData;
-                _context2.next = 15;
+                _context2.t2 = headersData;
+                _context2.next = 13;
                 return response.json();
 
-              case 15:
+              case 13:
                 _context2.t3 = _context2.sent;
                 _context2.t4 = {
-                  items: _context2.t3
+                  item: _context2.t3
                 };
                 return _context2.abrupt('return', (0, _context2.t0)(_context2.t1, _context2.t2, _context2.t4));
 
-              case 18:
+              case 16:
               case 'end':
                 return _context2.stop();
             }
@@ -251,12 +244,413 @@ var Reviews = function () {
         }, _callee2, this);
       }));
 
-      function getReviewsClient(_x3) {
+      function approveReview(_x3, _x4) {
         return _ref2.apply(this, arguments);
       }
 
-      return getReviewsClient;
+      return approveReview;
     }()
+
+    /**
+     * Return complete review information for given identifiers.
+     * @param token {String} Access token
+     * @param id {Number} Review id
+     * @returns {Object} &lt;pre>
+     * "item":
+     *  {
+     *     "id": 1,
+     *     "title": "Really good. Html is better than cms",
+     *     "content": "I had font problem with flash cms. Now I have no problem with html",
+     *     "score": 5,
+     *     "created_at": 1469607948519,
+     *     "user_id": 123,
+     *     "template_id": 12345,
+     *     "status": "initial",
+     *     "vote_up": 1,
+     *     "vote_down": 0,
+     *     "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1"}}
+     *   }
+     *  &lt;/pre>
+     * @method Reviews#completeReview
+     */
+
+  }, {
+    key: 'completeReview',
+    value: function () {
+      var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(token, id) {
+        var response, headersData;
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                if (token.length) {
+                  _context3.next = 2;
+                  break;
+                }
+
+                throw new Error('Token not found');
+
+              case 2:
+                _context3.next = 4;
+                return (0, _isomorphicFetch2.default)(this.url + '/reviews/' + id, {
+                  method: 'POST',
+                  headers: new Headers({
+                    'content-type': 'application/x-www-form-urlencoded',
+                    'Authorization': token
+                  })
+                });
+
+              case 4:
+                response = _context3.sent;
+
+                if (!(response.status >= 400)) {
+                  _context3.next = 7;
+                  break;
+                }
+
+                throw new Error('Bad server response');
+
+              case 7:
+                headersData = {
+                  canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
+                };
+                _context3.t0 = _extends;
+                _context3.t1 = {};
+                _context3.t2 = headersData;
+                _context3.next = 13;
+                return response.json();
+
+              case 13:
+                _context3.t3 = _context3.sent;
+                _context3.t4 = {
+                  item: _context3.t3
+                };
+                return _context3.abrupt('return', (0, _context3.t0)(_context3.t1, _context3.t2, _context3.t4));
+
+              case 16:
+              case 'end':
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function completeReview(_x5, _x6) {
+        return _ref3.apply(this, arguments);
+      }
+
+      return completeReview;
+    }()
+
+    /**
+     * Return decline review information for given identifiers.
+     * @param token {String} Access token
+     * @param id {Number} Review id
+     * @returns {Object} &lt;pre>
+     * "item":
+     *  {
+     *     "id": 1,
+     *     "title": "Really good. Html is better than cms",
+     *     "content": "I had font problem with flash cms. Now I have no problem with html",
+     *     "score": 5,
+     *     "created_at": 1469607948519,
+     *     "user_id": 123,
+     *     "template_id": 12345,
+     *     "status": "initial",
+     *     "vote_up": 1,
+     *     "vote_down": 0,
+     *     "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1"}}
+     *   }
+     *  &lt;/pre>
+     * @method Reviews#declineReview
+     */
+
+  }, {
+    key: 'declineReview',
+    value: function () {
+      var _ref4 = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(token, id) {
+        var response, headersData;
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                if (token.length) {
+                  _context4.next = 2;
+                  break;
+                }
+
+                throw new Error('Token not found');
+
+              case 2:
+                _context4.next = 4;
+                return (0, _isomorphicFetch2.default)(this.url + '/reviews/decline/' + id, {
+                  method: 'POST',
+                  headers: new Headers({
+                    'content-type': 'application/x-www-form-urlencoded',
+                    'Authorization': token
+                  })
+                });
+
+              case 4:
+                response = _context4.sent;
+
+                if (!(response.status >= 400)) {
+                  _context4.next = 7;
+                  break;
+                }
+
+                throw new Error('Bad server response');
+
+              case 7:
+                headersData = {
+                  canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
+                };
+                _context4.t0 = _extends;
+                _context4.t1 = {};
+                _context4.t2 = headersData;
+                _context4.next = 13;
+                return response.json();
+
+              case 13:
+                _context4.t3 = _context4.sent;
+                _context4.t4 = {
+                  item: _context4.t3
+                };
+                return _context4.abrupt('return', (0, _context4.t0)(_context4.t1, _context4.t2, _context4.t4));
+
+              case 16:
+              case 'end':
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function declineReview(_x7, _x8) {
+        return _ref4.apply(this, arguments);
+      }
+
+      return declineReview;
+    }()
+
+    /**
+     * Return add the review vote: increment vote_up or vote_down field.
+     * @param token {String} Access token
+     * @param id {Number} Review id
+     * @returns {Object} &lt;pre>
+     * "item":
+     *  {
+     *     "id": 1,
+     *     "title": "Really good. Html is better than cms",
+     *     "content": "I had font problem with flash cms. Now I have no problem with html",
+     *     "score": 5,
+     *     "created_at": 1469607948519,
+     *     "user_id": 123,
+     *     "template_id": 12345,
+     *     "status": "initial",
+     *     "vote_up": 1,
+     *     "vote_down": 0,
+     *     "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1"}}
+     *   }
+     *  &lt;/pre>
+     * @method Reviews#addReviewVote
+     */
+
+  }, {
+    key: 'addReviewVote',
+    value: function () {
+      var _ref5 = _asyncToGenerator(regeneratorRuntime.mark(function _callee5(token, id) {
+        var response, headersData;
+        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                if (token.length) {
+                  _context5.next = 2;
+                  break;
+                }
+
+                throw new Error('Token not found');
+
+              case 2:
+                _context5.next = 4;
+                return (0, _isomorphicFetch2.default)(this.url + '/reviews/' + id, {
+                  method: 'POST',
+                  headers: new Headers({
+                    'content-type': 'application/x-www-form-urlencoded',
+                    'Authorization': token
+                  })
+                });
+
+              case 4:
+                response = _context5.sent;
+
+                if (!(response.status >= 400)) {
+                  _context5.next = 7;
+                  break;
+                }
+
+                throw new Error('Bad server response');
+
+              case 7:
+                headersData = {
+                  canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
+                };
+                _context5.t0 = _extends;
+                _context5.t1 = {};
+                _context5.t2 = headersData;
+                _context5.next = 13;
+                return response.json();
+
+              case 13:
+                _context5.t3 = _context5.sent;
+                _context5.t4 = {
+                  item: _context5.t3
+                };
+                return _context5.abrupt('return', (0, _context5.t0)(_context5.t1, _context5.t2, _context5.t4));
+
+              case 16:
+              case 'end':
+                return _context5.stop();
+            }
+          }
+        }, _callee5, this);
+      }));
+
+      function addReviewVote(_x9, _x10) {
+        return _ref5.apply(this, arguments);
+      }
+
+      return addReviewVote;
+    }()
+
+    /**
+     * Return reply the review information for given identifiers.
+     * @param review_id {Number} ID of the parent review
+     * @returns {Object} &lt;pre>{
+     * "items": [
+     *  {
+     *
+     *   "id": 1,
+     *   "review_id": 1,
+     *   "content": "I had font problem with flash cms. Now I have no problem with html",
+     *   "created_at": 1469607948519,
+     *   "user_id": 123,
+     *   "vote_up": 0,
+     *   "vote_down": 0,
+     *   "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1/comment/1"}}
+     *   }, ...]
+     *  }&lt;/pre>
+     * @method Reviews#replayTheReview
+     */
+
+  }, {
+    key: 'replayTheReview',
+    value: function () {
+      var _ref6 = _asyncToGenerator(regeneratorRuntime.mark(function _callee6(review_id) {
+        var response;
+        return regeneratorRuntime.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _context6.next = 2;
+                return (0, _isomorphicFetch2.default)(this.url + '/reviews/' + review_id + '/comments');
+
+              case 2:
+                response = _context6.sent;
+                return _context6.abrupt('return', false);
+
+              case 4:
+              case 'end':
+                return _context6.stop();
+            }
+          }
+        }, _callee6, this);
+      }));
+
+      function replayTheReview(_x11) {
+        return _ref6.apply(this, arguments);
+      }
+
+      return replayTheReview;
+    }()
+
+    /**
+     * Return request review comments list.
+     * @param review_id {Number} ID of the parent review
+     * @returns {Object} &lt;pre>{
+     * "items": [
+     *  {
+     *
+     *   "id": 1,
+     *   "review_id": 1,
+     *   "content": "I had font problem with flash cms. Now I have no problem with html",
+     *   "created_at": 1469607948519,
+     *   "user_id": 123,
+     *   "vote_up": 0,
+     *   "vote_down": 0,
+     *   "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1/comment/1"}}
+     *   }, ...]
+     *  }&lt;/pre>
+     * @method Reviews#requestReviewComments
+     */
+
+  }, {
+    key: 'requestReviewComments',
+    value: function () {
+      var _ref7 = _asyncToGenerator(regeneratorRuntime.mark(function _callee7(review_id) {
+        var response;
+        return regeneratorRuntime.wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                _context7.next = 2;
+                return (0, _isomorphicFetch2.default)(this.url + '/reviews/' + review_id + '/comments');
+
+              case 2:
+                response = _context7.sent;
+                return _context7.abrupt('return', false);
+
+              case 4:
+              case 'end':
+                return _context7.stop();
+            }
+          }
+        }, _callee7, this);
+      }));
+
+      function requestReviewComments(_x12) {
+        return _ref7.apply(this, arguments);
+      }
+
+      return requestReviewComments;
+    }()
+
+    /**
+     * Return vote the review comment.
+     * @param review_id {Number} ID of the parent review
+     * @returns {Object} &lt;pre>{
+     * "items": [
+     *  {
+     *
+     *   "id": 1,
+     *   "review_id": 1,
+     *   "content": "I had font problem with flash cms. Now I have no problem with html",
+     *   "created_at": 1469607948519,
+     *   "user_id": 123,
+     *   "vote_up": 0,
+     *   "vote_down": 0,
+     *   "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1/comment/1"}}
+     *   }, ...]
+     *  }&lt;/pre>
+     * @method Reviews#voteComments
+     */
+
+  }, {
+    key: 'voteComments',
+    value: function voteComments() {
+      return false;
+    }
   }]);
 
   return Reviews;
@@ -278,7 +672,7 @@ exports.default = Reviews;</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Feb 22 2017 15:37:39 GMT+0200 (EET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Feb 23 2017 15:52:04 GMT+0200 (EET)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -144,6 +144,771 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
 
     
 
+    <h4 class="name" id="addReviewVote"><span class="type-signature"></span>addReviewVote<span class="signature">(token, id)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Return add the review vote: increment vote_up or vote_down field.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>token</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Access token</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Review id</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Reviews.js.html">Reviews.js</a>, <a href="Reviews.js.html#line408">line 408</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <pre>
+"item":
+ {
+    "id": 1,
+    "title": "Really good. Html is better than cms",
+    "content": "I had font problem with flash cms. Now I have no problem with html",
+    "score": 5,
+    "created_at": 1469607948519,
+    "user_id": 123,
+    "template_id": 12345,
+    "status": "initial",
+    "vote_up": 1,
+    "vote_down": 0,
+    "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1"}}
+  }
+ </pre>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="approveReview"><span class="type-signature"></span>approveReview<span class="signature">(token, id)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Return approve review information for given identifiers.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>token</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Access token</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Review id</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Reviews.js.html">Reviews.js</a>, <a href="Reviews.js.html#line137">line 137</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <pre>{
+"canModerate": 1,
+"item":
+ {
+    "id": 1,
+    "title": "Really good. Html is better than cms",
+    "content": "I had font problem with flash cms. Now I have no problem with html",
+    "score": 5,
+    "created_at": 1469607948519,
+    "user_id": 123,
+    "template_id": 12345,
+    "status": "initial",
+    "vote_up": 1,
+    "vote_down": 0,
+    "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1"}}
+  }
+ }</pre>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="completeReview"><span class="type-signature"></span>completeReview<span class="signature">(token, id)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Return complete review information for given identifiers.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>token</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Access token</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Review id</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Reviews.js.html">Reviews.js</a>, <a href="Reviews.js.html#line226">line 226</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <pre>
+"item":
+ {
+    "id": 1,
+    "title": "Really good. Html is better than cms",
+    "content": "I had font problem with flash cms. Now I have no problem with html",
+    "score": 5,
+    "created_at": 1469607948519,
+    "user_id": 123,
+    "template_id": 12345,
+    "status": "initial",
+    "vote_up": 1,
+    "vote_down": 0,
+    "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1"}}
+  }
+ </pre>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="declineReview"><span class="type-signature"></span>declineReview<span class="signature">(token, id)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Return decline review information for given identifiers.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>token</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Access token</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Review id</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Reviews.js.html">Reviews.js</a>, <a href="Reviews.js.html#line317">line 317</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <pre>
+"item":
+ {
+    "id": 1,
+    "title": "Really good. Html is better than cms",
+    "content": "I had font problem with flash cms. Now I have no problem with html",
+    "score": 5,
+    "created_at": 1469607948519,
+    "user_id": 123,
+    "template_id": 12345,
+    "status": "initial",
+    "vote_up": 1,
+    "vote_down": 0,
+    "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1"}}
+  }
+ </pre>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
     <h4 class="name" id="getReviews"><span class="type-signature"></span>getReviews<span class="signature">(params)</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
@@ -315,14 +1080,14 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
 
     
 
-    <h4 class="name" id="getReviewsClient"><span class="type-signature"></span>getReviewsClient<span class="signature">(token, params)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="replayTheReview"><span class="type-signature"></span>replayTheReview<span class="signature">(review_id)</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Return review information for given identifiers.</p>
+    <p>Return reply the review information for given identifiers.</p>
 </div>
 
 
@@ -358,13 +1123,13 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
 
         <tr>
             
-                <td class="name"><code>token</code></td>
+                <td class="name"><code>review_id</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Number</span>
 
 
             
@@ -374,30 +1139,7 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
 
             
 
-            <td class="description last"><p>User token</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Reviews parameters</p></td>
+            <td class="description last"><p>ID of the parent review</p></td>
         </tr>
 
     
@@ -438,7 +1180,7 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Reviews.js.html">Reviews.js</a>, <a href="Reviews.js.html#line137">line 137</a>
+        <a href="Reviews.js.html">Reviews.js</a>, <a href="Reviews.js.html#line499">line 499</a>
     </li></ul></dd>
     
 
@@ -466,22 +1208,349 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
         
 <div class="param-desc">
     <pre>{
-"currentPageIndex":1,
-"totalCount":11,
-"lastPageIndex":6,
 "items": [
  {
-   "id":23,
-   "status":4,
-   "user_id":21543,
-   "user_name":"mice mice",
-   "title":"review title",
-   "content":"review content",
-   "score":5,
-   "template_id":58444,
-   "vote_up":0,
-   "vote_down":0,
-   "_links":{"self":{"href":"http://service-reviews.dev/api/v1/reviews/23"}}
+
+  "id": 1,
+  "review_id": 1,
+  "content": "I had font problem with flash cms. Now I have no problem with html",
+  "created_at": 1469607948519,
+  "user_id": 123,
+  "vote_up": 0,
+  "vote_down": 0,
+  "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1/comment/1"}}
+  }, ...]
+ }</pre>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="requestReviewComments"><span class="type-signature"></span>requestReviewComments<span class="signature">(review_id)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Return request review comments list.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>review_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ID of the parent review</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Reviews.js.html">Reviews.js</a>, <a href="Reviews.js.html#line550">line 550</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <pre>{
+"items": [
+ {
+
+  "id": 1,
+  "review_id": 1,
+  "content": "I had font problem with flash cms. Now I have no problem with html",
+  "created_at": 1469607948519,
+  "user_id": 123,
+  "vote_up": 0,
+  "vote_down": 0,
+  "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1/comment/1"}}
+  }, ...]
+ }</pre>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="voteComments"><span class="type-signature"></span>voteComments<span class="signature">(review_id)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Return vote the review comment.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>review_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ID of the parent review</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Reviews.js.html">Reviews.js</a>, <a href="Reviews.js.html#line601">line 601</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <pre>{
+"items": [
+ {
+
+  "id": 1,
+  "review_id": 1,
+  "content": "I had font problem with flash cms. Now I have no problem with html",
+  "created_at": 1469607948519,
+  "user_id": 123,
+  "vote_up": 0,
+  "vote_down": 0,
+  "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1/comment/1"}}
   }, ...]
  }</pre>
 </div>
@@ -526,7 +1595,7 @@ const list = reviews.getReviews ([12345, 55555]);</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Feb 22 2017 15:37:39 GMT+0200 (EET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Feb 23 2017 15:52:04 GMT+0200 (EET)
 </footer>
 
 <script> prettyPrint(); </script>

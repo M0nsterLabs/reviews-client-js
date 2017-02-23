@@ -64,30 +64,272 @@ export default class Reviews {
     };
   };
 
-  approveReview () {
+  /**
+   * Return approve review information for given identifiers.
+   * @param token {String} Access token
+   * @param id {Number} Review id
+   * @returns {Object} <pre>{
+   * "canModerate": 1,
+   * "item":
+   *  {
+   *     "id": 1,
+   *     "title": "Really good. Html is better than cms",
+   *     "content": "I had font problem with flash cms. Now I have no problem with html",
+   *     "score": 5,
+   *     "created_at": 1469607948519,
+   *     "user_id": 123,
+   *     "template_id": 12345,
+   *     "status": "initial",
+   *     "vote_up": 1,
+   *     "vote_down": 0,
+   *     "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1"}}
+   *   }
+   *  }</pre>
+   * @method Reviews#approveReview
+   */
+  async approveReview (token, id) {
+    if (!token.length) {
+      throw new Error('Token not found');
+    }
+
+    const response = await fetch(`${this.url}/reviews/approve/${id}`, {
+      method  : 'POST',
+      headers: new Headers({
+        'content-type' : 'application/x-www-form-urlencoded',
+        'Authorization' : token
+      })
+    });
+
+    if (response.status >= 400) {
+      throw new Error('Bad server response');
+    }
+
+    const headersData   = {
+      canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
+    };
+
+    return {
+      ...headersData,
+      item: await response.json()
+    };
+  }
+
+  /**
+   * Return complete review information for given identifiers.
+   * @param token {String} Access token
+   * @param id {Number} Review id
+   * @returns {Object} <pre>
+   * "item":
+   *  {
+   *     "id": 1,
+   *     "title": "Really good. Html is better than cms",
+   *     "content": "I had font problem with flash cms. Now I have no problem with html",
+   *     "score": 5,
+   *     "created_at": 1469607948519,
+   *     "user_id": 123,
+   *     "template_id": 12345,
+   *     "status": "initial",
+   *     "vote_up": 1,
+   *     "vote_down": 0,
+   *     "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1"}}
+   *   }
+   *  </pre>
+   * @method Reviews#completeReview
+   */
+  async completeReview (token, id) {
+    if (!token.length) {
+      throw new Error('Token not found');
+    }
+
+    const response = await fetch(`${this.url}/reviews/${id}`, {
+      method  : 'POST',
+      headers: new Headers({
+        'content-type' : 'application/x-www-form-urlencoded',
+        'Authorization' : token
+      })
+    });
+
+    if (response.status >= 400) {
+      throw new Error('Bad server response');
+    }
+
+    const headersData   = {
+      canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
+    };
+
+    return {
+      ...headersData,
+      item: await response.json()
+    };
+  }
+
+  /**
+   * Return decline review information for given identifiers.
+   * @param token {String} Access token
+   * @param id {Number} Review id
+   * @returns {Object} <pre>
+   * "item":
+   *  {
+   *     "id": 1,
+   *     "title": "Really good. Html is better than cms",
+   *     "content": "I had font problem with flash cms. Now I have no problem with html",
+   *     "score": 5,
+   *     "created_at": 1469607948519,
+   *     "user_id": 123,
+   *     "template_id": 12345,
+   *     "status": "initial",
+   *     "vote_up": 1,
+   *     "vote_down": 0,
+   *     "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1"}}
+   *   }
+   *  </pre>
+   * @method Reviews#declineReview
+   */
+  async declineReview (token, id) {
+    if (!token.length) {
+      throw new Error('Token not found');
+    }
+
+    const response = await fetch(`${this.url}/reviews/decline/${id}`, {
+      method  : 'POST',
+      headers: new Headers({
+        'content-type' : 'application/x-www-form-urlencoded',
+        'Authorization' : token
+      })
+    });
+
+    if (response.status >= 400) {
+      throw new Error('Bad server response');
+    }
+
+    const headersData   = {
+      canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
+    };
+
+    return {
+      ...headersData,
+      item: await response.json()
+    };
+  }
+
+  /**
+   * Return add the review vote: increment vote_up or vote_down field.
+   * @param token {String} Access token
+   * @param id {Number} Review id
+   * @returns {Object} <pre>
+   * "item":
+   *  {
+   *     "id": 1,
+   *     "title": "Really good. Html is better than cms",
+   *     "content": "I had font problem with flash cms. Now I have no problem with html",
+   *     "score": 5,
+   *     "created_at": 1469607948519,
+   *     "user_id": 123,
+   *     "template_id": 12345,
+   *     "status": "initial",
+   *     "vote_up": 1,
+   *     "vote_down": 0,
+   *     "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1"}}
+   *   }
+   *  </pre>
+   * @method Reviews#addReviewVote
+   */
+  async addReviewVote (token, id) {
+    if (!token.length) {
+      throw new Error('Token not found');
+    }
+
+    const response = await fetch(`${this.url}/reviews/${id}`, {
+      method  : 'POST',
+      headers: new Headers({
+        'content-type' : 'application/x-www-form-urlencoded',
+        'Authorization' : token
+      })
+    });
+
+    if (response.status >= 400) {
+      throw new Error('Bad server response');
+    }
+
+    const headersData   = {
+      canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
+    };
+
+    return {
+      ...headersData,
+      item: await response.json()
+    };
+  }
+
+  /**
+   * Return reply the review information for given identifiers.
+   * @param review_id {Number} ID of the parent review
+   * @returns {Object} <pre>{
+   * "items": [
+   *  {
+   *
+   *   "id": 1,
+   *   "review_id": 1,
+   *   "content": "I had font problem with flash cms. Now I have no problem with html",
+   *   "created_at": 1469607948519,
+   *   "user_id": 123,
+   *   "vote_up": 0,
+   *   "vote_down": 0,
+   *   "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1/comment/1"}}
+   *   }, ...]
+   *  }</pre>
+   * @method Reviews#replayTheReview
+   */
+  async replayTheReview (review_id) {
+    const response = await fetch(`${this.url}/reviews/${review_id}/comments`);
+
     return false;
   }
 
-  compliteReview () {
+  /**
+   * Return request review comments list.
+   * @param review_id {Number} ID of the parent review
+   * @returns {Object} <pre>{
+   * "items": [
+   *  {
+   *
+   *   "id": 1,
+   *   "review_id": 1,
+   *   "content": "I had font problem with flash cms. Now I have no problem with html",
+   *   "created_at": 1469607948519,
+   *   "user_id": 123,
+   *   "vote_up": 0,
+   *   "vote_down": 0,
+   *   "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1/comment/1"}}
+   *   }, ...]
+   *  }</pre>
+   * @method Reviews#requestReviewComments
+   */
+  async requestReviewComments(review_id) {
+    const response = await fetch(`${this.url}/reviews/${review_id}/comments`);
+
     return false;
   }
 
-  declineReview () {
-    return false;
-  }
-
-  addReviewVote () {
-    return false;
-  }
-
-  replayTheReview () {
-    return false;
-  }
-
-  requestReviewComments() {
-    return false;
-  }
-
+  /**
+   * Return vote the review comment.
+   * @param review_id {Number} ID of the parent review
+   * @returns {Object} <pre>{
+   * "items": [
+   *  {
+   *
+   *   "id": 1,
+   *   "review_id": 1,
+   *   "content": "I had font problem with flash cms. Now I have no problem with html",
+   *   "created_at": 1469607948519,
+   *   "user_id": 123,
+   *   "vote_up": 0,
+   *   "vote_down": 0,
+   *   "_links": {"self":{"href":"http://service-reviews.dev/api/v1/reviews/1/comment/1"}}
+   *   }, ...]
+   *  }</pre>
+   * @method Reviews#voteComments
+   */
   voteComments() {
     return false;
   }

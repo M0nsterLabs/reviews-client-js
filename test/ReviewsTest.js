@@ -1,66 +1,139 @@
-import {assert} from 'chai';
-import {expect} from 'chai';
+import {assert, expect} from 'chai';
 import Reviews from '../src/Reviews';
 import serialize from 'tm-serialize';
+import nock from 'nock';
 
-import fetch from 'isomorphic-fetch';
-
-const getReviewsResult = [{
-  id          : 23,
-  status      : 4,
-  user_id     : 21543,
-  user_name   : 'mice mice',
-  title       : 'review title',
-  content     : 'review content',
-  score       : 5,
-  template_id : 58444,
-  vote_up     : 0,
-  vote_down   : 0,
-  _links      : {self : {href : 'http://service-reviews.dev/api/v1/reviews/23'}}
-}, {
-  id          : 22,
-  status      : 4,
-  user_id     : 21543,
-  user_name   : 'mice mice',
-  title       : 'review title 22',
-  content     : 'some content 22',
-  score       : 5,
-  template_id : 58444,
-  vote_up     : 0,
-  vote_down   : 0,
-  _links      : {self : {href : 'http://service-reviews.dev/api/v1/reviews/22'}}
-}
-];
 const serviceURL = 'http://service-reviews.dev/api/v1';
 
 describe('Reviews API', function () {
-  before(function (done) {
+  beforeEach(function () {
     this.api = new Reviews(serviceURL, 'en');
-    this.token = null;
-    fetch('http://service-users.dev/api/v1/users/login', {
-      method  : 'POST',
-      headers : new Headers({
-        'content-type' : "application/x-www-form-urlencoded"
-      }),
-      body    : serialize({
-        scope    : 'reviews',
-        login    : 'viram@templatemonster.me',
-        password : 'mykhaylyak'
-      })
-    }).then(response => {
-      return response.json();
-    }).then(response => {
-      this.token = response.access_token;
+    this.token = 'qrewqrtqtraessrtgewrtec';
+    this.willReturnGetResponse = function (url, data) {
+      nock(serviceURL)
+        .get(url)
+        .reply(200, data);
+    };
+
+    this.willReturnPostResponse = function (url, data) {
+      nock(serviceURL)
+        .post(url)
+        .reply(200, data);
+    };
+
+    this.willGetReturn404 = function (url, data) {
+      nock(serviceURL)
+        .get(url)
+        .reply(404);
+    };
+
+    this.willPostReturn404 = function (url) {
+      nock(serviceURL)
+        .post(url)
+        .reply(404);
+    }
+  });
+
+  it('getReviews result', function (done) {
+    const getReviewsResult = [{
+      id: 23,
+      status: 4
+    }, {
+      id: 22,
+      status: 4
+    }];
+
+    const mockData = {
+      currentPageIndex: 0,
+      totalCount: 0,
+      lastPageIndex: 0,
+      items: getReviewsResult
+    };
+
+    nock(serviceURL)
+      .get('/reviews?locale=en')
+      .reply(200, getReviewsResult, {
+        'x-pagination-current-page': 0,
+        'x-pagination-total-count': 0,
+        'x-pagination-page-count': 0
+      });
+
+    this.api.getReviews().then(response => {
+      assert.deepEqual(response, mockData);
       done();
     }).catch(done);
   });
 
-  it('getReviews result', function (done) {
-    this.api.getReviews({
-      'per-page' : 2
-    }).then(response => {
-      assert.deepEqual(getReviewsResult, response.items);
+
+
+  it('approveReview result', function (done) {
+    const mockRequest = {
+      id: 23,
+      status : 'initial'
+    };
+    const mockData = {
+      canModerate: 1,
+      item: mockRequest
+    };
+
+    nock(serviceURL)
+      .post('/reviews/approve/23')
+      .reply(200, mockRequest, {
+        'X-CAN-MODERATE': 1
+      });
+
+    this.api.approveReview(this.token, 23).then(response => {
+      assert.deepEqual(response, mockData);
       done();
     }).catch(done);
   });
+
+
+
+  it('completeReview result', function (done) {
+    const mockRequest = {
+      id: 23,
+      status : 'initial'
+    };
+    const mockData = {
+      canModerate: 1,
+      item: mockRequest
+    };
+
+    nock(serviceURL)
+      .post('/reviews/23')
+      .reply(200, mockRequest, {
+        'X-CAN-MODERATE': 1
+      });
+
+    this.api.completeReview(this.token, 23).then(response => {
+      assert.deepEqual(response, mockData);
+      done();
+    }).catch(done);
+  });
+
+
+
+  it('declineReview result', function (done) {
+    const mockRequest = {
+      id: 23,
+      status : 'initial'
+    };
+    const mockData = {
+      canModerate: 1,
+      item: mockRequest
+    };
+
+    nock(serviceURL)
+      .post('/reviews/decline/23')
+      .reply(200, mockRequest, {
+        'X-CAN-MODERATE': 1
+      });
+
+    this.api.declineReview(this.token, 23).then(response => {
+      assert.deepEqual(response, mockData);
+      done();
+    }).catch(done);
+  });
+
 });
