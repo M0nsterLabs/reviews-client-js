@@ -92,6 +92,10 @@ export default class Reviews {
       throw new Error('Token not found');
     }
 
+    if ((isNaN(id)) || (id < 0)) {
+      throw new Error('Id is not correct');
+    }
+
     const response = await fetch(`${this.url}/reviews/approve/${id}`, {
       method  : 'POST',
       headers: new Headers({
@@ -140,6 +144,10 @@ export default class Reviews {
   async completeReview (token, id) {
     if (!token.length) {
       throw new Error('Token not found');
+    }
+
+    if ((isNaN(id)) || (id < 0)) {
+      throw new Error('Id is not correct');
     }
 
     const response = await fetch(`${this.url}/reviews/${id}`, {
@@ -192,6 +200,10 @@ export default class Reviews {
       throw new Error('Token not found');
     }
 
+    if ((isNaN(id)) || (id < 0)) {
+      throw new Error('Id is not correct');
+    }
+
     const response = await fetch(`${this.url}/reviews/decline/${id}`, {
       method  : 'POST',
       headers: new Headers({
@@ -242,6 +254,10 @@ export default class Reviews {
       throw new Error('Token not found');
     }
 
+    if ((isNaN(id)) || (id < 0)) {
+      throw new Error('Id is not correct');
+    }
+
     const response = await fetch(`${this.url}/reviews/${id}`, {
       method  : 'POST',
       headers: new Headers({
@@ -289,6 +305,10 @@ export default class Reviews {
       throw new Error('Token not found');
     }
 
+    if ((isNaN(review_id)) || (review_id < 0)) {
+      throw new Error('Review id is not correct');
+    }
+
     const response =  await fetch(`${this.url}/reviews/${review_id}/comments`, {
       method  : 'POST',
       headers: new Headers({
@@ -331,6 +351,10 @@ export default class Reviews {
    * @method Reviews#requestReviewComments
    */
   async requestReviewComments(review_id) {
+    if ((isNaN(review_id)) || (review_id < 0)) {
+      throw new Error('Review id is not correct');
+    }
+
     const response = await fetch(`${this.url}/reviews/${review_id}/comments`);
 
     if (response.status >= 400) {
@@ -372,6 +396,14 @@ export default class Reviews {
   async voteComments(token, id, review_id) {
     if (!token.length) {
       throw new Error('Token not found');
+    }
+
+    if ((isNaN(id)) || (id < 0)) {
+      throw new Error('Id is not correct');
+    }
+
+    if ((isNaN(review_id)) || (review_id < 0)) {
+      throw new Error('Review id is not correct');
     }
 
     const response =  await fetch(`${this.url}/reviews/${review_id}/comments/${id}`, {
