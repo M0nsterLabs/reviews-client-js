@@ -200,7 +200,15 @@ var Reviews = function () {
                 throw new Error('Token not found');
 
               case 2:
-                _context2.next = 4;
+                if (this._idExist(id)) {
+                  _context2.next = 4;
+                  break;
+                }
+
+                throw new Error('Id is not correct');
+
+              case 4:
+                _context2.next = 6;
                 return (0, _isomorphicFetch2.default)(this.url + '/reviews/approve/' + id, {
                   method: 'POST',
                   headers: new Headers({
@@ -209,34 +217,34 @@ var Reviews = function () {
                   })
                 });
 
-              case 4:
+              case 6:
                 response = _context2.sent;
 
                 if (!(response.status >= 400)) {
-                  _context2.next = 7;
+                  _context2.next = 9;
                   break;
                 }
 
                 throw new Error('Bad server response');
 
-              case 7:
+              case 9:
                 headersData = {
                   canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
                 };
                 _context2.t0 = _extends;
                 _context2.t1 = {};
                 _context2.t2 = headersData;
-                _context2.next = 13;
+                _context2.next = 15;
                 return response.json();
 
-              case 13:
+              case 15:
                 _context2.t3 = _context2.sent;
                 _context2.t4 = {
                   item: _context2.t3
                 };
                 return _context2.abrupt('return', (0, _context2.t0)(_context2.t1, _context2.t2, _context2.t4));
 
-              case 16:
+              case 18:
               case 'end':
                 return _context2.stop();
             }
@@ -292,7 +300,15 @@ var Reviews = function () {
                 throw new Error('Token not found');
 
               case 2:
-                _context3.next = 4;
+                if (this._idExist(id)) {
+                  _context3.next = 4;
+                  break;
+                }
+
+                throw new Error('Id is not correct');
+
+              case 4:
+                _context3.next = 6;
                 return (0, _isomorphicFetch2.default)(this.url + '/reviews/' + id, {
                   method: 'POST',
                   headers: new Headers({
@@ -301,34 +317,34 @@ var Reviews = function () {
                   })
                 });
 
-              case 4:
+              case 6:
                 response = _context3.sent;
 
                 if (!(response.status >= 400)) {
-                  _context3.next = 7;
+                  _context3.next = 9;
                   break;
                 }
 
                 throw new Error('Bad server response');
 
-              case 7:
+              case 9:
                 headersData = {
                   canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
                 };
                 _context3.t0 = _extends;
                 _context3.t1 = {};
                 _context3.t2 = headersData;
-                _context3.next = 13;
+                _context3.next = 15;
                 return response.json();
 
-              case 13:
+              case 15:
                 _context3.t3 = _context3.sent;
                 _context3.t4 = {
                   item: _context3.t3
                 };
                 return _context3.abrupt('return', (0, _context3.t0)(_context3.t1, _context3.t2, _context3.t4));
 
-              case 16:
+              case 18:
               case 'end':
                 return _context3.stop();
             }
@@ -384,7 +400,15 @@ var Reviews = function () {
                 throw new Error('Token not found');
 
               case 2:
-                _context4.next = 4;
+                if (this._idExist(id)) {
+                  _context4.next = 4;
+                  break;
+                }
+
+                throw new Error('Id is not correct');
+
+              case 4:
+                _context4.next = 6;
                 return (0, _isomorphicFetch2.default)(this.url + '/reviews/decline/' + id, {
                   method: 'POST',
                   headers: new Headers({
@@ -393,34 +417,34 @@ var Reviews = function () {
                   })
                 });
 
-              case 4:
+              case 6:
                 response = _context4.sent;
 
                 if (!(response.status >= 400)) {
-                  _context4.next = 7;
+                  _context4.next = 9;
                   break;
                 }
 
                 throw new Error('Bad server response');
 
-              case 7:
+              case 9:
                 headersData = {
                   canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
                 };
                 _context4.t0 = _extends;
                 _context4.t1 = {};
                 _context4.t2 = headersData;
-                _context4.next = 13;
+                _context4.next = 15;
                 return response.json();
 
-              case 13:
+              case 15:
                 _context4.t3 = _context4.sent;
                 _context4.t4 = {
                   item: _context4.t3
                 };
                 return _context4.abrupt('return', (0, _context4.t0)(_context4.t1, _context4.t2, _context4.t4));
 
-              case 16:
+              case 18:
               case 'end':
                 return _context4.stop();
             }
@@ -476,7 +500,15 @@ var Reviews = function () {
                 throw new Error('Token not found');
 
               case 2:
-                _context5.next = 4;
+                if (this._idExist(id)) {
+                  _context5.next = 4;
+                  break;
+                }
+
+                throw new Error('Id is not correct');
+
+              case 4:
+                _context5.next = 6;
                 return (0, _isomorphicFetch2.default)(this.url + '/reviews/' + id, {
                   method: 'POST',
                   headers: new Headers({
@@ -485,34 +517,34 @@ var Reviews = function () {
                   })
                 });
 
-              case 4:
+              case 6:
                 response = _context5.sent;
 
                 if (!(response.status >= 400)) {
-                  _context5.next = 7;
+                  _context5.next = 9;
                   break;
                 }
 
                 throw new Error('Bad server response');
 
-              case 7:
+              case 9:
                 headersData = {
                   canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
                 };
                 _context5.t0 = _extends;
                 _context5.t1 = {};
                 _context5.t2 = headersData;
-                _context5.next = 13;
+                _context5.next = 15;
                 return response.json();
 
-              case 13:
+              case 15:
                 _context5.t3 = _context5.sent;
                 _context5.t4 = {
                   item: _context5.t3
                 };
                 return _context5.abrupt('return', (0, _context5.t0)(_context5.t1, _context5.t2, _context5.t4));
 
-              case 16:
+              case 18:
               case 'end':
                 return _context5.stop();
             }
@@ -565,7 +597,15 @@ var Reviews = function () {
                 throw new Error('Token not found');
 
               case 2:
-                _context6.next = 4;
+                if (this._idExist(review_id)) {
+                  _context6.next = 4;
+                  break;
+                }
+
+                throw new Error('Review id is not correct');
+
+              case 4:
+                _context6.next = 6;
                 return (0, _isomorphicFetch2.default)(this.url + '/reviews/' + review_id + '/comments', {
                   method: 'POST',
                   headers: new Headers({
@@ -574,34 +614,34 @@ var Reviews = function () {
                   })
                 });
 
-              case 4:
+              case 6:
                 response = _context6.sent;
 
                 if (!(response.status >= 400)) {
-                  _context6.next = 7;
+                  _context6.next = 9;
                   break;
                 }
 
                 throw new Error('Bad server response');
 
-              case 7:
+              case 9:
                 headersData = {
                   canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
                 };
                 _context6.t0 = _extends;
                 _context6.t1 = {};
                 _context6.t2 = headersData;
-                _context6.next = 13;
+                _context6.next = 15;
                 return response.json();
 
-              case 13:
+              case 15:
                 _context6.t3 = _context6.sent;
                 _context6.t4 = {
                   item: _context6.t3
                 };
                 return _context6.abrupt('return', (0, _context6.t0)(_context6.t1, _context6.t2, _context6.t4));
 
-              case 16:
+              case 18:
               case 'end':
                 return _context6.stop();
             }
@@ -645,37 +685,45 @@ var Reviews = function () {
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
-                _context7.next = 2;
-                return (0, _isomorphicFetch2.default)(this.url + '/reviews/' + review_id + '/comments');
+                if (this._idExist(review_id)) {
+                  _context7.next = 2;
+                  break;
+                }
+
+                throw new Error('Review id is not correct');
 
               case 2:
+                _context7.next = 4;
+                return (0, _isomorphicFetch2.default)(this.url + '/reviews/' + review_id + '/comments');
+
+              case 4:
                 response = _context7.sent;
 
                 if (!(response.status >= 400)) {
-                  _context7.next = 5;
+                  _context7.next = 7;
                   break;
                 }
 
                 throw new Error('Bad server response');
 
-              case 5:
+              case 7:
                 headersData = {
                   canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
                 };
                 _context7.t0 = _extends;
                 _context7.t1 = {};
                 _context7.t2 = headersData;
-                _context7.next = 11;
+                _context7.next = 13;
                 return response.json();
 
-              case 11:
+              case 13:
                 _context7.t3 = _context7.sent;
                 _context7.t4 = {
                   item: _context7.t3
                 };
                 return _context7.abrupt('return', (0, _context7.t0)(_context7.t1, _context7.t2, _context7.t4));
 
-              case 14:
+              case 16:
               case 'end':
                 return _context7.stop();
             }
@@ -730,7 +778,23 @@ var Reviews = function () {
                 throw new Error('Token not found');
 
               case 2:
-                _context8.next = 4;
+                if (this._idExist(id)) {
+                  _context8.next = 4;
+                  break;
+                }
+
+                throw new Error('Id is not correct');
+
+              case 4:
+                if (this._idExist(review_id)) {
+                  _context8.next = 6;
+                  break;
+                }
+
+                throw new Error('Review id is not correct');
+
+              case 6:
+                _context8.next = 8;
                 return (0, _isomorphicFetch2.default)(this.url + '/reviews/' + review_id + '/comments/' + id, {
                   method: 'POST',
                   headers: new Headers({
@@ -739,34 +803,34 @@ var Reviews = function () {
                   })
                 });
 
-              case 4:
+              case 8:
                 response = _context8.sent;
 
                 if (!(response.status >= 400)) {
-                  _context8.next = 7;
+                  _context8.next = 11;
                   break;
                 }
 
                 throw new Error('Bad server response');
 
-              case 7:
+              case 11:
                 headersData = {
                   canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
                 };
                 _context8.t0 = _extends;
                 _context8.t1 = {};
                 _context8.t2 = headersData;
-                _context8.next = 13;
+                _context8.next = 17;
                 return response.json();
 
-              case 13:
+              case 17:
                 _context8.t3 = _context8.sent;
                 _context8.t4 = {
                   item: _context8.t3
                 };
                 return _context8.abrupt('return', (0, _context8.t0)(_context8.t1, _context8.t2, _context8.t4));
 
-              case 16:
+              case 20:
               case 'end':
                 return _context8.stop();
             }
@@ -780,6 +844,19 @@ var Reviews = function () {
 
       return voteComments;
     }()
+
+    /**
+     * Check for correct id
+     * @param id {Number}
+     * @returns {boolean}
+     * @private
+     */
+
+  }, {
+    key: '_idExist',
+    value: function _idExist(id) {
+      return !isNaN(id) &amp;&amp; id !== null &amp;&amp; id > 0;
+    }
   }]);
 
   return Reviews;
@@ -801,7 +878,7 @@ exports.default = Reviews;</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Feb 23 2017 16:41:26 GMT+0200 (EET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Feb 23 2017 17:59:19 GMT+0200 (EET)
 </footer>
 
 <script> prettyPrint(); </script>

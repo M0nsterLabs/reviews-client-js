@@ -238,4 +238,12 @@ describe('Reviews API', function () {
     }).catch(done);
   });
 
+
+  it('_idExist', function () {
+    assert.isTrue(this.api._idExist(1));
+    assert.isFalse(this.api._idExist(0));
+    assert.isFalse(this.api._idExist(null));
+    assert.isFalse(this.api._idExist());
+  });
+
 });

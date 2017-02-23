@@ -92,7 +92,7 @@ export default class Reviews {
       throw new Error('Token not found');
     }
 
-    if ((isNaN(id)) || (id < 0)) {
+    if (!this._idExist(id)) {
       throw new Error('Id is not correct');
     }
 
@@ -146,7 +146,7 @@ export default class Reviews {
       throw new Error('Token not found');
     }
 
-    if ((isNaN(id)) || (id < 0)) {
+    if (!this._idExist(id)) {
       throw new Error('Id is not correct');
     }
 
@@ -200,7 +200,7 @@ export default class Reviews {
       throw new Error('Token not found');
     }
 
-    if ((isNaN(id)) || (id < 0)) {
+    if (!this._idExist(id)) {
       throw new Error('Id is not correct');
     }
 
@@ -254,7 +254,7 @@ export default class Reviews {
       throw new Error('Token not found');
     }
 
-    if ((isNaN(id)) || (id < 0)) {
+    if (!this._idExist(id)) {
       throw new Error('Id is not correct');
     }
 
@@ -305,7 +305,7 @@ export default class Reviews {
       throw new Error('Token not found');
     }
 
-    if ((isNaN(review_id)) || (review_id < 0)) {
+    if (!this._idExist(review_id)) {
       throw new Error('Review id is not correct');
     }
 
@@ -351,7 +351,7 @@ export default class Reviews {
    * @method Reviews#requestReviewComments
    */
   async requestReviewComments(review_id) {
-    if ((isNaN(review_id)) || (review_id < 0)) {
+    if (!this._idExist(review_id)) {
       throw new Error('Review id is not correct');
     }
 
@@ -398,11 +398,11 @@ export default class Reviews {
       throw new Error('Token not found');
     }
 
-    if ((isNaN(id)) || (id < 0)) {
+    if (!this._idExist(id)) {
       throw new Error('Id is not correct');
     }
 
-    if ((isNaN(review_id)) || (review_id < 0)) {
+    if (!this._idExist(review_id)) {
       throw new Error('Review id is not correct');
     }
 
@@ -426,5 +426,16 @@ export default class Reviews {
       ...headersData,
       item: await response.json()
     };
+  }
+
+
+  /**
+   * Check for correct id
+   * @param id {Number}
+   * @returns {boolean}
+   * @private
+   */
+  _idExist (id) {
+    return !(isNaN(id)) && (id !== null) && (id > 0);
   }
 }
