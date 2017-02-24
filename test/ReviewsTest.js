@@ -8,37 +8,14 @@ describe('Reviews API', function () {
   beforeEach(function () {
     this.api = new Reviews(serviceURL, 'en');
     this.token = 'qrewqrtqtraessrtgewrtec';
-  });
-
-  it('Create SDK Object without locale', function() {
-    const testApi = new Reviews(this.serviceURL);
-    assert.deepEqual(testApi.locale, 'en');
+    this.nockPost = function(request, data, headers = {}){nock(serviceURL).post(request).reply(200, data, headers);};
+    this.nockGet = function(request, data, headers = {}) {nock(serviceURL).get(request).reply(200, data, headers);};
+    this.getReviewsResult = [{id: 23, status: 4}];
   });
 
   it('getReviews result', function (done) {
-    const getReviewsResult = [{
-      id: 23,
-      status: 4
-    }, {
-      id: 22,
-      status: 4
-    }];
-
-    const mockData = {
-      currentPageIndex: 0,
-      totalCount: 0,
-      lastPageIndex: 0,
-      items: getReviewsResult
-    };
-
-    nock(serviceURL)
-      .get('/reviews?locale=en')
-      .reply(200, getReviewsResult, {
-        'x-pagination-current-page': 0,
-        'x-pagination-total-count': 0,
-        'x-pagination-page-count': 0
-      });
-
+    const mockData = {currentPageIndex: 0, totalCount: 0, lastPageIndex: 0, items: this.getReviewsResult};
+    this.nockGet('/reviews?locale=en', this.getReviewsResult,  {'x-pagination-current-page': 0, 'x-pagination-total-count': 0, 'x-pagination-page-count': 0});
     this.api.getReviews().then(response => {
       assert.deepEqual(response, mockData);
       done();
@@ -46,21 +23,8 @@ describe('Reviews API', function () {
   });
 
   it('approveReview result', function (done) {
-    const mockRequest = {
-      id: 23,
-      status : 'initial'
-    };
-    const mockData = {
-      canModerate: 1,
-      item: mockRequest
-    };
-
-    nock(serviceURL)
-      .post('/reviews/approve/23')
-      .reply(200, mockRequest, {
-        'X-CAN-MODERATE': 1
-      });
-
+    const mockData = {canModerate: 1, item: this.getReviewsResult[0]};
+    this.nockPost('/reviews/approve/23', this.getReviewsResult[0], {'X-CAN-MODERATE': 1} );
     this.api.approveReview(this.token, 23).then(response => {
       assert.deepEqual(response, mockData);
       done();
@@ -68,21 +32,8 @@ describe('Reviews API', function () {
   });
 
   it('completeReview result', function (done) {
-    const mockRequest = {
-      id: 23,
-      status : 'initial'
-    };
-    const mockData = {
-      canModerate: 1,
-      item: mockRequest
-    };
-
-    nock(serviceURL)
-      .post('/reviews/23')
-      .reply(200, mockRequest, {
-        'X-CAN-MODERATE': 1
-      });
-
+    const mockData = {canModerate: 1, item: this.getReviewsResult[0]};
+    this.nockPost('/reviews/23', this.getReviewsResult[0], {'X-CAN-MODERATE': 1} );
     this.api.completeReview(this.token, 23).then(response => {
       assert.deepEqual(response, mockData);
       done();
@@ -90,21 +41,8 @@ describe('Reviews API', function () {
   });
 
   it('declineReview result', function (done) {
-    const mockRequest = {
-      id: 23,
-      status : 'initial'
-    };
-    const mockData = {
-      canModerate: 1,
-      item: mockRequest
-    };
-
-    nock(serviceURL)
-      .post('/reviews/decline/23')
-      .reply(200, mockRequest, {
-        'X-CAN-MODERATE': 1
-      });
-
+    const mockData = {canModerate: 1, item: this.getReviewsResult[0]};
+    this.nockPost('/reviews/decline/23', this.getReviewsResult[0], {'X-CAN-MODERATE': 1} );
     this.api.declineReview(this.token, 23).then(response => {
       assert.deepEqual(response, mockData);
       done();
@@ -112,22 +50,8 @@ describe('Reviews API', function () {
   });
 
   it('addReviewVote result', function (done) {
-    const mockRequest = {
-      id: 23,
-      vote_up: 0,
-      vote_down: 0
-    };
-    const mockData = {
-      canModerate: 1,
-      item: mockRequest
-    };
-
-    nock(serviceURL)
-      .post('/reviews/23')
-      .reply(200, mockRequest, {
-        'X-CAN-MODERATE': 1
-      });
-
+    const mockData = {canModerate: 1, item: this.getReviewsResult[0]};
+    this.nockPost('/reviews/23', this.getReviewsResult[0], {'X-CAN-MODERATE': 1} );
     this.api.addReviewVote(this.token, 23).then(response => {
       assert.deepEqual(response, mockData);
       done();
@@ -135,23 +59,8 @@ describe('Reviews API', function () {
   });
 
   it('replayTheReview result', function (done) {
-    const mockRequest = {
-      id: 23,
-      review_id: 1,
-      vote_up: 0,
-      vote_down: 0
-    };
-    const mockData = {
-      canModerate: 1,
-      item: mockRequest
-    };
-
-    nock(serviceURL)
-      .post('/reviews/1/comments')
-      .reply(200, mockRequest, {
-        'X-CAN-MODERATE': 1
-      });
-
+    const mockData = {canModerate: 1, item: this.getReviewsResult[0]};
+    this.nockPost('/reviews/1/comments', this.getReviewsResult[0], {'X-CAN-MODERATE': 1} );
     this.api.replayTheReview(this.token, 1).then(response => {
       assert.deepEqual(response, mockData);
       done();
@@ -159,22 +68,8 @@ describe('Reviews API', function () {
   });
 
   it('requestReviewComments result', function (done) {
-    const mockRequest = {
-      id: 23,
-      review_id: 1,
-      content: 'I had font problem with flash cms. Now I have no problem with html'
-    };
-    const mockData = {
-      canModerate: 1,
-      item: mockRequest
-    };
-
-    nock(serviceURL)
-      .get('/reviews/1/comments')
-      .reply(200, mockRequest, {
-        'X-CAN-MODERATE': 1
-      });
-
+    const mockData = {canModerate: 1, item: this.getReviewsResult[0]};
+    this.nockGet('/reviews/1/comments', this.getReviewsResult[0],  {'X-CAN-MODERATE': 1});
     this.api.requestReviewComments(1).then(response => {
       assert.deepEqual(response, mockData);
       done();
@@ -182,33 +77,11 @@ describe('Reviews API', function () {
   });
 
   it('voteComments result', function (done) {
-    const mockRequest = {
-      id: 23,
-      review_id: 1,
-      vote_up: 0,
-      vote_down: 0
-    };
-    const mockData = {
-      canModerate: 1,
-      item: mockRequest
-    };
-
-    nock(serviceURL)
-      .post('/reviews/1/comments/23')
-      .reply(200, mockRequest, {
-        'X-CAN-MODERATE': 1
-      });
-
+    const mockData = {canModerate: 1, item: this.getReviewsResult[0]};
+    this.nockPost('/reviews/1/comments/23', this.getReviewsResult[0], {'X-CAN-MODERATE': 1} );
     this.api.voteComments(this.token, 23, 1).then(response => {
       assert.deepEqual(response, mockData);
       done();
     }).catch(done);
-  });
-
-  it('_isValidId', function () {
-    assert.isTrue(this.api._isValidId(1));
-    assert.isFalse(this.api._isValidId(0));
-    assert.isFalse(this.api._isValidId(null));
-    assert.isFalse(this.api._isValidId());
   });
 });
