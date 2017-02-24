@@ -10,6 +10,11 @@ describe('Reviews API', function () {
     this.token = 'qrewqrtqtraessrtgewrtec';
   });
 
+  it('Create SDK Object without locale', function() {
+    const testApi = new Reviews(this.serviceURL);
+    assert.deepEqual(testApi.locale, 'en');
+  });
+
   it('getReviews result', function (done) {
     const getReviewsResult = [{
       id: 23,
@@ -40,8 +45,6 @@ describe('Reviews API', function () {
     }).catch(done);
   });
 
-
-
   it('approveReview result', function (done) {
     const mockRequest = {
       id: 23,
@@ -63,8 +66,6 @@ describe('Reviews API', function () {
       done();
     }).catch(done);
   });
-
-
 
   it('completeReview result', function (done) {
     const mockRequest = {
@@ -88,8 +89,6 @@ describe('Reviews API', function () {
     }).catch(done);
   });
 
-
-
   it('declineReview result', function (done) {
     const mockRequest = {
       id: 23,
@@ -111,8 +110,6 @@ describe('Reviews API', function () {
       done();
     }).catch(done);
   });
-
-
 
   it('addReviewVote result', function (done) {
     const mockRequest = {
@@ -136,8 +133,6 @@ describe('Reviews API', function () {
       done();
     }).catch(done);
   });
-
-
 
   it('replayTheReview result', function (done) {
     const mockRequest = {
@@ -163,8 +158,6 @@ describe('Reviews API', function () {
     }).catch(done);
   });
 
-
-
   it('requestReviewComments result', function (done) {
     const mockRequest = {
       id: 23,
@@ -187,8 +180,6 @@ describe('Reviews API', function () {
       done();
     }).catch(done);
   });
-
-
 
   it('voteComments result', function (done) {
     const mockRequest = {
@@ -214,12 +205,10 @@ describe('Reviews API', function () {
     }).catch(done);
   });
 
-
   it('_idExist', function () {
     assert.isTrue(this.api._idExist(1));
     assert.isFalse(this.api._idExist(0));
     assert.isFalse(this.api._idExist(null));
     assert.isFalse(this.api._idExist());
   });
-
 });
