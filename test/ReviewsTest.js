@@ -205,10 +205,10 @@ describe('Reviews API', function () {
     }).catch(done);
   });
 
-  it('_idExist', function () {
-    assert.isTrue(this.api._idExist(1));
-    assert.isFalse(this.api._idExist(0));
-    assert.isFalse(this.api._idExist(null));
-    assert.isFalse(this.api._idExist());
+  it('_isValidId', function () {
+    assert.isTrue(this.api._isValidId(1));
+    assert.isFalse(this.api._isValidId(0));
+    assert.isFalse(this.api._isValidId(null));
+    assert.isFalse(this.api._isValidId());
   });
 });

@@ -16,12 +16,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stevenReed/reviews-client-js.git"
+    "url": "git+https://github.com/M0nsterLabs/reviews-client-js.git"
   },
   "bugs": {
-    "url": "https://github.com/stevenReed/reviews-client-js/issues"
+    "url": "https://github.com/M0nsterLabs/reviews-client-js/issues"
   },
-  "homepage": "https://github.com/stevenReed/reviews-client-js#readme",
+  "homepage": "https://github.com/M0nsterLabs/reviews-client-js#readme",
   "description": "Reviews API JS client",
   "babel": {
     "presets": [

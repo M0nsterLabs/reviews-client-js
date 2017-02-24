@@ -92,7 +92,7 @@ export default class Reviews {
       throw new Error('Token not found');
     }
 
-    if (!this._idExist(id)) {
+    if (!this._isValidId(id)) {
       throw new Error('Id is not correct');
     }
 
@@ -146,7 +146,7 @@ export default class Reviews {
       throw new Error('Token not found');
     }
 
-    if (!this._idExist(id)) {
+    if (!this._isValidId(id)) {
       throw new Error('Id is not correct');
     }
 
@@ -200,7 +200,7 @@ export default class Reviews {
       throw new Error('Token not found');
     }
 
-    if (!this._idExist(id)) {
+    if (!this._isValidId(id)) {
       throw new Error('Id is not correct');
     }
 
@@ -227,7 +227,7 @@ export default class Reviews {
   }
 
   /**
-   * Return add the review vote: increment vote_up or vote_down field.
+   * Return added votes for the review: increment vote_up or vote_down field.
    * @param token {String} Access token
    * @param id {Number} Review id
    * @returns {Object} <pre>{
@@ -254,7 +254,7 @@ export default class Reviews {
       throw new Error('Token not found');
     }
 
-    if (!this._idExist(id)) {
+    if (!this._isValidId(id)) {
       throw new Error('Id is not correct');
     }
 
@@ -281,7 +281,7 @@ export default class Reviews {
   }
 
   /**
-   * Return reply the review information for given identifiers.
+   * Return reply of the review information for given identifiers.
    * @param token {String} Access token
    * @param review_id {Number} ID of the parent review
    * @returns {Object} <pre>{
@@ -305,7 +305,7 @@ export default class Reviews {
       throw new Error('Token not found');
     }
 
-    if (!this._idExist(review_id)) {
+    if (!this._isValidId(review_id)) {
       throw new Error('Review id is not correct');
     }
 
@@ -351,7 +351,7 @@ export default class Reviews {
    * @method Reviews#requestReviewComments
    */
   async requestReviewComments(review_id) {
-    if (!this._idExist(review_id)) {
+    if (!this._isValidId(review_id)) {
       throw new Error('Review id is not correct');
     }
 
@@ -372,7 +372,7 @@ export default class Reviews {
   }
 
   /**
-   * Return vote the review comment.
+   * Return votes of the review.
    * @param token {String} Access token
    * @param id {Number} ID of the comment
    * @param review_id {Number} ID of the parent review
@@ -398,11 +398,11 @@ export default class Reviews {
       throw new Error('Token not found');
     }
 
-    if (!this._idExist(id)) {
+    if (!this._isValidId(id)) {
       throw new Error('Id is not correct');
     }
 
-    if (!this._idExist(review_id)) {
+    if (!this._isValidId(review_id)) {
       throw new Error('Review id is not correct');
     }
 
@@ -435,7 +435,7 @@ export default class Reviews {
    * @returns {boolean}
    * @private
    */
-  _idExist (id) {
-    return !(isNaN(id)) && (id !== null) && (id > 0);
+  _isValidId (id) {
+    return typeof id == 'number' && id > 0;
   }
 }
