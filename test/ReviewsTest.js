@@ -1,6 +1,5 @@
 import {assert, expect} from 'chai';
 import Reviews from '../src/Reviews';
-import serialize from 'tm-serialize';
 import nock from 'nock';
 
 const serviceURL = 'http://service-reviews.dev/api/v1';
@@ -9,29 +8,6 @@ describe('Reviews API', function () {
   beforeEach(function () {
     this.api = new Reviews(serviceURL, 'en');
     this.token = 'qrewqrtqtraessrtgewrtec';
-    this.willReturnGetResponse = function (url, data) {
-      nock(serviceURL)
-        .get(url)
-        .reply(200, data);
-    };
-
-    this.willReturnPostResponse = function (url, data) {
-      nock(serviceURL)
-        .post(url)
-        .reply(200, data);
-    };
-
-    this.willGetReturn404 = function (url, data) {
-      nock(serviceURL)
-        .get(url)
-        .reply(404);
-    };
-
-    this.willPostReturn404 = function (url) {
-      nock(serviceURL)
-        .post(url)
-        .reply(404);
-    }
   });
 
   it('getReviews result', function (done) {
