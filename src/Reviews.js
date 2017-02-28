@@ -48,16 +48,12 @@ export default class Reviews {
    */
   async getReviews(params = {}) {
     params = {...params, ...{locale: this.locale}};
-    const response = await fetch(`${this.url}/reviews?${serialize(params)}`);
-    if (response.status >= 400) {
-      throw new Error('Bad server response');
-    }
+    const response = await this._fetchRequest(`${this.url}/reviews?${serialize(params)}`);
     const paginationData   = {
       currentPageIndex: parseInt(response.headers.get('x-pagination-current-page')),
       totalCount: parseInt(response.headers.get('x-pagination-total-count')),
       lastPageIndex: parseInt(response.headers.get('x-pagination-page-count'))
     };
-
     return {
       ...paginationData,
       items: await response.json()
@@ -91,27 +87,13 @@ export default class Reviews {
     if (!token.length) {
       throw new Error('Token not found');
     }
-
     if (!this._isValidId(id)) {
       throw new Error('Id is not correct');
     }
-
-    const response = await fetch(`${this.url}/reviews/approve/${id}`, {
-      method  : 'POST',
-      headers: new Headers({
-        'content-type' : 'application/x-www-form-urlencoded',
-        'Authorization' : token
-      })
-    });
-
-    if (response.status >= 400) {
-      throw new Error('Bad server response');
-    }
-
+    const response = await this._fetchRequest(`${this.url}/reviews/approve/${id}`, token, 'POST');
     const headersData   = {
       canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
     };
-
     return {
       ...headersData,
       item: await response.json()
@@ -145,27 +127,13 @@ export default class Reviews {
     if (!token.length) {
       throw new Error('Token not found');
     }
-
     if (!this._isValidId(id)) {
       throw new Error('Id is not correct');
     }
-
-    const response = await fetch(`${this.url}/reviews/${id}`, {
-      method  : 'POST',
-      headers: new Headers({
-        'content-type' : 'application/x-www-form-urlencoded',
-        'Authorization' : token
-      })
-    });
-
-    if (response.status >= 400) {
-      throw new Error('Bad server response');
-    }
-
+    const response = await this._fetchRequest(`${this.url}/reviews/${id}`, token, 'POST');
     const headersData   = {
       canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
     };
-
     return {
       ...headersData,
       item: await response.json()
@@ -199,27 +167,16 @@ export default class Reviews {
     if (!token.length) {
       throw new Error('Token not found');
     }
-
     if (!this._isValidId(id)) {
       throw new Error('Id is not correct');
     }
-
-    const response = await fetch(`${this.url}/reviews/decline/${id}`, {
-      method  : 'POST',
-      headers: new Headers({
-        'content-type' : 'application/x-www-form-urlencoded',
-        'Authorization' : token
-      })
-    });
-
+    const response = await this._fetchRequest(`${this.url}/reviews/decline/${id}`, token, 'POST');
     if (response.status >= 400) {
       throw new Error('Bad server response');
     }
-
     const headersData   = {
       canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
     };
-
     return {
       ...headersData,
       item: await response.json()
@@ -253,27 +210,13 @@ export default class Reviews {
     if (!token.length) {
       throw new Error('Token not found');
     }
-
     if (!this._isValidId(id)) {
       throw new Error('Id is not correct');
     }
-
-    const response = await fetch(`${this.url}/reviews/${id}`, {
-      method  : 'POST',
-      headers: new Headers({
-        'content-type' : 'application/x-www-form-urlencoded',
-        'Authorization' : token
-      })
-    });
-
-    if (response.status >= 400) {
-      throw new Error('Bad server response');
-    }
-
+    const response = await this._fetchRequest(`${this.url}/reviews/${id}`, token, 'POST');
     const headersData   = {
       canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
     };
-
     return {
       ...headersData,
       item: await response.json()
@@ -304,27 +247,13 @@ export default class Reviews {
     if (!token.length) {
       throw new Error('Token not found');
     }
-
     if (!this._isValidId(review_id)) {
       throw new Error('Review id is not correct');
     }
-
-    const response =  await fetch(`${this.url}/reviews/${review_id}/comments`, {
-      method  : 'POST',
-      headers: new Headers({
-        'content-type' : 'application/x-www-form-urlencoded',
-        'Authorization' : token
-      })
-    });
-
-    if (response.status >= 400) {
-      throw new Error('Bad server response');
-    }
-
+    const response = await this._fetchRequest(`${this.url}/reviews/${review_id}/comments`, token, 'POST');
     const headersData   = {
       canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
     };
-
     return {
       ...headersData,
       item: await response.json()
@@ -354,17 +283,10 @@ export default class Reviews {
     if (!this._isValidId(review_id)) {
       throw new Error('Review id is not correct');
     }
-
-    const response = await fetch(`${this.url}/reviews/${review_id}/comments`);
-
-    if (response.status >= 400) {
-      throw new Error('Bad server response');
-    }
-
+    const response = await this._fetchRequest(`${this.url}/reviews/${review_id}/comments`);
     const headersData   = {
       canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
     };
-
     return {
       ...headersData,
       item: await response.json()
@@ -397,37 +319,21 @@ export default class Reviews {
     if (!token.length) {
       throw new Error('Token not found');
     }
-
     if (!this._isValidId(id)) {
       throw new Error('Id is not correct');
     }
-
     if (!this._isValidId(review_id)) {
       throw new Error('Review id is not correct');
     }
-
-    const response =  await fetch(`${this.url}/reviews/${review_id}/comments/${id}`, {
-      method  : 'POST',
-      headers: new Headers({
-        'content-type' : 'application/x-www-form-urlencoded',
-        'Authorization' : token
-      })
-    });
-
-    if (response.status >= 400) {
-      throw new Error('Bad server response');
-    }
-
+    const response = await this._fetchRequest(`${this.url}/reviews/${review_id}/comments/${id}`, token, 'POST');
     const headersData   = {
       canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
     };
-
     return {
       ...headersData,
       item: await response.json()
     };
   }
-
 
   /**
    * Check for correct id
@@ -437,5 +343,23 @@ export default class Reviews {
    */
   _isValidId (id) {
     return typeof id == 'number' && id > 0;
+  }
+
+  async _fetchRequest (url, token = false, method = 'GET') {
+    const headers = {};
+    if(token){
+      headers['Authorization'] = token;
+    }
+    if(method === 'POST') {
+      headers['content-type'] = 'application/x-www-form-urlencoded';
+    }
+    const response = await fetch(url, {
+      method  : method,
+      headers: new Headers(headers)
+    });
+    if (response.status >= 400) {
+      throw new Error('Bad server response');
+    }
+    return response;
   }
 }
