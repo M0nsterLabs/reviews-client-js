@@ -1,10 +1,10 @@
 import {assert} from 'chai';
-import Reviews from '../src/Reviews';
+import Review from '../src/Reviews';
 import nock from 'nock';
 const serviceURL = 'http://service-reviews.dev/api/v1';
 describe('Reviews API', function () {
   beforeEach(function () {
-    this.api = new Reviews(serviceURL, 'en');
+    this.api = new Review(serviceURL, 'en');
     this.token = 'qrewqrtqtraessrtgewrtec';
     this.nockPost = function(request, data, headers = {}){nock(serviceURL).post(request).reply(200, data, headers);};
     this.nockGet = function(request, data, headers = {}) {nock(serviceURL).get(request).reply(200, data, headers);};

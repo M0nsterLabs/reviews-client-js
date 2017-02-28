@@ -13,7 +13,7 @@ import serialize from 'tm-serialize';
  * @constructor Reviews
  */
 
-export default class Reviews {
+export default class Review {
   locale = null;
   url = null;
 
