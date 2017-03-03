@@ -1,7 +1,7 @@
 import {assert} from 'chai';
-import Review from '../src/Review';
+import Review from '../../src/Review';
 const serviceURL = 'http://service-reviews.dev/api/v1';
-describe('Reviews API', function () {
+describe('Reviews API Functional', function () {
   beforeEach(function () {
     this.api = new Review(serviceURL, 'en');
     this.token = 'qrewqrtqtraessrtgewrtec';

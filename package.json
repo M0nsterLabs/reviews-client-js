@@ -7,7 +7,8 @@
     "doc": "rimraf doc && jsdoc --configure etc/jsdoc.json dist",
     "build": "rimraf dist && babel -d dist src",
     "release": "npm version patch && git push && git push --tags && npm publish",
-    "test": "./node_modules/.bin/mocha --compilers js:babel-register --require babel-polyfill --require bluebird --require isomorphic-fetch",
+    "test:unit": "./node_modules/.bin/mocha test/unit/* --compilers js:babel-register --require babel-polyfill --require bluebird --require isomorphic-fetch",
+    "test:functional": "./node_modules/.bin/mocha test/functional/* --compilers js:babel-register --require babel-polyfill --require bluebird --require isomorphic-fetch",
     "test:coverage": "./node_modules/.bin/istanbul cover --report clover ./node_modules/.bin/_mocha -- -u exports -R spec test/**/*  --compilers js:babel-register --require babel-polyfill --require bluebird --require isomorphic-fetch",
     "prepublish": "npm run build && npm run doc",
     "clean": "rimraf doc dist"
