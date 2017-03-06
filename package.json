@@ -1,10 +1,10 @@
 {
-  "name": "tm-reviews-api-client-js",
+  "name": "plasma-reviews-api-client-js",
   "version": "1.0.7",
   "main": "dist/index.js",
   "scripts": {
     "predoc": "npm run build",
-    "doc": "rimraf doc && jsdoc --configure etc/jsdoc.json dist",
+    "doc": "rimraf doc && jsdoc --configure etc/jsdoc.json dist && jsdoc2md --configure etc/jsdoc2md.json src/Review.js > ./README.md",
     "build": "rimraf dist && babel -d dist src",
     "release": "npm version patch && git push && git push --tags && npm publish",
     "test:unit": "./node_modules/.bin/mocha test/unit/* --compilers js:babel-register --require babel-polyfill --require bluebird --require isomorphic-fetch",
@@ -13,16 +13,16 @@
     "prepublish": "npm run build && npm run doc",
     "clean": "rimraf doc dist"
   },
-  "author": "TemplateMonster.com",
+  "author": "Plasma Platform",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/M0nsterLabs/reviews-client-js.git"
+    "url": "git+https://github.com/Plasma-Platform/Plasma-Reviews-JS-Client.git"
   },
   "bugs": {
-    "url": "https://github.com/M0nsterLabs/reviews-client-js/issues"
+    "url": "https://github.com/Plasma-Platform/Plasma-Reviews-JS-Client/issues"
   },
-  "homepage": "https://github.com/M0nsterLabs/reviews-client-js#readme",
+  "homepage": "https://github.com/Plasma-Platform/Plasma-Reviews-JS-Client#readme",
   "description": "Reviews API JS client",
   "babel": {
     "presets": [
@@ -33,12 +33,15 @@
   "devDependencies": {
     "assert": "^1.4.1",
     "babel-cli": "^6.18.0",
+    "babel-plugin-transform-async-to-generator": "^6.22.0",
     "babel-preset-latest": "^6.16.0",
     "babel-preset-stage-0": "^6.22.0",
     "chai": "^3.5.0",
     "istanbul": "^1.0.0-alpha",
     "jsdoc": "^3.4.3",
+    "jsdoc-babel": "^0.3.0",
     "jsdoc-strip-async-await": "^0.1.0",
+    "jsdoc-to-markdown": "^3.0.0",
     "mocha": "^3.2.0",
     "nock": "^9.0.2",
     "rimraf": "^2.5.4",
