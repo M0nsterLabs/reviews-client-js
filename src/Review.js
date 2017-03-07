@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import serialize from 'tm-serialize';
+import serialize from 'plasma-serialize';
 
 /**
  * Reviews API JS client.
