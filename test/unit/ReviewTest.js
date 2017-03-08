@@ -24,6 +24,11 @@ describe('Reviews API Unit', function () {
     this.nockGet('/reviews?locale=en', this.getReviewsResult,  {'x-pagination-current-page': 0, 'x-pagination-total-count': 0, 'x-pagination-page-count': 0});
     this.assertResponse (this.api.getReviews(), mockData, done);
   });
+  it('getReviews result', function (done) {
+    const mockData = {currentPageIndex: 0, totalCount: 0, lastPageIndex: 0, items: this.getReviewsResult};
+    this.nockGet('/reviews/client?locale=en', this.getReviewsResult,  {'x-pagination-current-page': 0, 'x-pagination-total-count': 0, 'x-pagination-page-count': 0});
+    this.assertResponse (this.api.getReviewsClient(this.token), mockData, done);
+  });
   it('approveReview result', function (done) {
     this.nockPost('/reviews/approve/23', this.defaultResponse.item);
     this.assertResponse (this.api.approveReview(this.token, 23), this.defaultResponse, done);
