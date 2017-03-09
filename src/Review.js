@@ -86,9 +86,6 @@ export default class Review {
    * @method Reviews#getReviewsClient
    */
   async getReviewsClient(params = {}) {
-    if (!token.length) {
-      throw new Error('Token not found');
-    }
     params = {...params, ...{locale: this.locale}};
     const response = await this._fetchRequest(`${this.url}/reviews/client?${serialize(params)}`);
     const paginationData   = {
