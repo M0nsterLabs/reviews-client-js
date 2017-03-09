@@ -85,12 +85,12 @@ export default class Review {
    *  }</pre>
    * @method Reviews#getReviewsClient
    */
-  async getReviewsClient(token, params = {}) {
+  async getReviewsClient(params = {}) {
     if (!token.length) {
       throw new Error('Token not found');
     }
     params = {...params, ...{locale: this.locale}};
-    const response = await this._fetchRequest(`${this.url}/reviews/client?${serialize(params)}`, token);
+    const response = await this._fetchRequest(`${this.url}/reviews/client?${serialize(params)}`);
     const paginationData   = {
       currentPageIndex: parseInt(response.headers.get('x-pagination-current-page')),
       totalCount: parseInt(response.headers.get('x-pagination-total-count')),
