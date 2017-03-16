@@ -8,7 +8,7 @@
     * [.getReviews(params)](#Reviews+getReviews) ⇒ <code>Object</code>
     * [.getReviewsClient(token, params)](#Reviews+getReviewsClient) ⇒ <code>Object</code>
     * [.approveReview(token, id)](#Reviews+approveReview) ⇒ <code>Object</code>
-    * [.completeReview(token, id)](#Reviews+completeReview) ⇒ <code>Object</code>
+    * [.completeReview(token, id, params)](#Reviews+completeReview) ⇒ <code>Object</code>
     * [.declineReview(token, id)](#Reviews+declineReview) ⇒ <code>Object</code>
     * [.addReviewVote(token, id)](#Reviews+addReviewVote) ⇒ <code>Object</code>
     * [.replayTheReview(token, review_id)](#Reviews+replayTheReview) ⇒ <code>Object</code>
@@ -119,7 +119,7 @@ Return approve review information for given identifiers.
 
 <a name="Reviews+completeReview"></a>
 
-### reviews.completeReview(token, id) ⇒ <code>Object</code>
+### reviews.completeReview(token, id, params) ⇒ <code>Object</code>
 Return complete review information for given identifiers.
 
 **Kind**: instance method of <code>[Reviews](#Reviews)</code>  
@@ -145,6 +145,7 @@ Return complete review information for given identifiers.
 | --- | --- | --- |
 | token | <code>String</code> | Access token |
 | id | <code>Number</code> | Review id |
+| params | <code>Object</code> | Reviews parameters |
 
 <a name="Reviews+declineReview"></a>
 

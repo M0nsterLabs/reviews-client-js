@@ -393,11 +393,19 @@ export default class Review {
     if(method === 'POST' || method === 'PUT') {
       headers['content-type'] = 'application/x-www-form-urlencoded';
     }
-    const response = await fetch(url, {
-      method  : method,
-      headers : new Headers(headers),
-      body    : serialize(params)
-    });
+    let response;
+    if (params) {
+      response = await fetch(url, {
+        method  : method,
+        headers : new Headers(headers),
+        body    : serialize(params)
+      });
+    } else {
+      response = await fetch(url, {
+        method  : method,
+        headers : new Headers(headers)
+      });
+    }
     if (response.status >= 400) {
       throw new Error('Bad server response');
     }
