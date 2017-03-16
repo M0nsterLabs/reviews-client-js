@@ -389,7 +389,7 @@ export default class Review {
     if(token){
       headers['Authorization'] = token;
     }
-    if(method === 'POST') {
+    if(method === 'POST' || method === 'PUT') {
       headers['content-type'] = 'application/x-www-form-urlencoded';
     }
     const response = await fetch(url, {
