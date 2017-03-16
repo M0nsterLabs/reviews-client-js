@@ -143,6 +143,7 @@ export default class Review {
    * Return complete review information for given identifiers.
    * @param token {String} Access token
    * @param id {Number} Review id
+   * @param params {Object} Reviews parameters
    * @returns {Object} <pre>{
    * "canModerate": 1,
    * "item":
@@ -162,14 +163,14 @@ export default class Review {
    *  }</pre>
    * @method Reviews#completeReview
    */
-  async completeReview (token, id) {
+  async completeReview (token, id, params={}) {
     if (!token.length) {
       throw new Error('Token not found');
     }
     if (!this._isValidId(id)) {
       throw new Error('Id is not correct');
     }
-    const response = await this._fetchRequest(`${this.url}reviews/${id}`, token, 'PUT');
+    const response = await this._fetchRequest(`${this.url}reviews/${id}`, token, 'PUT', params);
     const headersData   = {
       canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
     };
@@ -384,7 +385,7 @@ export default class Review {
     return typeof id == 'number' && id > 0;
   }
 
-  async _fetchRequest (url, token = false, method = 'GET') {
+  async _fetchRequest (url, token = false, method = 'GET', params={} = false) {
     const headers = {};
     if(token){
       headers['Authorization'] = token;
@@ -394,7 +395,8 @@ export default class Review {
     }
     const response = await fetch(url, {
       method  : method,
-      headers: new Headers(headers)
+      headers : new Headers(headers),
+      body    : serialize(params)
     });
     if (response.status >= 400) {
       throw new Error('Bad server response');
