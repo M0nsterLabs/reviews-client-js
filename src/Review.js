@@ -385,7 +385,7 @@ export default class Review {
     return typeof id == 'number' && id > 0;
   }
 
-  async _fetchRequest (url, token = false, method = 'GET', params={} = false) {
+  async _fetchRequest (url, token = false, method = 'GET', params={}) {
     const headers = {};
     if(token){
       headers['Authorization'] = token;
@@ -394,13 +394,16 @@ export default class Review {
       headers['content-type'] = 'application/x-www-form-urlencoded';
     }
     let response;
+    console.log('params', params);
     if (params) {
+      console.log('1111111', 1111111);
       response = await fetch(url, {
         method  : method,
         headers : new Headers(headers),
         body    : serialize(params)
       });
     } else {
+      console.log('222222', 22222);
       response = await fetch(url, {
         method  : method,
         headers : new Headers(headers)
