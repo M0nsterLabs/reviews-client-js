@@ -395,7 +395,7 @@ export default class Review {
     }
     let response;
     console.log('params', params);
-    if (params.length) {
+    if (Object.keys(params).length) {
       console.log('1111111', 1111111);
       response = await fetch(url, {
         method  : method,
