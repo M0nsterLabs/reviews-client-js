@@ -17,6 +17,9 @@ describe('Reviews API Unit', function () {
     this.nockPost = function (request, data) {
       nock(serviceURL).post(request).reply(200, data, {'X-CAN-MODERATE': 1});
     };
+    this.nockPut = function (request, data) {
+      nock(serviceURL).put(request).reply(200, data, {'X-CAN-MODERATE': 1});
+    };
     this.nockGet = function(request, data, headers = {}) {nock(serviceURL).get(request).reply(200, data, headers);};
   });
   it('getReviews result', function (done) {
@@ -24,17 +27,17 @@ describe('Reviews API Unit', function () {
     this.nockGet('/reviews?locale=en', this.getReviewsResult,  {'x-pagination-current-page': 0, 'x-pagination-total-count': 0, 'x-pagination-page-count': 0});
     this.assertResponse (this.api.getReviews(), mockData, done);
   });
-  it('getReviews result', function (done) {
+  it('getReviewsClient result', function (done) {
     const mockData = {currentPageIndex: 0, totalCount: 0, lastPageIndex: 0, items: this.getReviewsResult};
     this.nockGet('/reviews/client?locale=en', this.getReviewsResult,  {'x-pagination-current-page': 0, 'x-pagination-total-count': 0, 'x-pagination-page-count': 0});
-    this.assertResponse (this.api.getReviewsClient(this.token), mockData, done);
+    this.assertResponse (this.api.getReviewsClient(), mockData, done);
   });
   it('approveReview result', function (done) {
     this.nockPost('/reviews/approve/23', this.defaultResponse.item);
     this.assertResponse (this.api.approveReview(this.token, 23), this.defaultResponse, done);
   });
   it('completeReview result', function (done) {
-    this.nockPost('/reviews/23', this.defaultResponse.item);
+    this.nockPut('reviews/23', this.defaultResponse.item);
     this.assertResponse (this.api.completeReview(this.token, 23), this.defaultResponse, done);
   });
   it('declineReview result', function (done) {

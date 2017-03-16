@@ -169,7 +169,7 @@ export default class Review {
     if (!this._isValidId(id)) {
       throw new Error('Id is not correct');
     }
-    const response = await this._fetchRequest(`${this.url}/reviews/${id}`, token, 'POST');
+    const response = await this._fetchRequest(`${this.url}reviews/${id}`, token, 'PUT');
     const headersData   = {
       canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
     };
