@@ -393,22 +393,14 @@ export default class Review {
     if(method === 'POST' || method === 'PUT') {
       headers['content-type'] = 'application/x-www-form-urlencoded';
     }
-    let response;
-    console.log('params', params);
+    let responseData = {
+      method  : method,
+      headers : new Headers(headers)
+    };
     if (Object.keys(params).length) {
-      console.log('1111111', 1111111);
-      response = await fetch(url, {
-        method  : method,
-        headers : new Headers(headers),
-        body    : serialize(params)
-      });
-    } else {
-      console.log('222222', 22222);
-      response = await fetch(url, {
-        method  : method,
-        headers : new Headers(headers)
-      });
+      responseData['body'] = serialize(params);
     }
+    let response  = await fetch(url, responseData);
     if (response.status >= 400) {
       throw new Error('Bad server response');
     }
