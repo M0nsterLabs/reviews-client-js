@@ -146,7 +146,7 @@ export default class Review {
    * @param params {Object} Reviews parameters
    * @returns {Object} <pre>{
    * "canModerate": 1,
-   * "item":
+   * "items":
    *  {
    *     "id": 1,
    *     "title": "Really good. Html is better than cms",
@@ -176,7 +176,7 @@ export default class Review {
     };
     return {
       ...headersData,
-      item: await response.json()
+      items: await response.json()
     };
   }
 
