@@ -61,7 +61,7 @@ export default class Review {
   };
 
   /**
-   * Return review information for given identifiers. (client mode)
+   * Return review information for given identifiers. (user mode)
    * @param token {String} Access token
    * @param params {Object} Reviews parameters
    * @returns {Object} <pre>{
@@ -83,11 +83,11 @@ export default class Review {
    *    "_links":{"self":{"href":"http://service-reviews.dev/api/v1/reviews/23"}}
    *   }, ...]
    *  }</pre>
-   * @method Reviews#getReviewsClient
+   * @method Reviews#getReviewsUser
    */
-  async getReviewsClient(params = {}) {
+  async getReviewsUser(params = {}) {
     params = {...params, ...{locale: this.locale}};
-    const response = await this._fetchRequest(`${this.url}/reviews/client?${serialize(params)}`);
+    const response = await this._fetchRequest(`${this.url}/reviews/user?${serialize(params)}`);
     const paginationData   = {
       currentPageIndex: parseInt(response.headers.get('x-pagination-current-page')),
       totalCount: parseInt(response.headers.get('x-pagination-total-count')),
@@ -105,7 +105,7 @@ export default class Review {
    * @param id {Number} Review id
    * @returns {Object} <pre>{
    * "canModerate": 1,
-   * "item":
+   * "items":
    *  {
    *     "id": 1,
    *     "title": "Really good. Html is better than cms",
@@ -135,7 +135,7 @@ export default class Review {
     };
     return {
       ...headersData,
-      item: await response.json()
+      items: await response.json()
     };
   }
 
@@ -186,7 +186,7 @@ export default class Review {
    * @param id {Number} Review id
    * @returns {Object} <pre>{
    * "canModerate": 1,
-   * "item":
+   * "items":
    *  {
    *     "id": 1,
    *     "title": "Really good. Html is better than cms",
@@ -219,7 +219,7 @@ export default class Review {
     };
     return {
       ...headersData,
-      item: await response.json()
+      items: await response.json()
     };
   }
 
@@ -229,7 +229,7 @@ export default class Review {
    * @param id {Number} Review id
    * @returns {Object} <pre>{
    * "canModerate": 1,
-   * "item":
+   * "items":
    *  {
    *     "id": 1,
    *     "title": "Really good. Html is better than cms",
@@ -259,7 +259,7 @@ export default class Review {
     };
     return {
       ...headersData,
-      item: await response.json()
+      items: await response.json()
     };
   }
 
@@ -269,7 +269,7 @@ export default class Review {
    * @param review_id {Number} ID of the parent review
    * @returns {Object} <pre>{
    * "canModerate": 1,
-   * "item":
+   * "items":
    *  {
    *   "id": 1,
    *   "review_id": 1,
@@ -296,7 +296,7 @@ export default class Review {
     };
     return {
       ...headersData,
-      item: await response.json()
+      items: await response.json()
     };
   }
 
@@ -305,7 +305,7 @@ export default class Review {
    * @param review_id {Number} ID of the parent review
    * @returns {Object} <pre>{
    * "canModerate": 1,
-   * "item":
+   * "items":
    *  {
    *   "id": 1,
    *   "review_id": 1,
@@ -329,7 +329,7 @@ export default class Review {
     };
     return {
       ...headersData,
-      item: await response.json()
+      items: await response.json()
     };
   }
 
@@ -340,7 +340,7 @@ export default class Review {
    * @param review_id {Number} ID of the parent review
    * @returns {Object} <pre>{
    * "canModerate": 1,
-   * "item":
+   * "items":
    *  {
    *
    *   "id": 1,
@@ -371,7 +371,7 @@ export default class Review {
     };
     return {
       ...headersData,
-      item: await response.json()
+      items: await response.json()
     };
   }
 
