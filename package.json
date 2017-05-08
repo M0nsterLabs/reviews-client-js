@@ -1,6 +1,6 @@
 {
   "name": "plasma-reviews-api-client-js",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "main": "dist/index.js",
   "scripts": {
     "predoc": "npm run build",
