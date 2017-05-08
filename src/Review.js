@@ -61,7 +61,7 @@ export default class Review {
   };
 
   /**
-   * Return review information for given identifiers. (client mode)
+   * Return review information for given identifiers. (user mode)
    * @param token {String} Access token
    * @param params {Object} Reviews parameters
    * @returns {Object} <pre>{
@@ -83,14 +83,11 @@ export default class Review {
    *    "_links":{"self":{"href":"http://service-reviews.dev/api/v1/reviews/23"}}
    *   }, ...]
    *  }</pre>
-   * @method Reviews#getReviewsClient
+   * @method Reviews#getReviewsUser
    */
-  async getReviewsClient(params = {}) {
-    if (!token.length) {
-      throw new Error('Token not found');
-    }
+  async getReviewsUser(params = {}) {
     params = {...params, ...{locale: this.locale}};
-    const response = await this._fetchRequest(`${this.url}/reviews/client?${serialize(params)}`);
+    const response = await this._fetchRequest(`${this.url}/reviews/user?${serialize(params)}`);
     const paginationData   = {
       currentPageIndex: parseInt(response.headers.get('x-pagination-current-page')),
       totalCount: parseInt(response.headers.get('x-pagination-total-count')),
@@ -108,7 +105,7 @@ export default class Review {
    * @param id {Number} Review id
    * @returns {Object} <pre>{
    * "canModerate": 1,
-   * "item":
+   * "items":
    *  {
    *     "id": 1,
    *     "title": "Really good. Html is better than cms",
@@ -138,7 +135,7 @@ export default class Review {
     };
     return {
       ...headersData,
-      item: await response.json()
+      items: await response.json()
     };
   }
 
@@ -146,9 +143,10 @@ export default class Review {
    * Return complete review information for given identifiers.
    * @param token {String} Access token
    * @param id {Number} Review id
+   * @param params {Object} Reviews parameters
    * @returns {Object} <pre>{
    * "canModerate": 1,
-   * "item":
+   * "items":
    *  {
    *     "id": 1,
    *     "title": "Really good. Html is better than cms",
@@ -165,20 +163,20 @@ export default class Review {
    *  }</pre>
    * @method Reviews#completeReview
    */
-  async completeReview (token, id) {
+  async completeReview (token, id, params={}) {
     if (!token.length) {
       throw new Error('Token not found');
     }
     if (!this._isValidId(id)) {
       throw new Error('Id is not correct');
     }
-    const response = await this._fetchRequest(`${this.url}/reviews/${id}`, token, 'POST');
+    const response = await this._fetchRequest(`${this.url}reviews/${id}`, token, 'PUT', params);
     const headersData   = {
       canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
     };
     return {
       ...headersData,
-      item: await response.json()
+      items: await response.json()
     };
   }
 
@@ -188,7 +186,7 @@ export default class Review {
    * @param id {Number} Review id
    * @returns {Object} <pre>{
    * "canModerate": 1,
-   * "item":
+   * "items":
    *  {
    *     "id": 1,
    *     "title": "Really good. Html is better than cms",
@@ -221,7 +219,7 @@ export default class Review {
     };
     return {
       ...headersData,
-      item: await response.json()
+      items: await response.json()
     };
   }
 
@@ -231,7 +229,7 @@ export default class Review {
    * @param id {Number} Review id
    * @returns {Object} <pre>{
    * "canModerate": 1,
-   * "item":
+   * "items":
    *  {
    *     "id": 1,
    *     "title": "Really good. Html is better than cms",
@@ -261,7 +259,7 @@ export default class Review {
     };
     return {
       ...headersData,
-      item: await response.json()
+      items: await response.json()
     };
   }
 
@@ -271,7 +269,7 @@ export default class Review {
    * @param review_id {Number} ID of the parent review
    * @returns {Object} <pre>{
    * "canModerate": 1,
-   * "item":
+   * "items":
    *  {
    *   "id": 1,
    *   "review_id": 1,
@@ -298,7 +296,7 @@ export default class Review {
     };
     return {
       ...headersData,
-      item: await response.json()
+      items: await response.json()
     };
   }
 
@@ -307,7 +305,7 @@ export default class Review {
    * @param review_id {Number} ID of the parent review
    * @returns {Object} <pre>{
    * "canModerate": 1,
-   * "item":
+   * "items":
    *  {
    *   "id": 1,
    *   "review_id": 1,
@@ -331,7 +329,7 @@ export default class Review {
     };
     return {
       ...headersData,
-      item: await response.json()
+      items: await response.json()
     };
   }
 
@@ -342,7 +340,7 @@ export default class Review {
    * @param review_id {Number} ID of the parent review
    * @returns {Object} <pre>{
    * "canModerate": 1,
-   * "item":
+   * "items":
    *  {
    *
    *   "id": 1,
@@ -373,7 +371,7 @@ export default class Review {
     };
     return {
       ...headersData,
-      item: await response.json()
+      items: await response.json()
     };
   }
 
@@ -387,18 +385,22 @@ export default class Review {
     return typeof id == 'number' && id > 0;
   }
 
-  async _fetchRequest (url, token = false, method = 'GET') {
+  async _fetchRequest (url, token = false, method = 'GET', params={}) {
     const headers = {};
     if(token){
       headers['Authorization'] = token;
     }
-    if(method === 'POST') {
+    if(method === 'POST' || method === 'PUT') {
       headers['content-type'] = 'application/x-www-form-urlencoded';
     }
-    const response = await fetch(url, {
+    let responseData = {
       method  : method,
-      headers: new Headers(headers)
-    });
+      headers : new Headers(headers)
+    };
+    if (Object.keys(params).length) {
+      responseData['body'] = serialize(params);
+    }
+    let response  = await fetch(url, responseData);
     if (response.status >= 400) {
       throw new Error('Bad server response');
     }
