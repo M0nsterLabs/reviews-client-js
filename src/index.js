@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import 'bluebird';
 import 'isomorphic-fetch';
 
