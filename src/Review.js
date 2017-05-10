@@ -48,7 +48,7 @@ export default class Review {
    */
   async getReviews(params = {}) {
     params = {...params, ...{locale: this.locale}};
-    const response = await this._fetchRequest(`${this.url}/reviews?${serialize(params)}`);
+    const response = await this._fetchRequest(`${this.url}reviews?${serialize(params)}`);
     const paginationData   = {
       currentPageIndex: parseInt(response.headers.get('x-pagination-current-page')),
       totalCount: parseInt(response.headers.get('x-pagination-total-count')),
@@ -87,7 +87,7 @@ export default class Review {
    */
   async getReviewsUser(params = {}) {
     params = {...params, ...{locale: this.locale}};
-    const response = await this._fetchRequest(`${this.url}/reviews/user?${serialize(params)}`);
+    const response = await this._fetchRequest(`${this.url}reviews/user?${serialize(params)}`);
     const paginationData   = {
       currentPageIndex: parseInt(response.headers.get('x-pagination-current-page')),
       totalCount: parseInt(response.headers.get('x-pagination-total-count')),
@@ -129,7 +129,7 @@ export default class Review {
     if (!this._isValidId(id)) {
       throw new Error('Id is not correct');
     }
-    const response = await this._fetchRequest(`${this.url}/reviews/approve/${id}`, token, 'POST');
+    const response = await this._fetchRequest(`${this.url}reviews/approve/${id}`, token, 'POST');
     const headersData   = {
       canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
     };
@@ -210,7 +210,7 @@ export default class Review {
     if (!this._isValidId(id)) {
       throw new Error('Id is not correct');
     }
-    const response = await this._fetchRequest(`${this.url}/reviews/decline/${id}`, token, 'POST');
+    const response = await this._fetchRequest(`${this.url}reviews/decline/${id}`, token, 'POST');
     if (response.status >= 400) {
       throw new Error('Bad server response');
     }
@@ -253,7 +253,7 @@ export default class Review {
     if (!this._isValidId(id)) {
       throw new Error('Id is not correct');
     }
-    const response = await this._fetchRequest(`${this.url}/reviews/${id}`, token, 'POST');
+    const response = await this._fetchRequest(`${this.url}reviews/${id}`, token, 'POST');
     const headersData   = {
       canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
     };
@@ -290,7 +290,7 @@ export default class Review {
     if (!this._isValidId(review_id)) {
       throw new Error('Review id is not correct');
     }
-    const response = await this._fetchRequest(`${this.url}/reviews/${review_id}/comments`, token, 'POST');
+    const response = await this._fetchRequest(`${this.url}reviews/${review_id}/comments`, token, 'POST');
     const headersData   = {
       canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
     };
@@ -323,7 +323,7 @@ export default class Review {
     if (!this._isValidId(review_id)) {
       throw new Error('Review id is not correct');
     }
-    const response = await this._fetchRequest(`${this.url}/reviews/${review_id}/comments`);
+    const response = await this._fetchRequest(`${this.url}reviews/${review_id}/comments`);
     const headersData   = {
       canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
     };
@@ -365,7 +365,7 @@ export default class Review {
     if (!this._isValidId(review_id)) {
       throw new Error('Review id is not correct');
     }
-    const response = await this._fetchRequest(`${this.url}/reviews/${review_id}/comments/${id}`, token, 'POST');
+    const response = await this._fetchRequest(`${this.url}reviews/${review_id}/comments/${id}`, token, 'POST');
     const headersData   = {
       canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
     };
