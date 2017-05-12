@@ -15,10 +15,10 @@ describe('Reviews API Unit', function () {
     };
     this.defaultResponse = {items: this.getReviewsResult[0], canModerate: 1};
     this.nockPost = function (request, data) {
-      nock(serviceURL).post(request).reply(200, data, {'X-CAN-MODERATE': 1});
+      nock(serviceURL).post(request).reply(200, data, {'X-Can-Moderate': 1});
     };
     this.nockPut = function (request, data) {
-      nock(serviceURL).put(request).reply(200, data, {'X-CAN-MODERATE': 1});
+      nock(serviceURL).put(request).reply(200, data, {'X-Can-Moderate': 1});
     };
     this.nockGet = function(request, data, headers = {}) {nock(serviceURL).get(request).reply(200, data, headers);};
   });
@@ -29,7 +29,7 @@ describe('Reviews API Unit', function () {
   });
   it('getReviewsUser result', function (done) {
     const mockData = {currentPageIndex: 0, totalCount: 0, lastPageIndex: 0, items: this.getReviewsResult};
-    this.nockGet('reviews/user?locale=en', this.getReviewsResult,  {'x-pagination-current-page': 0, 'x-pagination-total-count': 0, 'x-pagination-page-count': 0, 'X-CAN-MODERATE': 1});
+    this.nockGet('reviews/user?locale=en', this.getReviewsResult,  {'x-pagination-current-page': 0, 'x-pagination-total-count': 0, 'x-pagination-page-count': 0, 'X-Can-Moderate': 1});
     this.assertResponse (this.api.getReviewsUser(), mockData, done);
   });
   it('approveReview result', function (done) {
@@ -53,7 +53,7 @@ describe('Reviews API Unit', function () {
     this.assertResponse (this.api.replayTheReview(this.token, 1), this.defaultResponse, done);
   });
   it('requestReviewComments result', function (done) {
-    this.nockGet('reviews/1/comments', this.getReviewsResult[0],  {'X-CAN-MODERATE': 1});
+    this.nockGet('reviews/1/comments', this.getReviewsResult[0],  {'X-Can-Moderate': 1});
     this.assertResponse (this.api.requestReviewComments(1), this.defaultResponse, done);
   });
   it('voteComments result', function (done) {

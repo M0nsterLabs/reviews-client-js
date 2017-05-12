@@ -92,7 +92,7 @@ export default class Review {
       currentPageIndex: parseInt(response.headers.get('x-pagination-current-page')),
       totalCount: parseInt(response.headers.get('x-pagination-total-count')),
       lastPageIndex: parseInt(response.headers.get('x-pagination-page-count')),
-      canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
+      canModerate: parseInt(response.headers.get('X-Can-Moderate'))
     };
     return {
       ...paginationData,
@@ -132,7 +132,7 @@ export default class Review {
     }
     const response = await this._fetchRequest(`${this.url}reviews/approve/${id}`, token, 'POST');
     const headersData   = {
-      canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
+      canModerate: parseInt(response.headers.get('X-Can-Moderate'))
     };
     return {
       ...headersData,
@@ -173,7 +173,7 @@ export default class Review {
     }
     const response = await this._fetchRequest(`${this.url}reviews/${id}`, token, 'PUT', params);
     const headersData   = {
-      canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
+      canModerate: parseInt(response.headers.get('X-Can-Moderate'))
     };
     return {
       ...headersData,
@@ -216,7 +216,7 @@ export default class Review {
       throw new Error('Bad server response');
     }
     const headersData   = {
-      canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
+      canModerate: parseInt(response.headers.get('X-Can-Moderate'))
     };
     return {
       ...headersData,
@@ -256,7 +256,7 @@ export default class Review {
     }
     const response = await this._fetchRequest(`${this.url}reviews/${id}`, token, 'POST');
     const headersData   = {
-      canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
+      canModerate: parseInt(response.headers.get('X-Can-Moderate'))
     };
     return {
       ...headersData,
@@ -293,7 +293,7 @@ export default class Review {
     }
     const response = await this._fetchRequest(`${this.url}reviews/${review_id}/comments`, token, 'POST');
     const headersData   = {
-      canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
+      canModerate: parseInt(response.headers.get('X-Can-Moderate'))
     };
     return {
       ...headersData,
@@ -326,7 +326,7 @@ export default class Review {
     }
     const response = await this._fetchRequest(`${this.url}reviews/${review_id}/comments`);
     const headersData   = {
-      canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
+      canModerate: parseInt(response.headers.get('X-Can-Moderate'))
     };
     return {
       ...headersData,
@@ -368,7 +368,7 @@ export default class Review {
     }
     const response = await this._fetchRequest(`${this.url}reviews/${review_id}/comments/${id}`, token, 'POST');
     const headersData   = {
-      canModerate: parseInt(response.headers.get('X-CAN-MODERATE'))
+      canModerate: parseInt(response.headers.get('X-Can-Moderate'))
     };
     return {
       ...headersData,
