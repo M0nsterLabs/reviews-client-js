@@ -92,7 +92,8 @@ export default class Review {
       currentPageIndex: parseInt(response.headers.get('x-pagination-current-page')),
       totalCount: parseInt(response.headers.get('x-pagination-total-count')),
       lastPageIndex: parseInt(response.headers.get('x-pagination-page-count')),
-      canModerate: parseInt(response.headers.get('x-can-moderate'))
+      canModerate: parseInt(response.headers.get('x-can-moderate')),
+      poweredBy: response.headers.get('X-Powered-By')
     };
     return {
       ...paginationData,
