@@ -88,7 +88,6 @@ export default class Review {
   async getReviewsUser(params = {}) {
     params = {...params, ...{locale: this.locale}};
     const response = await this._fetchRequest(`${this.url}reviews/user?${serialize(params)}`);
-    console.log('getReviewsUser response', response);
     const paginationData   = {
       currentPageIndex: parseInt(response.headers.get('x-pagination-current-page')),
       totalCount: parseInt(response.headers.get('x-pagination-total-count')),
@@ -404,10 +403,6 @@ export default class Review {
       responseData['body'] = serialize(params);
     }
     let response  = await fetch(url, responseData);
-
-    console.log('_fetchRequest response', response);
-    console.log('_fetchRequest responseall', response.getAllResponseHeaders());
-    console.log('_fetchRequest response11111111111', response.getHeader('x-can-moderate'));
     if (response.status >= 400) {
       throw new Error('Bad server response');
     }
