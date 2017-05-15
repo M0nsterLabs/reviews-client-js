@@ -285,14 +285,14 @@ export default class Review {
    *  }</pre>
    * @method Reviews#replayTheReview
    */
-  async replayTheReview (token, review_id) {
+  async replayTheReview (token, review_id, params={}) {
     if (!token.length) {
       throw new Error('Token not found');
     }
     if (!this._isValidId(review_id)) {
       throw new Error('Review id is not correct');
     }
-    const response = await this._fetchRequest(`${this.url}reviews/${review_id}/comments`, token, 'POST');
+    const response = await this._fetchRequest(`${this.url}reviews/${review_id}/comments`, token, 'POST', params);
     const headersData   = {
       canModerate: parseInt(response.headers.get('X-Can-Moderate'))
     };
