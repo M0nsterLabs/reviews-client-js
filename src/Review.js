@@ -52,7 +52,8 @@ export default class Review {
     const paginationData   = {
       currentPageIndex: parseInt(response.headers.get('x-pagination-current-page')),
       totalCount: parseInt(response.headers.get('x-pagination-total-count')),
-      lastPageIndex: parseInt(response.headers.get('x-pagination-page-count'))
+      lastPageIndex: parseInt(response.headers.get('x-pagination-page-count')),
+      canModerate: parseInt(response.headers.get('x-can-moderate'))
     };
     return {
       ...paginationData,
