@@ -87,7 +87,6 @@ export default class Review {
    * @method Reviews#getReviewsUser
    */
   async getReviewsUser(params = {}) {
-    params = {...params, ...{locale: this.locale}};
     const response = await this._fetchRequest(`${this.url}reviews/user?${serialize(params)}`);
     const paginationData   = {
       currentPageIndex: parseInt(response.headers.get('x-pagination-current-page')),
