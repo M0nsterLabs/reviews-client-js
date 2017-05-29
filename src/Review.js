@@ -87,7 +87,7 @@ export default class Review {
    */
   async getReviewsUser(params = {}) {
     params = {...params, ...{locale: this.locale}};
-    const response = await this._fetchRequest(`${this.url}reviews/user?${serialize(params)}`);
+    const response = await this._fetchRequest(`${this.url}reviews/users?${serialize(params)}`);
     const paginationData   = {
       currentPageIndex: parseInt(response.headers.get('x-pagination-current-page')),
       totalCount: parseInt(response.headers.get('x-pagination-total-count')),
@@ -269,6 +269,7 @@ export default class Review {
    * Return reply of the review information for given identifiers.
    * @param token {String} Access token
    * @param review_id {Number} ID of the parent review
+   * @param params {Object} Body parameters
    * @returns {Object} <pre>{
    * "canModerate": 1,
    * "items":

@@ -29,7 +29,7 @@ describe('Reviews API Unit', function () {
   });
   it('getReviewsUser result', function (done) {
     const mockData = {currentPageIndex: 0, totalCount: 0, lastPageIndex: 0, items: this.getReviewsResult};
-    this.nockGet('reviews/user?locale=en', this.getReviewsResult,  {'x-pagination-current-page': 0, 'x-pagination-total-count': 0, 'x-pagination-page-count': 0, 'X-Can-Moderate': 1});
+    this.nockGet('reviews/users?locale=en', this.getReviewsResult,  {'x-pagination-current-page': 0, 'x-pagination-total-count': 0, 'x-pagination-page-count': 0, 'X-Can-Moderate': 1});
     this.assertResponse (this.api.getReviewsUser(), mockData, done);
   });
   it('approveReview result', function (done) {
