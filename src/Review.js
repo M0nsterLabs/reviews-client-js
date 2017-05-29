@@ -14,11 +14,9 @@ import serialize from 'plasma-serialize';
  */
 
 export default class Review {
-  locale = null;
   url = null;
 
-  constructor (url, locale = 'en') {
-    this.locale = locale;
+  constructor (url) {
     this.url = url;
   }
 
@@ -47,7 +45,7 @@ export default class Review {
    * @method Reviews#getReviews
    */
   async getReviews(params = {}) {
-    params = {...params, ...{locale: this.locale}};
+    params = {...params};
     const response = await this._fetchRequest(`${this.url}reviews?${serialize(params)}`);
     const paginationData   = {
       currentPageIndex: parseInt(response.headers.get('x-pagination-current-page')),
