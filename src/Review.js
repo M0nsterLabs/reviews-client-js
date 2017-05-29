@@ -87,7 +87,7 @@ export default class Review {
    * @method Reviews#getReviewsUser
    */
   async getReviewsUser(params = {}) {
-    const response = await this._fetchRequest(`${this.url}reviews/user?${serialize(params)}`);
+    const response = await this._fetchRequest(`${this.url}reviews/users?${serialize(params)}`);
     const paginationData   = {
       currentPageIndex: parseInt(response.headers.get('x-pagination-current-page')),
       totalCount: parseInt(response.headers.get('x-pagination-total-count')),
