@@ -227,6 +227,7 @@ export default class Review {
    * Return added votes for the review: increment vote_up or vote_down field.
    * @param token {String} Access token
    * @param id {Number} Review id
+   * @param params {Object} Reviews votes parameters
    * @returns {Object} <pre>{
    * "canModerate": 1,
    * "items":
@@ -246,14 +247,14 @@ export default class Review {
    *  }</pre>
    * @method Reviews#addReviewVote
    */
-  async addReviewVote (token, id) {
+  async addReviewVote (token, id, params={}) {
     if (!token.length) {
       throw new Error('Token not found');
     }
     if (!this._isValidId(id)) {
       throw new Error('Id is not correct');
     }
-    const response = await this._fetchRequest(`${this.url}reviews/${id}`, token, 'POST');
+    const response = await this._fetchRequest(`${this.url}reviews/${id}`, token, 'PATCH', params);
     const headersData   = {
       canModerate: parseInt(response.headers.get('X-Can-Moderate'))
     };
@@ -391,7 +392,7 @@ export default class Review {
     if(token){
       headers['Authorization'] = token;
     }
-    if(method === 'POST' || method === 'PUT') {
+    if(method === 'POST' || method === 'PUT' || method === 'PATCH') {
       headers['content-type'] = 'application/x-www-form-urlencoded';
     }
     let responseData = {
