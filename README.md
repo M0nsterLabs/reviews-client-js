@@ -10,7 +10,7 @@
     * [.approveReview(token, id)](#Reviews+approveReview) ⇒ <code>Object</code>
     * [.completeReview(token, id, params)](#Reviews+completeReview) ⇒ <code>Object</code>
     * [.declineReview(token, id)](#Reviews+declineReview) ⇒ <code>Object</code>
-    * [.addReviewVote(token, id)](#Reviews+addReviewVote) ⇒ <code>Object</code>
+    * [.addReviewVote(token, id, params)](#Reviews+addReviewVote) ⇒ <code>Object</code>
     * [.replayTheReview(token, review_id, params)](#Reviews+replayTheReview) ⇒ <code>Object</code>
     * [.requestReviewComments(review_id)](#Reviews+requestReviewComments) ⇒ <code>Object</code>
     * [.voteComments(token, id, review_id)](#Reviews+voteComments) ⇒ <code>Object</code>
@@ -178,7 +178,7 @@ Return decline review information for given identifiers.
 
 <a name="Reviews+addReviewVote"></a>
 
-### reviews.addReviewVote(token, id) ⇒ <code>Object</code>
+### reviews.addReviewVote(token, id, params) ⇒ <code>Object</code>
 Return added votes for the review: increment vote_up or vote_down field.
 
 **Kind**: instance method of <code>[Reviews](#Reviews)</code>  
@@ -204,6 +204,7 @@ Return added votes for the review: increment vote_up or vote_down field.
 | --- | --- | --- |
 | token | <code>String</code> | Access token |
 | id | <code>Number</code> | Review id |
+| params | <code>Object</code> | Reviews votes parameters |
 
 <a name="Reviews+replayTheReview"></a>
 
