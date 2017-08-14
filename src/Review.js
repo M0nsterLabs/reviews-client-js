@@ -401,7 +401,7 @@ export default class Review {
    *    "_links":{"self":{"href":"http://service-reviews.dev/api/v1/reviews/23"}}
    *   }, ...]
    *  }</pre>
-   * @method Comments#getComments
+   *  @method Comments#getComments
    */
   async getComments(params = {}) {
     params = {...params};
