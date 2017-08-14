@@ -32,7 +32,7 @@ const list = reviews.getReviews ([12345, 55555]);
 ### reviews.getReviews(params) ⇒ <code>Object</code>
 Return review information for given identifiers.
 
-**Kind**: instance method of <code>[Reviews](#Reviews)</code>  
+**Kind**: instance method of [<code>Reviews</code>](#Reviews)  
 **Returns**: <code>Object</code> - <pre>{
 "currentPageIndex":1,
 "totalCount":11,
@@ -62,7 +62,7 @@ Return review information for given identifiers.
 ### reviews.getReviewsUser(token, params) ⇒ <code>Object</code>
 Return review information for given identifiers. (user mode)
 
-**Kind**: instance method of <code>[Reviews](#Reviews)</code>  
+**Kind**: instance method of [<code>Reviews</code>](#Reviews)  
 **Returns**: <code>Object</code> - <pre>{
 "currentPageIndex":1,
 "totalCount":11,
@@ -93,7 +93,7 @@ Return review information for given identifiers. (user mode)
 ### reviews.approveReview(token, id) ⇒ <code>Object</code>
 Return approve review information for given identifiers.
 
-**Kind**: instance method of <code>[Reviews](#Reviews)</code>  
+**Kind**: instance method of [<code>Reviews</code>](#Reviews)  
 **Returns**: <code>Object</code> - <pre>{
 "canModerate": 1,
 "items":
@@ -122,7 +122,7 @@ Return approve review information for given identifiers.
 ### reviews.completeReview(token, id, params) ⇒ <code>Object</code>
 Return complete review information for given identifiers.
 
-**Kind**: instance method of <code>[Reviews](#Reviews)</code>  
+**Kind**: instance method of [<code>Reviews</code>](#Reviews)  
 **Returns**: <code>Object</code> - <pre>{
 "canModerate": 1,
 "items":
@@ -152,7 +152,7 @@ Return complete review information for given identifiers.
 ### reviews.declineReview(token, id) ⇒ <code>Object</code>
 Return decline review information for given identifiers.
 
-**Kind**: instance method of <code>[Reviews](#Reviews)</code>  
+**Kind**: instance method of [<code>Reviews</code>](#Reviews)  
 **Returns**: <code>Object</code> - <pre>{
 "canModerate": 1,
 "items":
@@ -181,7 +181,7 @@ Return decline review information for given identifiers.
 ### reviews.addReviewVote(token, id, params) ⇒ <code>Object</code>
 Return added votes for the review: increment vote_up or vote_down field.
 
-**Kind**: instance method of <code>[Reviews](#Reviews)</code>  
+**Kind**: instance method of [<code>Reviews</code>](#Reviews)  
 **Returns**: <code>Object</code> - <pre>{
 "canModerate": 1,
 "items":
@@ -211,7 +211,7 @@ Return added votes for the review: increment vote_up or vote_down field.
 ### reviews.replayTheReview(token, review_id, params) ⇒ <code>Object</code>
 Return reply of the review information for given identifiers.
 
-**Kind**: instance method of <code>[Reviews](#Reviews)</code>  
+**Kind**: instance method of [<code>Reviews</code>](#Reviews)  
 **Returns**: <code>Object</code> - <pre>{
 "canModerate": 1,
 "items":
@@ -238,7 +238,7 @@ Return reply of the review information for given identifiers.
 ### reviews.requestReviewComments(review_id) ⇒ <code>Object</code>
 Return request review comments list.
 
-**Kind**: instance method of <code>[Reviews](#Reviews)</code>  
+**Kind**: instance method of [<code>Reviews</code>](#Reviews)  
 **Returns**: <code>Object</code> - <pre>{
 "canModerate": 1,
 "items":
@@ -263,7 +263,7 @@ Return request review comments list.
 ### reviews.voteComments(token, id, review_id) ⇒ <code>Object</code>
 Return votes of the review.
 
-**Kind**: instance method of <code>[Reviews](#Reviews)</code>  
+**Kind**: instance method of [<code>Reviews</code>](#Reviews)  
 **Returns**: <code>Object</code> - <pre>{
 "canModerate": 1,
 "items":

@@ -378,6 +378,48 @@ export default class Review {
   }
 
   /**
+   * Return comments information for given identifiers.
+   * @param params {Object} Comments parameters
+   * @returns {Object} <pre>{
+   * "currentPageIndex":1,
+   * "totalCount":11,
+   * "lastPageIndex":6,
+   * "items": [
+   *  {
+   *    "id":23,
+   *    "status":4,
+   *    "user_id":21543,
+   *    "user_name":"mice mice",
+   *    "title":"comment title",
+   *    "content":"comment content",
+   *    "template_id":58444,
+   *    "vote_up":0,
+   *    "vote_down":0,
+   *    "created_at": 1469607948519,
+   *    "updated_at": 1469607948519,
+   *    "author": "user",
+   *    "_links":{"self":{"href":"http://service-reviews.dev/api/v1/reviews/23"}}
+   *   }, ...]
+   *  }</pre>
+   * @method Comments#getComments
+   */
+  async getComments(params = {}) {
+    params = {...params};
+    const response = await this._fetchRequest(`${this.url}qas?${serialize(params)}`);
+    const paginationData   = {
+      currentPageIndex: parseInt(response.headers.get('x-pagination-current-page')),
+      totalCount: parseInt(response.headers.get('x-pagination-total-count')),
+      lastPageIndex: parseInt(response.headers.get('x-pagination-page-count')),
+      canModerate: parseInt(response.headers.get('x-can-moderate'))
+    };
+    return {
+      ...paginationData,
+      items: await response.json()
+    };
+  };
+
+
+  /**
    * Check for correct id
    * @param id {Number}
    * @returns {boolean}
