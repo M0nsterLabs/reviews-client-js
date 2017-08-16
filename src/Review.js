@@ -420,6 +420,52 @@ export default class Review {
 
 
   /**
+   * Add new QA
+   * @param token {String} Access token
+   * @param params {Object} Body parameters
+   * @returns {Object} <pre>{
+   * "canModerate": 1,
+   * "items":
+   *  {
+   *     "id": 1,
+   *     "status": "pending",
+   *     "user_id": 12345,
+   *     "user_name": "John Doe",
+   *     "user_email": "jho***@gmail.com",
+   *     "content": "I had font problem with flash cms. Now I have no problem with html",
+   *     "template_id": 55555,
+   *     "created_at": 1469607948519,
+   *     "updated_at": 1469607948519,
+   *     "vote_up": 0,
+   *     "vote_down": 0,
+   *     "locale": "en",
+   *     "author": "moderator"
+   *     "_links": {"self":{"href":"http://service-reviews.dev/api/v1/qas/1"}}
+   *  }</pre>
+   * @method Reviews#addComment
+   */
+  async addComment (token, params={} ) {
+    if (!token.length) {
+      throw new Error('Token not found');
+    }
+    if (!this._isValidId(id)) {
+      throw new Error('Id is not correct');
+    }
+    const response = await this._fetchRequest(`${this.url}qas?${serialize(params)}`, token, 'POST');
+    if (response.status >= 400) {
+      throw new Error('Bad server response');
+    }
+    const headersData   = {
+      canModerate: parseInt(response.headers.get('X-Can-Moderate'))
+    };
+    return {
+      ...headersData,
+      items: await response.json()
+    };
+  }
+
+
+  /**
    * Check for correct id
    * @param id {Number}
    * @returns {boolean}

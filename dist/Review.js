@@ -874,8 +874,102 @@ var Review = function () {
       return getComments;
     }()
   }, {
-    key: '_isValidId',
+    key: 'addComment',
 
+
+    /**
+     * Add new QA
+     * @param token {String} Access token
+     * @param params {Object} Body parameters
+     * @returns {Object} <pre>{
+     * "canModerate": 1,
+     * "items":
+     *  {
+     *     "id": 1,
+     *     "status": "pending",
+     *     "user_id": 12345,
+     *     "user_name": "John Doe",
+     *     "user_email": "jho***@gmail.com",
+     *     "content": "I had font problem with flash cms. Now I have no problem with html",
+     *     "template_id": 55555,
+     *     "created_at": 1469607948519,
+     *     "updated_at": 1469607948519,
+     *     "vote_up": 0,
+     *     "vote_down": 0,
+     *     "locale": "en",
+     *     "author": "moderator"
+     *     "_links": {"self":{"href":"http://service-reviews.dev/api/v1/qas/1"}}
+     *  }</pre>
+     * @method Reviews#addComment
+     */
+    value: function () {
+      var _ref11 = _asyncToGenerator(regeneratorRuntime.mark(function _callee11(token) {
+        var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+        var response, headersData;
+        return regeneratorRuntime.wrap(function _callee11$(_context11) {
+          while (1) {
+            switch (_context11.prev = _context11.next) {
+              case 0:
+                if (token.length) {
+                  _context11.next = 2;
+                  break;
+                }
+
+                throw new Error('Token not found');
+
+              case 2:
+                if (this._isValidId(id)) {
+                  _context11.next = 4;
+                  break;
+                }
+
+                throw new Error('Id is not correct');
+
+              case 4:
+                _context11.next = 6;
+                return this._fetchRequest(this.url + 'qas?' + (0, _plasmaSerialize2.default)(params), token, 'POST');
+
+              case 6:
+                response = _context11.sent;
+
+                if (!(response.status >= 400)) {
+                  _context11.next = 9;
+                  break;
+                }
+
+                throw new Error('Bad server response');
+
+              case 9:
+                headersData = {
+                  canModerate: parseInt(response.headers.get('X-Can-Moderate'))
+                };
+                _context11.t0 = _extends;
+                _context11.t1 = {};
+                _context11.t2 = headersData;
+                _context11.next = 15;
+                return response.json();
+
+              case 15:
+                _context11.t3 = _context11.sent;
+                _context11.t4 = {
+                  items: _context11.t3
+                };
+                return _context11.abrupt('return', (0, _context11.t0)(_context11.t1, _context11.t2, _context11.t4));
+
+              case 18:
+              case 'end':
+                return _context11.stop();
+            }
+          }
+        }, _callee11, this);
+      }));
+
+      function addComment(_x21) {
+        return _ref11.apply(this, arguments);
+      }
+
+      return addComment;
+    }()
 
     /**
      * Check for correct id
@@ -883,20 +977,23 @@ var Review = function () {
      * @returns {boolean}
      * @private
      */
+
+  }, {
+    key: '_isValidId',
     value: function _isValidId(id) {
       return typeof id == 'number' && id > 0;
     }
   }, {
     key: '_fetchRequest',
     value: function () {
-      var _ref11 = _asyncToGenerator(regeneratorRuntime.mark(function _callee11(url) {
+      var _ref12 = _asyncToGenerator(regeneratorRuntime.mark(function _callee12(url) {
         var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
         var method = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'GET';
         var params = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
         var headers, responseData, response;
-        return regeneratorRuntime.wrap(function _callee11$(_context11) {
+        return regeneratorRuntime.wrap(function _callee12$(_context12) {
           while (1) {
-            switch (_context11.prev = _context11.next) {
+            switch (_context12.prev = _context12.next) {
               case 0:
                 headers = {};
 
@@ -914,32 +1011,32 @@ var Review = function () {
                 if (Object.keys(params).length) {
                   responseData['body'] = (0, _plasmaSerialize2.default)(params);
                 }
-                _context11.next = 7;
+                _context12.next = 7;
                 return (0, _isomorphicFetch2.default)(url, responseData);
 
               case 7:
-                response = _context11.sent;
+                response = _context12.sent;
 
                 if (!(response.status >= 400)) {
-                  _context11.next = 10;
+                  _context12.next = 10;
                   break;
                 }
 
                 throw new Error('Bad server response');
 
               case 10:
-                return _context11.abrupt('return', response);
+                return _context12.abrupt('return', response);
 
               case 11:
               case 'end':
-                return _context11.stop();
+                return _context12.stop();
             }
           }
-        }, _callee11, this);
+        }, _callee12, this);
       }));
 
-      function _fetchRequest(_x21) {
-        return _ref11.apply(this, arguments);
+      function _fetchRequest(_x23) {
+        return _ref12.apply(this, arguments);
       }
 
       return _fetchRequest;
