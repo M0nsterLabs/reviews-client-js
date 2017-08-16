@@ -919,7 +919,7 @@ var Review = function () {
 
               case 2:
                 _context11.next = 4;
-                return this._fetchRequest(this.url + 'qas?' + (0, _plasmaSerialize2.default)(params), token, 'POST');
+                return this._fetchRequest(this.url + 'qas', token, 'POST', params);
 
               case 4:
                 response = _context11.sent;
