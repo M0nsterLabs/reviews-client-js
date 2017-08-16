@@ -918,45 +918,37 @@ var Review = function () {
                 throw new Error('Token not found');
 
               case 2:
-                if (this._isValidId(id)) {
-                  _context11.next = 4;
-                  break;
-                }
-
-                throw new Error('Id is not correct');
-
-              case 4:
-                _context11.next = 6;
+                _context11.next = 4;
                 return this._fetchRequest(this.url + 'qas?' + (0, _plasmaSerialize2.default)(params), token, 'POST');
 
-              case 6:
+              case 4:
                 response = _context11.sent;
 
                 if (!(response.status >= 400)) {
-                  _context11.next = 9;
+                  _context11.next = 7;
                   break;
                 }
 
                 throw new Error('Bad server response');
 
-              case 9:
+              case 7:
                 headersData = {
                   canModerate: parseInt(response.headers.get('X-Can-Moderate'))
                 };
                 _context11.t0 = _extends;
                 _context11.t1 = {};
                 _context11.t2 = headersData;
-                _context11.next = 15;
+                _context11.next = 13;
                 return response.json();
 
-              case 15:
+              case 13:
                 _context11.t3 = _context11.sent;
                 _context11.t4 = {
                   items: _context11.t3
                 };
                 return _context11.abrupt('return', (0, _context11.t0)(_context11.t1, _context11.t2, _context11.t4));
 
-              case 18:
+              case 16:
               case 'end':
                 return _context11.stop();
             }

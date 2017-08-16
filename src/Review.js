@@ -448,9 +448,6 @@ export default class Review {
     if (!token.length) {
       throw new Error('Token not found');
     }
-    if (!this._isValidId(id)) {
-      throw new Error('Id is not correct');
-    }
     const response = await this._fetchRequest(`${this.url}qas?${serialize(params)}`, token, 'POST');
     if (response.status >= 400) {
       throw new Error('Bad server response');
