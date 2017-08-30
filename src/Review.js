@@ -378,6 +378,177 @@ export default class Review {
   }
 
   /**
+   * Return comments information for given identifiers.
+   * @param params {Object} Comments parameters
+   * @returns {Object} <pre>{
+   * "currentPageIndex":1,
+   * "totalCount":11,
+   * "lastPageIndex":6,
+   * "items": [
+   *  {
+   *    "id":23,
+   *    "status":4,
+   *    "user_id":21543,
+   *    "user_name":"mice mice",
+   *    "title":"comment title",
+   *    "content":"comment content",
+   *    "template_id":58444,
+   *    "vote_up":0,
+   *    "vote_down":0,
+   *    "created_at": 1469607948519,
+   *    "updated_at": 1469607948519,
+   *    "author": "user",
+   *    "_links":{"self":{"href":"http://service-reviews.dev/api/v1/reviews/23"}}
+   *   }, ...]
+   *  }</pre>
+   *  @method Comments#getComments
+   */
+  async getComments(params = {}) {
+    params = {...params};
+    const response = await this._fetchRequest(`${this.url}qas?${serialize(params)}`);
+    const paginationData   = {
+      currentPageIndex: parseInt(response.headers.get('x-pagination-current-page')),
+      totalCount: parseInt(response.headers.get('x-pagination-total-count')),
+      lastPageIndex: parseInt(response.headers.get('x-pagination-page-count')),
+      canModerate: parseInt(response.headers.get('x-can-moderate'))
+    };
+    return {
+      ...paginationData,
+      items: await response.json()
+    };
+  };
+
+
+  /**
+   * Return users comments information for given identifiers.
+   * @param params {Object} Comments parameters
+   * @returns {Object} <pre>{
+   * "currentPageIndex":1,
+   * "totalCount":11,
+   * "lastPageIndex":6,
+   * "items": [
+   *  {
+   *    "id":23,
+   *    "status":4,
+   *    "user_id":21543,
+   *    "user_name":"mice mice",
+   *    "title":"comment title",
+   *    "content":"comment content",
+   *    "template_id":58444,
+   *    "vote_up":0,
+   *    "vote_down":0,
+   *    "created_at": 1469607948519,
+   *    "updated_at": 1469607948519,
+   *    "author": "user",
+   *    "_links":{"self":{"href":"http://service-reviews.dev/api/v1/reviews/23"}}
+   *   }, ...]
+   *  }</pre>
+   *  @method Comments#getCommentsUser
+   */
+  async getCommentsUser(params = {}) {
+    params = {...params};
+    const response = await this._fetchRequest(`${this.url}qas/users?${serialize(params)}`);
+    const paginationData   = {
+      currentPageIndex: parseInt(response.headers.get('x-pagination-current-page')),
+      totalCount: parseInt(response.headers.get('x-pagination-total-count')),
+      lastPageIndex: parseInt(response.headers.get('x-pagination-page-count')),
+      canModerate: parseInt(response.headers.get('x-can-moderate'))
+    };
+    return {
+      ...paginationData,
+      items: await response.json()
+    };
+  };
+
+
+  /**
+   * Add new QA
+   * @param token {String} Access token
+   * @param params {Object} Body parameters
+   * @returns {Object} <pre>{
+   * "canModerate": 1,
+   * "items":
+   *  {
+   *     "id": 1,
+   *     "status": "pending",
+   *     "user_id": 12345,
+   *     "user_name": "John Doe",
+   *     "user_email": "jho***@gmail.com",
+   *     "content": "I had font problem with flash cms. Now I have no problem with html",
+   *     "template_id": 55555,
+   *     "created_at": 1469607948519,
+   *     "updated_at": 1469607948519,
+   *     "vote_up": 0,
+   *     "vote_down": 0,
+   *     "locale": "en",
+   *     "author": "moderator"
+   *     "_links": {"self":{"href":"http://service-reviews.dev/api/v1/qas/1"}}
+   *  }</pre>
+   * @method Reviews#addComment
+   */
+  async addComment (token, params={} ) {
+    if (!token.length) {
+      throw new Error('Token not found');
+    }
+    const response = await this._fetchRequest(`${this.url}qas`, token, 'POST', params);
+    if (response.status >= 400) {
+      throw new Error('Bad server response');
+    }
+    const headersData   = {
+      canModerate: parseInt(response.headers.get('X-Can-Moderate'))
+    };
+    return {
+      ...headersData,
+      items: await response.json()
+    };
+  }
+
+  /**
+   * Return added votes for the comment: increment vote_up or vote_down field.
+   * @param token {String} Access token
+   * @param id {Number} Comment id
+   * @param params {Object} Comment votes parameters
+   * @returns {Object} <pre>{
+   * "canModerate": 1,
+   * "items":
+   *  {
+   *      "id": 1,
+   *      "status": "pending",
+   *      "user_id": 12345,
+   *      "user_name": "John Doe",
+   *      "user_email": "jho***@gmail.com",
+   *      "content": "I had font problem with flash cms. Now I have no problem with html",
+   *      "template_id": 55555,
+   *      "created_at": 1469607948519,
+   *      "updated_at": 1469607948519,
+   *      "vote_up": 0,
+   *      "vote_down": 0,
+   *      "locale": "en",
+   *      "author": "moderator"
+   *      "_links": {"self":{"href":"http://service-reviews.dev/api/v1/qas/1"}}
+   *   }
+   *  }</pre>
+   * @method Reviews#addReviewVote
+   */
+  async addCommentVote (token, id, params={}) {
+    if (!token.length) {
+      throw new Error('Token not found');
+    }
+    if (!this._isValidId(id)) {
+      throw new Error('Id is not correct');
+    }
+    const response = await this._fetchRequest(`${this.url}qas/${id}`, token, 'PATCH', params);
+    const headersData   = {
+      canModerate: parseInt(response.headers.get('X-Can-Moderate'))
+    };
+    return {
+      ...headersData,
+      items: await response.json()
+    };
+  }
+
+
+  /**
    * Check for correct id
    * @param id {Number}
    * @returns {boolean}
