@@ -7,6 +7,7 @@
     * [new Reviews()](#new_Reviews_new)
     * [.getReviews(params)](#Reviews+getReviews) ⇒ <code>Object</code>
     * [.getReviewsUser(token, params)](#Reviews+getReviewsUser) ⇒ <code>Object</code>
+    * [.getReviewsUser(params)](#Reviews+getReviewsUser) ⇒ <code>Object</code>
     * [.approveReview(token, id)](#Reviews+approveReview) ⇒ <code>Object</code>
     * [.completeReview(token, id, params)](#Reviews+completeReview) ⇒ <code>Object</code>
     * [.declineReview(token, id)](#Reviews+declineReview) ⇒ <code>Object</code>
@@ -88,6 +89,36 @@ Return review information for given identifiers. (user mode)
 | Param | Type | Description |
 | --- | --- | --- |
 | token | <code>String</code> | Access token |
+| params | <code>Object</code> | Reviews parameters |
+
+<a name="Reviews+getReviewsUser"></a>
+
+### reviews.getReviewsUser(params) ⇒ <code>Object</code>
+Return vendors reviews for given identifiers.
+
+**Kind**: instance method of [<code>Reviews</code>](#Reviews)  
+**Returns**: <code>Object</code> - <pre>{
+"currentPageIndex":1,
+"totalCount":11,
+"lastPageIndex":6,
+"items": [
+ {
+   "id":23,
+   "status":4,
+   "user_id":21543,
+   "user_name":"mice mice",
+   "title":"review title",
+   "content":"review content",
+   "score":5,
+   "template_id":58444,
+   "vote_up":0,
+   "vote_down":0,
+   "_links":{"self":{"href":"http://service-reviews.dev/api/v1/reviews/23"}}
+  }, ...]
+ }</pre>  
+
+| Param | Type | Description |
+| --- | --- | --- |
 | params | <code>Object</code> | Reviews parameters |
 
 <a name="Reviews+approveReview"></a>
