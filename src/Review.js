@@ -100,6 +100,45 @@ export default class Review {
   };
 
   /**
+   * Return vendors reviews for given identifiers.
+   * @param params {Object} Reviews parameters
+   * @returns {Object} <pre>{
+   * "currentPageIndex":1,
+   * "totalCount":11,
+   * "lastPageIndex":6,
+   * "items": [
+   *  {
+   *    "id":23,
+   *    "status":4,
+   *    "user_id":21543,
+   *    "user_name":"mice mice",
+   *    "title":"review title",
+   *    "content":"review content",
+   *    "score":5,
+   *    "template_id":58444,
+   *    "vote_up":0,
+   *    "vote_down":0,
+   *    "_links":{"self":{"href":"http://service-reviews.dev/api/v1/reviews/23"}}
+   *   }, ...]
+   *  }</pre>
+   * @method Reviews#getReviewsUser
+   */
+  async getReviewsVendor(params = {}) {
+    const response = await this._fetchRequest(`${this.url}reviews/vendor?${serialize(params)}`);
+    const paginationData   = {
+      currentPageIndex: parseInt(response.headers.get('x-pagination-current-page')),
+      totalCount: parseInt(response.headers.get('x-pagination-total-count')),
+      lastPageIndex: parseInt(response.headers.get('x-pagination-page-count')),
+      canModerate: parseInt(response.headers.get('x-can-moderate')),
+      poweredBy: response.headers.get('X-Powered-By')
+    };
+    return {
+      ...paginationData,
+      items: await response.json()
+    };
+  };
+
+  /**
    * Return approve review information for given identifiers.
    * @param token {String} Access token
    * @param id {Number} Review id

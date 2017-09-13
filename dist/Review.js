@@ -195,6 +195,81 @@ var Review = function () {
       return getReviewsUser;
     }()
   }, {
+    key: 'getReviewsVendor',
+
+
+    /**
+     * Return vendors reviews for given identifiers.
+     * @param params {Object} Reviews parameters
+     * @returns {Object} <pre>{
+     * "currentPageIndex":1,
+     * "totalCount":11,
+     * "lastPageIndex":6,
+     * "items": [
+     *  {
+     *    "id":23,
+     *    "status":4,
+     *    "user_id":21543,
+     *    "user_name":"mice mice",
+     *    "title":"review title",
+     *    "content":"review content",
+     *    "score":5,
+     *    "template_id":58444,
+     *    "vote_up":0,
+     *    "vote_down":0,
+     *    "_links":{"self":{"href":"http://service-reviews.dev/api/v1/reviews/23"}}
+     *   }, ...]
+     *  }</pre>
+     * @method Reviews#getReviewsUser
+     */
+    value: function () {
+      var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3() {
+        var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        var response, paginationData;
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return this._fetchRequest(this.url + 'reviews/vendor?' + (0, _plasmaSerialize2.default)(params));
+
+              case 2:
+                response = _context3.sent;
+                paginationData = {
+                  currentPageIndex: parseInt(response.headers.get('x-pagination-current-page')),
+                  totalCount: parseInt(response.headers.get('x-pagination-total-count')),
+                  lastPageIndex: parseInt(response.headers.get('x-pagination-page-count')),
+                  canModerate: parseInt(response.headers.get('x-can-moderate')),
+                  poweredBy: response.headers.get('X-Powered-By')
+                };
+                _context3.t0 = _extends;
+                _context3.t1 = {};
+                _context3.t2 = paginationData;
+                _context3.next = 9;
+                return response.json();
+
+              case 9:
+                _context3.t3 = _context3.sent;
+                _context3.t4 = {
+                  items: _context3.t3
+                };
+                return _context3.abrupt('return', (0, _context3.t0)(_context3.t1, _context3.t2, _context3.t4));
+
+              case 12:
+              case 'end':
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function getReviewsVendor() {
+        return _ref3.apply(this, arguments);
+      }
+
+      return getReviewsVendor;
+    }()
+  }, {
     key: 'approveReview',
 
 
@@ -222,14 +297,14 @@ var Review = function () {
      * @method Reviews#approveReview
      */
     value: function () {
-      var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(token, id) {
+      var _ref4 = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(token, id) {
         var response, headersData;
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
                 if (token.length) {
-                  _context3.next = 2;
+                  _context4.next = 2;
                   break;
                 }
 
@@ -237,44 +312,44 @@ var Review = function () {
 
               case 2:
                 if (this._isValidId(id)) {
-                  _context3.next = 4;
+                  _context4.next = 4;
                   break;
                 }
 
                 throw new Error('Id is not correct');
 
               case 4:
-                _context3.next = 6;
+                _context4.next = 6;
                 return this._fetchRequest(this.url + 'reviews/approve/' + id, token, 'POST');
 
               case 6:
-                response = _context3.sent;
+                response = _context4.sent;
                 headersData = {
                   canModerate: parseInt(response.headers.get('X-Can-Moderate'))
                 };
-                _context3.t0 = _extends;
-                _context3.t1 = {};
-                _context3.t2 = headersData;
-                _context3.next = 13;
+                _context4.t0 = _extends;
+                _context4.t1 = {};
+                _context4.t2 = headersData;
+                _context4.next = 13;
                 return response.json();
 
               case 13:
-                _context3.t3 = _context3.sent;
-                _context3.t4 = {
-                  items: _context3.t3
+                _context4.t3 = _context4.sent;
+                _context4.t4 = {
+                  items: _context4.t3
                 };
-                return _context3.abrupt('return', (0, _context3.t0)(_context3.t1, _context3.t2, _context3.t4));
+                return _context4.abrupt('return', (0, _context4.t0)(_context4.t1, _context4.t2, _context4.t4));
 
               case 16:
               case 'end':
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee4, this);
       }));
 
-      function approveReview(_x3, _x4) {
-        return _ref3.apply(this, arguments);
+      function approveReview(_x4, _x5) {
+        return _ref4.apply(this, arguments);
       }
 
       return approveReview;
@@ -308,15 +383,15 @@ var Review = function () {
   }, {
     key: 'completeReview',
     value: function () {
-      var _ref4 = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(token, id) {
+      var _ref5 = _asyncToGenerator(regeneratorRuntime.mark(function _callee5(token, id) {
         var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
         var response, headersData;
-        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        return regeneratorRuntime.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
                 if (token.length) {
-                  _context4.next = 2;
+                  _context5.next = 2;
                   break;
                 }
 
@@ -324,44 +399,44 @@ var Review = function () {
 
               case 2:
                 if (this._isValidId(id)) {
-                  _context4.next = 4;
+                  _context5.next = 4;
                   break;
                 }
 
                 throw new Error('Id is not correct');
 
               case 4:
-                _context4.next = 6;
+                _context5.next = 6;
                 return this._fetchRequest(this.url + 'reviews/' + id, token, 'PUT', params);
 
               case 6:
-                response = _context4.sent;
+                response = _context5.sent;
                 headersData = {
                   canModerate: parseInt(response.headers.get('X-Can-Moderate'))
                 };
-                _context4.t0 = _extends;
-                _context4.t1 = {};
-                _context4.t2 = headersData;
-                _context4.next = 13;
+                _context5.t0 = _extends;
+                _context5.t1 = {};
+                _context5.t2 = headersData;
+                _context5.next = 13;
                 return response.json();
 
               case 13:
-                _context4.t3 = _context4.sent;
-                _context4.t4 = {
-                  items: _context4.t3
+                _context5.t3 = _context5.sent;
+                _context5.t4 = {
+                  items: _context5.t3
                 };
-                return _context4.abrupt('return', (0, _context4.t0)(_context4.t1, _context4.t2, _context4.t4));
+                return _context5.abrupt('return', (0, _context5.t0)(_context5.t1, _context5.t2, _context5.t4));
 
               case 16:
               case 'end':
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4, this);
+        }, _callee5, this);
       }));
 
-      function completeReview(_x5, _x6) {
-        return _ref4.apply(this, arguments);
+      function completeReview(_x6, _x7) {
+        return _ref5.apply(this, arguments);
       }
 
       return completeReview;
@@ -394,14 +469,14 @@ var Review = function () {
   }, {
     key: 'declineReview',
     value: function () {
-      var _ref5 = _asyncToGenerator(regeneratorRuntime.mark(function _callee5(token, id) {
+      var _ref6 = _asyncToGenerator(regeneratorRuntime.mark(function _callee6(token, id) {
         var response, headersData;
-        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+        return regeneratorRuntime.wrap(function _callee6$(_context6) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context6.prev = _context6.next) {
               case 0:
                 if (token.length) {
-                  _context5.next = 2;
+                  _context6.next = 2;
                   break;
                 }
 
@@ -409,21 +484,21 @@ var Review = function () {
 
               case 2:
                 if (this._isValidId(id)) {
-                  _context5.next = 4;
+                  _context6.next = 4;
                   break;
                 }
 
                 throw new Error('Id is not correct');
 
               case 4:
-                _context5.next = 6;
+                _context6.next = 6;
                 return this._fetchRequest(this.url + 'reviews/decline/' + id, token, 'POST');
 
               case 6:
-                response = _context5.sent;
+                response = _context6.sent;
 
                 if (!(response.status >= 400)) {
-                  _context5.next = 9;
+                  _context6.next = 9;
                   break;
                 }
 
@@ -433,29 +508,29 @@ var Review = function () {
                 headersData = {
                   canModerate: parseInt(response.headers.get('X-Can-Moderate'))
                 };
-                _context5.t0 = _extends;
-                _context5.t1 = {};
-                _context5.t2 = headersData;
-                _context5.next = 15;
+                _context6.t0 = _extends;
+                _context6.t1 = {};
+                _context6.t2 = headersData;
+                _context6.next = 15;
                 return response.json();
 
               case 15:
-                _context5.t3 = _context5.sent;
-                _context5.t4 = {
-                  items: _context5.t3
+                _context6.t3 = _context6.sent;
+                _context6.t4 = {
+                  items: _context6.t3
                 };
-                return _context5.abrupt('return', (0, _context5.t0)(_context5.t1, _context5.t2, _context5.t4));
+                return _context6.abrupt('return', (0, _context6.t0)(_context6.t1, _context6.t2, _context6.t4));
 
               case 18:
               case 'end':
-                return _context5.stop();
+                return _context6.stop();
             }
           }
-        }, _callee5, this);
+        }, _callee6, this);
       }));
 
-      function declineReview(_x8, _x9) {
-        return _ref5.apply(this, arguments);
+      function declineReview(_x9, _x10) {
+        return _ref6.apply(this, arguments);
       }
 
       return declineReview;
@@ -489,15 +564,15 @@ var Review = function () {
   }, {
     key: 'addReviewVote',
     value: function () {
-      var _ref6 = _asyncToGenerator(regeneratorRuntime.mark(function _callee6(token, id) {
+      var _ref7 = _asyncToGenerator(regeneratorRuntime.mark(function _callee7(token, id) {
         var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
         var response, headersData;
-        return regeneratorRuntime.wrap(function _callee6$(_context6) {
+        return regeneratorRuntime.wrap(function _callee7$(_context7) {
           while (1) {
-            switch (_context6.prev = _context6.next) {
+            switch (_context7.prev = _context7.next) {
               case 0:
                 if (token.length) {
-                  _context6.next = 2;
+                  _context7.next = 2;
                   break;
                 }
 
@@ -505,44 +580,44 @@ var Review = function () {
 
               case 2:
                 if (this._isValidId(id)) {
-                  _context6.next = 4;
+                  _context7.next = 4;
                   break;
                 }
 
                 throw new Error('Id is not correct');
 
               case 4:
-                _context6.next = 6;
+                _context7.next = 6;
                 return this._fetchRequest(this.url + 'reviews/' + id, token, 'PATCH', params);
 
               case 6:
-                response = _context6.sent;
+                response = _context7.sent;
                 headersData = {
                   canModerate: parseInt(response.headers.get('X-Can-Moderate'))
                 };
-                _context6.t0 = _extends;
-                _context6.t1 = {};
-                _context6.t2 = headersData;
-                _context6.next = 13;
+                _context7.t0 = _extends;
+                _context7.t1 = {};
+                _context7.t2 = headersData;
+                _context7.next = 13;
                 return response.json();
 
               case 13:
-                _context6.t3 = _context6.sent;
-                _context6.t4 = {
-                  items: _context6.t3
+                _context7.t3 = _context7.sent;
+                _context7.t4 = {
+                  items: _context7.t3
                 };
-                return _context6.abrupt('return', (0, _context6.t0)(_context6.t1, _context6.t2, _context6.t4));
+                return _context7.abrupt('return', (0, _context7.t0)(_context7.t1, _context7.t2, _context7.t4));
 
               case 16:
               case 'end':
-                return _context6.stop();
+                return _context7.stop();
             }
           }
-        }, _callee6, this);
+        }, _callee7, this);
       }));
 
-      function addReviewVote(_x10, _x11) {
-        return _ref6.apply(this, arguments);
+      function addReviewVote(_x11, _x12) {
+        return _ref7.apply(this, arguments);
       }
 
       return addReviewVote;
@@ -573,15 +648,15 @@ var Review = function () {
   }, {
     key: 'replayTheReview',
     value: function () {
-      var _ref7 = _asyncToGenerator(regeneratorRuntime.mark(function _callee7(token, review_id) {
+      var _ref8 = _asyncToGenerator(regeneratorRuntime.mark(function _callee8(token, review_id) {
         var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
         var response, headersData;
-        return regeneratorRuntime.wrap(function _callee7$(_context7) {
+        return regeneratorRuntime.wrap(function _callee8$(_context8) {
           while (1) {
-            switch (_context7.prev = _context7.next) {
+            switch (_context8.prev = _context8.next) {
               case 0:
                 if (token.length) {
-                  _context7.next = 2;
+                  _context8.next = 2;
                   break;
                 }
 
@@ -589,44 +664,44 @@ var Review = function () {
 
               case 2:
                 if (this._isValidId(review_id)) {
-                  _context7.next = 4;
+                  _context8.next = 4;
                   break;
                 }
 
                 throw new Error('Review id is not correct');
 
               case 4:
-                _context7.next = 6;
+                _context8.next = 6;
                 return this._fetchRequest(this.url + 'reviews/' + review_id + '/comments', token, 'POST', params);
 
               case 6:
-                response = _context7.sent;
+                response = _context8.sent;
                 headersData = {
                   canModerate: parseInt(response.headers.get('X-Can-Moderate'))
                 };
-                _context7.t0 = _extends;
-                _context7.t1 = {};
-                _context7.t2 = headersData;
-                _context7.next = 13;
+                _context8.t0 = _extends;
+                _context8.t1 = {};
+                _context8.t2 = headersData;
+                _context8.next = 13;
                 return response.json();
 
               case 13:
-                _context7.t3 = _context7.sent;
-                _context7.t4 = {
-                  items: _context7.t3
+                _context8.t3 = _context8.sent;
+                _context8.t4 = {
+                  items: _context8.t3
                 };
-                return _context7.abrupt('return', (0, _context7.t0)(_context7.t1, _context7.t2, _context7.t4));
+                return _context8.abrupt('return', (0, _context8.t0)(_context8.t1, _context8.t2, _context8.t4));
 
               case 16:
               case 'end':
-                return _context7.stop();
+                return _context8.stop();
             }
           }
-        }, _callee7, this);
+        }, _callee8, this);
       }));
 
-      function replayTheReview(_x13, _x14) {
-        return _ref7.apply(this, arguments);
+      function replayTheReview(_x14, _x15) {
+        return _ref8.apply(this, arguments);
       }
 
       return replayTheReview;
@@ -655,51 +730,51 @@ var Review = function () {
   }, {
     key: 'requestReviewComments',
     value: function () {
-      var _ref8 = _asyncToGenerator(regeneratorRuntime.mark(function _callee8(review_id) {
+      var _ref9 = _asyncToGenerator(regeneratorRuntime.mark(function _callee9(review_id) {
         var response, headersData;
-        return regeneratorRuntime.wrap(function _callee8$(_context8) {
+        return regeneratorRuntime.wrap(function _callee9$(_context9) {
           while (1) {
-            switch (_context8.prev = _context8.next) {
+            switch (_context9.prev = _context9.next) {
               case 0:
                 if (this._isValidId(review_id)) {
-                  _context8.next = 2;
+                  _context9.next = 2;
                   break;
                 }
 
                 throw new Error('Review id is not correct');
 
               case 2:
-                _context8.next = 4;
+                _context9.next = 4;
                 return this._fetchRequest(this.url + 'reviews/' + review_id + '/comments');
 
               case 4:
-                response = _context8.sent;
+                response = _context9.sent;
                 headersData = {
                   canModerate: parseInt(response.headers.get('X-Can-Moderate'))
                 };
-                _context8.t0 = _extends;
-                _context8.t1 = {};
-                _context8.t2 = headersData;
-                _context8.next = 11;
+                _context9.t0 = _extends;
+                _context9.t1 = {};
+                _context9.t2 = headersData;
+                _context9.next = 11;
                 return response.json();
 
               case 11:
-                _context8.t3 = _context8.sent;
-                _context8.t4 = {
-                  items: _context8.t3
+                _context9.t3 = _context9.sent;
+                _context9.t4 = {
+                  items: _context9.t3
                 };
-                return _context8.abrupt('return', (0, _context8.t0)(_context8.t1, _context8.t2, _context8.t4));
+                return _context9.abrupt('return', (0, _context9.t0)(_context9.t1, _context9.t2, _context9.t4));
 
               case 14:
               case 'end':
-                return _context8.stop();
+                return _context9.stop();
             }
           }
-        }, _callee8, this);
+        }, _callee9, this);
       }));
 
-      function requestReviewComments(_x16) {
-        return _ref8.apply(this, arguments);
+      function requestReviewComments(_x17) {
+        return _ref9.apply(this, arguments);
       }
 
       return requestReviewComments;
@@ -731,14 +806,14 @@ var Review = function () {
   }, {
     key: 'voteComments',
     value: function () {
-      var _ref9 = _asyncToGenerator(regeneratorRuntime.mark(function _callee9(token, id, review_id) {
+      var _ref10 = _asyncToGenerator(regeneratorRuntime.mark(function _callee10(token, id, review_id) {
         var response, headersData;
-        return regeneratorRuntime.wrap(function _callee9$(_context9) {
+        return regeneratorRuntime.wrap(function _callee10$(_context10) {
           while (1) {
-            switch (_context9.prev = _context9.next) {
+            switch (_context10.prev = _context10.next) {
               case 0:
                 if (token.length) {
-                  _context9.next = 2;
+                  _context10.next = 2;
                   break;
                 }
 
@@ -746,7 +821,7 @@ var Review = function () {
 
               case 2:
                 if (this._isValidId(id)) {
-                  _context9.next = 4;
+                  _context10.next = 4;
                   break;
                 }
 
@@ -754,44 +829,44 @@ var Review = function () {
 
               case 4:
                 if (this._isValidId(review_id)) {
-                  _context9.next = 6;
+                  _context10.next = 6;
                   break;
                 }
 
                 throw new Error('Review id is not correct');
 
               case 6:
-                _context9.next = 8;
+                _context10.next = 8;
                 return this._fetchRequest(this.url + 'reviews/' + review_id + '/comments/' + id, token, 'POST');
 
               case 8:
-                response = _context9.sent;
+                response = _context10.sent;
                 headersData = {
                   canModerate: parseInt(response.headers.get('X-Can-Moderate'))
                 };
-                _context9.t0 = _extends;
-                _context9.t1 = {};
-                _context9.t2 = headersData;
-                _context9.next = 15;
+                _context10.t0 = _extends;
+                _context10.t1 = {};
+                _context10.t2 = headersData;
+                _context10.next = 15;
                 return response.json();
 
               case 15:
-                _context9.t3 = _context9.sent;
-                _context9.t4 = {
-                  items: _context9.t3
+                _context10.t3 = _context10.sent;
+                _context10.t4 = {
+                  items: _context10.t3
                 };
-                return _context9.abrupt('return', (0, _context9.t0)(_context9.t1, _context9.t2, _context9.t4));
+                return _context10.abrupt('return', (0, _context10.t0)(_context10.t1, _context10.t2, _context10.t4));
 
               case 18:
               case 'end':
-                return _context9.stop();
+                return _context10.stop();
             }
           }
-        }, _callee9, this);
+        }, _callee10, this);
       }));
 
-      function voteComments(_x17, _x18, _x19) {
-        return _ref9.apply(this, arguments);
+      function voteComments(_x18, _x19, _x20) {
+        return _ref10.apply(this, arguments);
       }
 
       return voteComments;
@@ -827,48 +902,48 @@ var Review = function () {
   }, {
     key: 'getComments',
     value: function () {
-      var _ref10 = _asyncToGenerator(regeneratorRuntime.mark(function _callee10() {
+      var _ref11 = _asyncToGenerator(regeneratorRuntime.mark(function _callee11() {
         var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         var response, paginationData;
-        return regeneratorRuntime.wrap(function _callee10$(_context10) {
+        return regeneratorRuntime.wrap(function _callee11$(_context11) {
           while (1) {
-            switch (_context10.prev = _context10.next) {
+            switch (_context11.prev = _context11.next) {
               case 0:
                 params = _extends({}, params);
-                _context10.next = 3;
+                _context11.next = 3;
                 return this._fetchRequest(this.url + 'qas?' + (0, _plasmaSerialize2.default)(params));
 
               case 3:
-                response = _context10.sent;
+                response = _context11.sent;
                 paginationData = {
                   currentPageIndex: parseInt(response.headers.get('x-pagination-current-page')),
                   totalCount: parseInt(response.headers.get('x-pagination-total-count')),
                   lastPageIndex: parseInt(response.headers.get('x-pagination-page-count')),
                   canModerate: parseInt(response.headers.get('x-can-moderate'))
                 };
-                _context10.t0 = _extends;
-                _context10.t1 = {};
-                _context10.t2 = paginationData;
-                _context10.next = 10;
+                _context11.t0 = _extends;
+                _context11.t1 = {};
+                _context11.t2 = paginationData;
+                _context11.next = 10;
                 return response.json();
 
               case 10:
-                _context10.t3 = _context10.sent;
-                _context10.t4 = {
-                  items: _context10.t3
+                _context11.t3 = _context11.sent;
+                _context11.t4 = {
+                  items: _context11.t3
                 };
-                return _context10.abrupt('return', (0, _context10.t0)(_context10.t1, _context10.t2, _context10.t4));
+                return _context11.abrupt('return', (0, _context11.t0)(_context11.t1, _context11.t2, _context11.t4));
 
               case 13:
               case 'end':
-                return _context10.stop();
+                return _context11.stop();
             }
           }
-        }, _callee10, this);
+        }, _callee11, this);
       }));
 
       function getComments() {
-        return _ref10.apply(this, arguments);
+        return _ref11.apply(this, arguments);
       }
 
       return getComments;
@@ -904,48 +979,48 @@ var Review = function () {
      *  @method Comments#getCommentsUser
      */
     value: function () {
-      var _ref11 = _asyncToGenerator(regeneratorRuntime.mark(function _callee11() {
+      var _ref12 = _asyncToGenerator(regeneratorRuntime.mark(function _callee12() {
         var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         var response, paginationData;
-        return regeneratorRuntime.wrap(function _callee11$(_context11) {
+        return regeneratorRuntime.wrap(function _callee12$(_context12) {
           while (1) {
-            switch (_context11.prev = _context11.next) {
+            switch (_context12.prev = _context12.next) {
               case 0:
                 params = _extends({}, params);
-                _context11.next = 3;
+                _context12.next = 3;
                 return this._fetchRequest(this.url + 'qas/users?' + (0, _plasmaSerialize2.default)(params));
 
               case 3:
-                response = _context11.sent;
+                response = _context12.sent;
                 paginationData = {
                   currentPageIndex: parseInt(response.headers.get('x-pagination-current-page')),
                   totalCount: parseInt(response.headers.get('x-pagination-total-count')),
                   lastPageIndex: parseInt(response.headers.get('x-pagination-page-count')),
                   canModerate: parseInt(response.headers.get('x-can-moderate'))
                 };
-                _context11.t0 = _extends;
-                _context11.t1 = {};
-                _context11.t2 = paginationData;
-                _context11.next = 10;
+                _context12.t0 = _extends;
+                _context12.t1 = {};
+                _context12.t2 = paginationData;
+                _context12.next = 10;
                 return response.json();
 
               case 10:
-                _context11.t3 = _context11.sent;
-                _context11.t4 = {
-                  items: _context11.t3
+                _context12.t3 = _context12.sent;
+                _context12.t4 = {
+                  items: _context12.t3
                 };
-                return _context11.abrupt('return', (0, _context11.t0)(_context11.t1, _context11.t2, _context11.t4));
+                return _context12.abrupt('return', (0, _context12.t0)(_context12.t1, _context12.t2, _context12.t4));
 
               case 13:
               case 'end':
-                return _context11.stop();
+                return _context12.stop();
             }
           }
-        }, _callee11, this);
+        }, _callee12, this);
       }));
 
       function getCommentsUser() {
-        return _ref11.apply(this, arguments);
+        return _ref12.apply(this, arguments);
       }
 
       return getCommentsUser;
@@ -980,29 +1055,29 @@ var Review = function () {
      * @method Reviews#addComment
      */
     value: function () {
-      var _ref12 = _asyncToGenerator(regeneratorRuntime.mark(function _callee12(token) {
+      var _ref13 = _asyncToGenerator(regeneratorRuntime.mark(function _callee13(token) {
         var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
         var response, headersData;
-        return regeneratorRuntime.wrap(function _callee12$(_context12) {
+        return regeneratorRuntime.wrap(function _callee13$(_context13) {
           while (1) {
-            switch (_context12.prev = _context12.next) {
+            switch (_context13.prev = _context13.next) {
               case 0:
                 if (token.length) {
-                  _context12.next = 2;
+                  _context13.next = 2;
                   break;
                 }
 
                 throw new Error('Token not found');
 
               case 2:
-                _context12.next = 4;
+                _context13.next = 4;
                 return this._fetchRequest(this.url + 'qas', token, 'POST', params);
 
               case 4:
-                response = _context12.sent;
+                response = _context13.sent;
 
                 if (!(response.status >= 400)) {
-                  _context12.next = 7;
+                  _context13.next = 7;
                   break;
                 }
 
@@ -1012,29 +1087,29 @@ var Review = function () {
                 headersData = {
                   canModerate: parseInt(response.headers.get('X-Can-Moderate'))
                 };
-                _context12.t0 = _extends;
-                _context12.t1 = {};
-                _context12.t2 = headersData;
-                _context12.next = 13;
+                _context13.t0 = _extends;
+                _context13.t1 = {};
+                _context13.t2 = headersData;
+                _context13.next = 13;
                 return response.json();
 
               case 13:
-                _context12.t3 = _context12.sent;
-                _context12.t4 = {
-                  items: _context12.t3
+                _context13.t3 = _context13.sent;
+                _context13.t4 = {
+                  items: _context13.t3
                 };
-                return _context12.abrupt('return', (0, _context12.t0)(_context12.t1, _context12.t2, _context12.t4));
+                return _context13.abrupt('return', (0, _context13.t0)(_context13.t1, _context13.t2, _context13.t4));
 
               case 16:
               case 'end':
-                return _context12.stop();
+                return _context13.stop();
             }
           }
-        }, _callee12, this);
+        }, _callee13, this);
       }));
 
-      function addComment(_x22) {
-        return _ref12.apply(this, arguments);
+      function addComment(_x23) {
+        return _ref13.apply(this, arguments);
       }
 
       return addComment;
@@ -1071,15 +1146,15 @@ var Review = function () {
   }, {
     key: 'addCommentVote',
     value: function () {
-      var _ref13 = _asyncToGenerator(regeneratorRuntime.mark(function _callee13(token, id) {
+      var _ref14 = _asyncToGenerator(regeneratorRuntime.mark(function _callee14(token, id) {
         var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
         var response, headersData;
-        return regeneratorRuntime.wrap(function _callee13$(_context13) {
+        return regeneratorRuntime.wrap(function _callee14$(_context14) {
           while (1) {
-            switch (_context13.prev = _context13.next) {
+            switch (_context14.prev = _context14.next) {
               case 0:
                 if (token.length) {
-                  _context13.next = 2;
+                  _context14.next = 2;
                   break;
                 }
 
@@ -1087,44 +1162,44 @@ var Review = function () {
 
               case 2:
                 if (this._isValidId(id)) {
-                  _context13.next = 4;
+                  _context14.next = 4;
                   break;
                 }
 
                 throw new Error('Id is not correct');
 
               case 4:
-                _context13.next = 6;
+                _context14.next = 6;
                 return this._fetchRequest(this.url + 'qas/' + id, token, 'PATCH', params);
 
               case 6:
-                response = _context13.sent;
+                response = _context14.sent;
                 headersData = {
                   canModerate: parseInt(response.headers.get('X-Can-Moderate'))
                 };
-                _context13.t0 = _extends;
-                _context13.t1 = {};
-                _context13.t2 = headersData;
-                _context13.next = 13;
+                _context14.t0 = _extends;
+                _context14.t1 = {};
+                _context14.t2 = headersData;
+                _context14.next = 13;
                 return response.json();
 
               case 13:
-                _context13.t3 = _context13.sent;
-                _context13.t4 = {
-                  items: _context13.t3
+                _context14.t3 = _context14.sent;
+                _context14.t4 = {
+                  items: _context14.t3
                 };
-                return _context13.abrupt('return', (0, _context13.t0)(_context13.t1, _context13.t2, _context13.t4));
+                return _context14.abrupt('return', (0, _context14.t0)(_context14.t1, _context14.t2, _context14.t4));
 
               case 16:
               case 'end':
-                return _context13.stop();
+                return _context14.stop();
             }
           }
-        }, _callee13, this);
+        }, _callee14, this);
       }));
 
-      function addCommentVote(_x24, _x25) {
-        return _ref13.apply(this, arguments);
+      function addCommentVote(_x25, _x26) {
+        return _ref14.apply(this, arguments);
       }
 
       return addCommentVote;
@@ -1145,14 +1220,14 @@ var Review = function () {
   }, {
     key: '_fetchRequest',
     value: function () {
-      var _ref14 = _asyncToGenerator(regeneratorRuntime.mark(function _callee14(url) {
+      var _ref15 = _asyncToGenerator(regeneratorRuntime.mark(function _callee15(url) {
         var token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
         var method = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'GET';
         var params = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
         var headers, responseData, response;
-        return regeneratorRuntime.wrap(function _callee14$(_context14) {
+        return regeneratorRuntime.wrap(function _callee15$(_context15) {
           while (1) {
-            switch (_context14.prev = _context14.next) {
+            switch (_context15.prev = _context15.next) {
               case 0:
                 headers = {};
 
@@ -1170,32 +1245,32 @@ var Review = function () {
                 if (Object.keys(params).length) {
                   responseData['body'] = (0, _plasmaSerialize2.default)(params);
                 }
-                _context14.next = 7;
+                _context15.next = 7;
                 return (0, _isomorphicFetch2.default)(url, responseData);
 
               case 7:
-                response = _context14.sent;
+                response = _context15.sent;
 
                 if (!(response.status >= 400)) {
-                  _context14.next = 10;
+                  _context15.next = 10;
                   break;
                 }
 
                 throw new Error('Bad server response');
 
               case 10:
-                return _context14.abrupt('return', response);
+                return _context15.abrupt('return', response);
 
               case 11:
               case 'end':
-                return _context14.stop();
+                return _context15.stop();
             }
           }
-        }, _callee14, this);
+        }, _callee15, this);
       }));
 
-      function _fetchRequest(_x27) {
-        return _ref14.apply(this, arguments);
+      function _fetchRequest(_x28) {
+        return _ref15.apply(this, arguments);
       }
 
       return _fetchRequest;
