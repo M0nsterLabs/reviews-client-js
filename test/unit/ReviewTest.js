@@ -2,7 +2,6 @@ import {assert} from 'chai';
 import Review from '../../src/Review';
 import nock from 'nock';
 const serviceURL = 'http://service-reviews.dev/api/v1';
-const commentData = {"id":"1", "status": "approved"};
 describe('Reviews API Unit', function () {
   beforeEach(function () {
     this.api = new Review(serviceURL);
