@@ -8,6 +8,7 @@ describe('Reviews API Unit', function () {
     this.api = new Review(serviceURL);
     this.token = 'qrewqrtqtraessrtgewrtec';
     this.getReviewsResult = [{id: 23, status: 4}];
+    this.getCommentsResult = {id: 1, status: 'approved'};
     this.assertResponse = function (p, d, done) {
       p.then ((response) => {
         assert.deepEqual (response, d);
@@ -29,13 +30,13 @@ describe('Reviews API Unit', function () {
     };
   });
   it('getReviews result', function (done) {
-    const mockData = {currentPageIndex: 0, totalCount: 0, lastPageIndex: 0, items: this.getReviewsResult};
-    this.nockGet('reviews', this.getReviewsResult,  {'x-pagination-current-page': 0, 'x-pagination-total-count': 0, 'x-pagination-page-count': 0});
+    const mockData = {currentPageIndex: 0, totalCount: 0, lastPageIndex: 0, canModerate: 0, items: this.getReviewsResult};
+    this.nockGet('reviews?', this.getReviewsResult,  {'x-pagination-current-page': 0, 'x-pagination-total-count': 0, 'x-pagination-page-count': 0, 'x-can-moderate': 0});
     this.assertResponse (this.api.getReviews(), mockData, done);
   });
   it('getReviewsUser result', function (done) {
-    const mockData = {currentPageIndex: 0, totalCount: 0, lastPageIndex: 0, items: this.getReviewsResult};
-    this.nockGet('reviews/users', this.getReviewsResult,  {'x-pagination-current-page': 0, 'x-pagination-total-count': 0, 'x-pagination-page-count': 0, 'X-Can-Moderate': 1});
+    const mockData = {currentPageIndex: 0, totalCount: 0, lastPageIndex: 0, canModerate: 1, poweredBy: '', items: this.getReviewsResult};
+    this.nockGet('reviews/users?', this.getReviewsResult,  {'x-pagination-current-page': 0, 'x-pagination-total-count': 0, 'x-pagination-page-count': 0, 'X-Can-Moderate': 1, 'X-Powered-By': ''});
     this.assertResponse (this.api.getReviewsUser(), mockData, done);
   });
   it('approveReview result', function (done) {
@@ -67,19 +68,21 @@ describe('Reviews API Unit', function () {
     this.assertResponse (this.api.voteComments(this.token, 23, 1), this.defaultResponse, done);
   });
   it('getComments result', function (done) {
-    this.nockGet('qas', commentData);
-    this.assertResponse (this.api.getComments(commentData), commentData, done);
+    const mockData = {currentPageIndex: 0, totalCount: 0, lastPageIndex: 0, canModerate: 1, items: this.getCommentsResult};
+    this.nockGet('qas?', this.getCommentsResult, {'x-pagination-current-page': 0, 'x-pagination-total-count': 0, 'x-pagination-page-count': 0, 'X-Can-Moderate': 1});
+    this.assertResponse (this.api.getComments(), mockData, done);
   });
   it('getCommentsUser result', function (done) {
-    this.nockGet('qas/users', this.getReviewsResult[0]);
-    this.assertResponse (this.api.getCommentsUser(this.getReviewsResult[0]), this.defaultResponse, done);
+    const mockData = {currentPageIndex: 0, totalCount: 0, lastPageIndex: 0, canModerate: 1, items: this.getCommentsResult};
+    this.nockGet('qas/users?', this.getCommentsResult, {'x-pagination-current-page': 0, 'x-pagination-total-count': 0, 'x-pagination-page-count': 0, 'X-Can-Moderate': 1});
+    this.assertResponse (this.api.getCommentsUser(), mockData, done);
   });
   it('addComment result', function (done) {
     this.nockPost('qas', this.getReviewsResult[0]);
     this.assertResponse (this.api.addComment(this.token, this.getReviewsResult[0]), this.defaultResponse, done);
   });
   it('addCommentVote result', function (done) {
-    this.nockPatch('qas', this.getReviewsResult[0]);
+    this.nockPatch('qas/23', this.getReviewsResult[0]);
     this.assertResponse (this.api.addCommentVote(this.token, 23, this.getReviewsResult[0]), this.defaultResponse, done);
   });
 });

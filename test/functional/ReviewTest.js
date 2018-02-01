@@ -9,7 +9,7 @@ describe('Reviews API Functional', function () {
 
   it('Create SDK Object without locale', function() {
     const testApi = new Review(this.serviceURL);
-    assert.deepEqual(testApi.locale, 'en');
+    assert.deepEqual(testApi.locale);
   });
 
   it('_isValidId', function () {
